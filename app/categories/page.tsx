@@ -232,6 +232,8 @@ function CategoriesContent() {
               {/* Sort Dropdown */}
               <div className="relative shrink-0">
                 <select
+                  aria-label="Sort products by"
+                  name="sort"
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                   className="appearance-none bg-white border border-gray-200 hover:border-gray-300 rounded-xl px-3.5 py-1.5 pr-8 text-xs font-bold text-gray-700 shadow-2xs outline-none cursor-pointer transition-all"

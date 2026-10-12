@@ -20,8 +20,6 @@ export const categoryService = {
       const { data, error } = await client
         .from('categories')
         .select('*')
-        .eq('active', true)
-        .order('sort_order', { ascending: true })
         .order('name', { ascending: true });
 
       if (error) {

@@ -135,7 +135,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-gray-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-gray-500">
+        <div className="pt-8 border-t border-gray-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-gray-400">
           <p>© 2026 K MART. All rights reserved.</p>
           <p className="text-right">
             Prices, availability, delivery charges and offers may vary by location and order.
