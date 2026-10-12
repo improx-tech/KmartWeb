@@ -88,6 +88,8 @@ export default function HomePage() {
             {/* Sort Dropdown */}
             <div className="relative">
               <select
+                aria-label="Sort products by"
+                name="sort"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className="appearance-none bg-white border border-gray-200 text-xs text-gray-700 py-1.5 pl-3 pr-7 rounded-lg font-medium cursor-pointer focus:outline-none focus:border-gray-400"

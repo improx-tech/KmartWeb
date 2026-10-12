@@ -70,16 +70,22 @@ export const Navbar: React.FC = () => {
     )
     : [];
 
-  const navCategories = (categories && categories.length > 0)
+  const rawNavCategories = (categories && categories.length > 0)
     ? categories.map(c => ({ name: c.name, slug: c.slug }))
     : [
         { name: 'Groceries', slug: 'groceries' },
-        { name: 'Fruits & Vegetables', slug: 'fruits-and-vegetables' },
         { name: 'Dairy & Eggs', slug: 'dairy-and-eggs' },
         { name: 'Snacks & Beverages', slug: 'snacks-and-beverages' },
         { name: 'Personal Care', slug: 'personal-care' },
         { name: 'Household', slug: 'household' },
       ];
+
+  const navCategories = rawNavCategories.filter(
+    c => !c.name.toLowerCase().includes('fruit') &&
+         !c.name.toLowerCase().includes('vegetable') &&
+         !c.slug.toLowerCase().includes('fruit') &&
+         !c.slug.toLowerCase().includes('vegetable')
+  );
 
   const handleCategoryNav = (slug: string) => {
     setSelectedCategory(slug);
@@ -142,33 +148,36 @@ export const Navbar: React.FC = () => {
                   setIsSearchFocused(false);
                 }
               }}
-              className="relative flex items-center"
+              className="relative flex items-center w-full rounded-xl bg-gray-50 border border-gray-200 focus-within:bg-white focus-within:border-gray-300 focus-within:ring-1 focus-within:ring-gray-200 transition-all shadow-inner p-1"
             >
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onFocus={() => setIsSearchFocused(true)}
-                  placeholder="Search products, brands and more..."
-                  className="w-full pl-10 pr-24 py-2.5 rounded-xl bg-gray-50 border border-gray-200 focus:bg-white focus:border-gray-300 text-xs sm:text-sm text-gray-800 placeholder:text-gray-400 outline-none transition-all shadow-inner"
-                />
-                <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                {searchQuery && (
-                  <button
-                    type="button"
-                    onClick={() => setSearchQuery('')}
-                    className="w-5 h-5 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-600 absolute right-24 top-1/2 -translate-y-1/2 flex items-center justify-center cursor-pointer"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                )}
+              <div className="pl-2.5 pr-1.5 text-gray-400 shrink-0 pointer-events-none">
+                <Search className="w-4 h-4" />
               </div>
+
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => setIsSearchFocused(true)}
+                placeholder="Search products, brands and more..."
+                className="flex-1 min-w-0 bg-transparent py-1.5 px-2 text-xs sm:text-sm text-gray-800 placeholder:text-gray-400 outline-none"
+              />
+
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="w-5 h-5 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-600 flex items-center justify-center shrink-0 mx-1.5 transition-colors cursor-pointer"
+                  aria-label="Clear search"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              )}
 
               {/* Red Search Button on Right */}
               <button
                 type="submit"
-                className="absolute right-1 top-1 bottom-1 bg-[#E11A22] hover:bg-[#c8141b] text-white text-xs sm:text-sm font-semibold px-4 sm:px-6 rounded-lg transition-colors cursor-pointer flex items-center justify-center"
+                className="bg-[#E11A22] hover:bg-[#c8141b] text-white text-xs sm:text-sm font-semibold px-4 sm:px-6 py-2 rounded-lg transition-colors cursor-pointer shrink-0 flex items-center justify-center shadow-xs"
               >
                 Search
               </button>

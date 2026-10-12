@@ -118,11 +118,6 @@ export const deliveryService = {
     const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
 
     try {
-      // 0. Ensure upcoming slots exist if DB function is installed
-      try {
-        await supabase.rpc('ensure_delivery_slots', { p_days: 14 });
-      } catch {}
-
       // 1. Try fetching real slots for today and future
       let query = supabase
         .from('delivery_slots')
@@ -287,12 +282,7 @@ export const deliveryService = {
     const today = now.toISOString().split('T')[0];
 
     try {
-      // 1. Try to ensure slots exist for upcoming days via DB RPC
-      try {
-        await supabase.rpc('ensure_delivery_slots', { p_days: 14 });
-      } catch {}
-
-      // 2. Fetch all upcoming slots for this store in a single query
+      // 1. Fetch all upcoming slots for this store in a single query
       let query = supabase
         .from('delivery_slots')
         .select('*')
