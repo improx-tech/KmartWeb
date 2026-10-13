@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useApp } from '../context/AppContext';
 import { HeroCarousel } from '../components/HeroCarousel';
@@ -10,7 +10,10 @@ import { TrustBadges } from '../components/TrustBadges';
 import { StoreOffersSection } from '../components/StoreOffersSection';
 import { FreeDeliveryBanner } from '../components/FreeDeliveryBanner';
 import { TopDealsSection } from '../components/TopDealsSection';
-import { ChevronRight, ChevronDown, X } from 'lucide-react';
+import { ScrollToTop } from '../components/ScrollToTop';
+import { ChevronRight, ChevronDown, X, Loader2, ArrowUp } from 'lucide-react';
+
+const PRODUCTS_PER_SESSION = 15;
 
 export default function HomePage() {
   const { 
@@ -23,6 +26,14 @@ export default function HomePage() {
   } = useApp();
 
   const [sortBy, setSortBy] = useState('popular');
+  const [visibleCount, setVisibleCount] = useState(PRODUCTS_PER_SESSION);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+
+  // Reset pagination when category, search, or sort changes
+  useEffect(() => {
+    setVisibleCount(PRODUCTS_PER_SESSION);
+  }, [selectedCategory, searchQuery, sortBy]);
 
   const activeCategoryObj = categories.find(c => c.slug === selectedCategory);
   const activeCategoryName = activeCategoryObj?.name || selectedCategory.replace(/-/g, ' ').toUpperCase();
@@ -43,6 +54,37 @@ export default function HomePage() {
   } else if (sortBy === 'discount') {
     filteredProducts = [...filteredProducts].sort((a, b) => b.discountPercent - a.discountPercent);
   }
+
+  const displayedProducts = filteredProducts.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredProducts.length;
+
+  // Infinite scroll / lazy load next session on reaching bottom
+  useEffect(() => {
+    if (!hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsLoadingMore(true);
+          // Small debounce/stagger for smooth rendering animation
+          setTimeout(() => {
+            setVisibleCount((prev) => Math.min(prev + PRODUCTS_PER_SESSION, filteredProducts.length));
+            setIsLoadingMore(false);
+          }, 250);
+        }
+      },
+      { rootMargin: '350px' }
+    );
+
+    const currentElem = loadMoreRef.current;
+    if (currentElem) {
+      observer.observe(currentElem);
+    }
+
+    return () => {
+      if (currentElem) observer.unobserve(currentElem);
+    };
+  }, [hasMore, filteredProducts.length]);
 
   return (
     <main className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-6">
@@ -115,7 +157,7 @@ export default function HomePage() {
 
         {/* Product Grid (5 columns on desktop) */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4">
-          {filteredProducts.map((product) => (
+          {displayedProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
 
@@ -132,10 +174,44 @@ export default function HomePage() {
             </div>
           )}
         </div>
+
+        {/* ── Automatic Session-by-Session Infinite Scroll Indicator ── */}
+        {filteredProducts.length > PRODUCTS_PER_SESSION && (
+          <div className="mt-8 flex flex-col items-center justify-center space-y-3">
+            {/* Automatic Infinite Scroll Sentinel & Loader */}
+            {hasMore ? (
+              <div ref={loadMoreRef} className="py-6 flex flex-col items-center justify-center w-full">
+                <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border border-gray-200/80 shadow-xs text-xs font-bold text-gray-700">
+                  <Loader2 className="w-4 h-4 animate-spin text-[#E11A22]" />
+                  <span>Loading more products...</span>
+                </div>
+              </div>
+            ) : (
+              <div className="pt-2 flex items-center gap-2 text-xs font-semibold text-gray-400">
+                <span>✓ All {filteredProducts.length} products loaded</span>
+                <span>•</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const elem = document.getElementById('products-section');
+                    if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="text-[#E11A22] hover:underline inline-flex items-center gap-0.5 cursor-pointer font-bold"
+                >
+                  <span>Back to top</span>
+                  <ArrowUp className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </section>
 
       {/* 8. Trust Badges */}
       <TrustBadges />
+
+      {/* 9. Move To Top Arrow Popup */}
+      <ScrollToTop />
 
     </main>
   );

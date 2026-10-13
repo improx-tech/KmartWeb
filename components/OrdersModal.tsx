@@ -74,9 +74,14 @@ export const OrdersModal: React.FC = () => {
               >
                 <div className="flex items-center justify-between border-b border-gray-100 pb-3 mb-3">
                   <div>
-                    <span className="font-extrabold text-sm text-[#0A2540]">
-                      Order #{ord.orderNumber || ord.id}
-                    </span>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-extrabold text-sm text-[#0A2540]">
+                        Order #{ord.orderNumber || ord.id}
+                      </span>
+                      <span className="text-[11px] font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded">
+                        INV-{(ord.orderNumber || ord.id).replace('#', '')}
+                      </span>
+                    </div>
 
                     <p className="text-[11px] text-gray-500 mt-0.5">
                       Placed at {ord.createdAt} • {ord.paymentMethod}

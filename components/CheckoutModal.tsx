@@ -10,6 +10,7 @@ import { customerService } from '../services/customers';
 import { supabase } from '../lib/supabase/client';
 import confetti from 'canvas-confetti';
 import { DeliverySlotItem, Order } from '../types';
+import { sendOrderConfirmedNotification } from '../services/pushNotification';
 
 export const CheckoutModal: React.FC = () => {
   const router = useRouter();
@@ -191,8 +192,32 @@ export const CheckoutModal: React.FC = () => {
         setIsPlacing(false);
         return;
       }
-      for (const item of cart) {
-        await cartService.upsertCartItem(cartId, item.product.id, item.quantity);
+      
+      const upsertResults = await Promise.all(
+        cart.map((item) => cartService.upsertCartItem(cartId, item.product.id, item.quantity))
+      );
+      
+      const failed = upsertResults.filter(r => !r).length;
+      if (failed > 0) {
+        console.error(`[Checkout] ${failed} cart item(s) failed to save in database!`);
+        setCheckoutError("Failed to sync your cart with the server. Please check your internet or log in again.");
+        setIsPlacing(false);
+        return;
+      }
+
+      // Read back items from DB to verify what the Edge Function will see
+      const { data: dbItems, error: readErr } = await supabase
+        .from('cart_items')
+        .select('id, product_id, quantity')
+        .eq('cart_id', cartId);
+      
+      console.log('[Checkout] Verified items in DB cart_items:', dbItems, readErr);
+
+      if (!dbItems || dbItems.length === 0) {
+        console.error('[Checkout] CRITICAL: DB cart_items table is empty for cartId:', cartId);
+        setCheckoutError("Cart is empty on the server. Please remove and re-add your items.");
+        setIsPlacing(false);
+        return;
       }
 
       let chosenSlot = selectedSlot;
@@ -221,32 +246,60 @@ export const CheckoutModal: React.FC = () => {
         }
       }
 
+      // Format items array that mobile apps commonly pass directly to checkout edge functions
+      const checkoutItems = cart.map((it) => ({
+        productId: it.product.id,
+        product_id: it.product.id,
+        quantity: it.quantity,
+      }));
+
       try {
+        const payload = {
+          customerId,
+          customer_id: customerId,
+          cartId,
+          cart_id: cartId,
+          items: checkoutItems,
+          addressId: orderType === 'DELIVERY' ? (selectedAddress?.id ?? null) : null,
+          address_id: orderType === 'DELIVERY' ? (selectedAddress?.id ?? null) : null,
+          orderType,
+          order_type: orderType,
+          pickupStoreId: orderType === 'PICKUP' ? (activeStore?.id ?? null) : null,
+          pickup_store_id: orderType === 'PICKUP' ? (activeStore?.id ?? null) : null,
+          storeId: activeStore?.id || '458cbfde-68fd-4e71-86c7-a12a4cecad4d',
+          store_id: activeStore?.id || '458cbfde-68fd-4e71-86c7-a12a4cecad4d',
+          deliverySlotId: orderType === 'DELIVERY' ? chosenSlot.id : null,
+          delivery_slot_id: orderType === 'DELIVERY' ? chosenSlot.id : null,
+          scheduledDeliveryDate: orderType === 'DELIVERY' ? (chosenSlot?.date ?? null) : null,
+          scheduled_delivery_date: orderType === 'DELIVERY' ? (chosenSlot?.date ?? null) : null,
+          paymentMethod: paymentMethod === 'Cash on Delivery' ? 'COD' : 'ONLINE',
+          payment_method: paymentMethod === 'Cash on Delivery' ? 'COD' : 'ONLINE',
+          idempotencyKey: crypto.randomUUID(),
+        };
+
+        console.log('[Checkout] Invoking checkout with payload:', payload);
+
         const { data, error } = await supabase.functions.invoke('checkout', {
-          body: {
-            customerId,
-            addressId: orderType === 'DELIVERY' ? (selectedAddress?.id ?? null) : null,
-            orderType,
-            pickupStoreId: orderType === 'PICKUP' ? (activeStore?.id ?? null) : null,
-            deliverySlotId: orderType === 'DELIVERY' ? chosenSlot.id : null,
-            scheduledDeliveryDate: orderType === 'DELIVERY' ? (chosenSlot?.date ?? null) : null,
-            paymentMethod: paymentMethod === 'Cash on Delivery' ? 'COD' : 'ONLINE',
-            idempotencyKey: crypto.randomUUID(),
-          },
+          body: payload,
         });
 
         if (error) {
           let msg = 'Checkout failed. Please try again.';
           try {
             const details = await (error as any).context?.json?.();
+            console.error('[Checkout Edge Function Error Details]:', details);
             if (details?.error) msg = details.error;
-          } catch {}
+            else if (details?.message) msg = details.message;
+          } catch (e) {
+            console.error('[Checkout Edge Function Raw Error]:', error);
+          }
           setCheckoutError(msg);
           setIsPlacing(false);
           return;
         }
 
         if (data?.error) {
+          console.error('[Checkout Function Response Error]:', data.error);
           setCheckoutError(data.error);
           setIsPlacing(false);
           return;
@@ -286,6 +339,7 @@ export const CheckoutModal: React.FC = () => {
           if (paymentMethod === 'Cash on Delivery') {
             try { confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); } catch {}
             addOrder(newOrder);
+            sendOrderConfirmedNotification(newOrder).catch(() => {});
             clearCart();
             setIsCheckoutOpen(false);
             setIsPlacing(false);
@@ -322,6 +376,7 @@ export const CheckoutModal: React.FC = () => {
                 paymentId: res?.razorpay_payment_id || undefined,
               };
               addOrder(paidOrder);
+              sendOrderConfirmedNotification(paidOrder).catch(() => {});
               clearCart();
               setIsCheckoutOpen(false);
               setIsPlacing(false);

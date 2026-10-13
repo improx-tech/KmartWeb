@@ -45,6 +45,10 @@ const ScheduleOrderModal = dynamic(
   () => import('../components/ScheduleOrderModal').then((m) => m.ScheduleOrderModal),
   { ssr: false }
 );
+const PushNotificationPrompt = dynamic(
+  () => import('../components/PushNotificationPrompt').then((m) => m.PushNotificationPrompt),
+  { ssr: false }
+);
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -94,6 +98,9 @@ export default function RootLayout({
 
           {/* Floating WhatsApp Support Button */}
           <WhatsAppButton />
+
+          {/* Web Push Notification Prompt Banner */}
+          <PushNotificationPrompt />
         </AppProvider>
       </body>
     </html>

@@ -13,6 +13,7 @@ import { cartService } from '../services/cart';
 import { supabase } from '../lib/supabase/client';
 import { DbStore, DbCustomer, DbDeliverySettings } from '../types/database';
 import { fetchRelatedProducts, toProduct } from '../lib/cart';
+import { sendOrderConfirmedNotification } from '../services/pushNotification';
 
 interface AppContextType {
   products: Product[];
@@ -952,6 +953,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
 
     setActiveConfirmedOrder(newOrder);
+    sendOrderConfirmedNotification(newOrder).catch(() => {});
     clearCart();
     setIsCheckoutOpen(false);
     return newOrder;

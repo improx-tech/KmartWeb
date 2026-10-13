@@ -12,6 +12,7 @@ import {
   ArrowLeft
 } from 'lucide-react';
 import { Logo } from './Logo';
+import { NotificationCenter } from './NotificationCenter';
 import { useApp } from '../context/AppContext';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -231,8 +232,11 @@ export const Navbar: React.FC = () => {
             )}
           </div>
 
-          {/* Right Links: Orders, Account, Cart */}
-          <div className="flex items-center gap-4 sm:gap-6 shrink-0">
+          {/* Right Links: Orders, Notification Bell, Account, Cart */}
+          <div className="flex items-center gap-3 sm:gap-5 shrink-0">
+            {/* Notification Center */}
+            <NotificationCenter />
+
             {/* Orders Button */}
             <button
               type="button"

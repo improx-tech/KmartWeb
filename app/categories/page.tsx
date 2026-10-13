@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, Suspense } from "react";
+import React, { useState, useEffect, useMemo, useRef, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
-import { ChevronRight, ChevronDown, Plus, Minus, X } from "lucide-react";
+import { ChevronRight, ChevronDown, Plus, Minus, X, Loader2, ArrowUp } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { Product } from "@/types";
+
+const CATEGORY_PRODUCTS_PER_SESSION = 16;
 
 function CategoriesContent() {
   const searchParams = useSearchParams();
@@ -16,6 +18,9 @@ function CategoriesContent() {
   const [activeCategorySlug, setActiveCategorySlug] = useState<string>(urlCat);
   const [activeSubcategory, setActiveSubcategory] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("popular");
+  const [visibleCount, setVisibleCount] = useState<number>(CATEGORY_PRODUCTS_PER_SESSION);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (urlCat) {
@@ -23,6 +28,11 @@ function CategoriesContent() {
       setActiveSubcategory("all");
     }
   }, [urlCat]);
+
+  // Reset pagination when category, subcategory or sort changes
+  useEffect(() => {
+    setVisibleCount(CATEGORY_PRODUCTS_PER_SESSION);
+  }, [activeCategorySlug, activeSubcategory, sortBy]);
 
   // Current active category object
   const activeCategory = useMemo(() => {
@@ -95,6 +105,34 @@ function CategoriesContent() {
 
     return list;
   }, [products, activeCategorySlug, activeCategory, activeSubcategory, sortBy]);
+
+  const displayedProducts = filteredProducts.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredProducts.length;
+
+  // Infinite scroll observer for categories
+  useEffect(() => {
+    if (!hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsLoadingMore(true);
+          setTimeout(() => {
+            setVisibleCount((prev) => Math.min(prev + CATEGORY_PRODUCTS_PER_SESSION, filteredProducts.length));
+            setIsLoadingMore(false);
+          }, 250);
+        }
+      },
+      { rootMargin: '350px' }
+    );
+
+    const currentElem = loadMoreRef.current;
+    if (currentElem) observer.observe(currentElem);
+
+    return () => {
+      if (currentElem) observer.unobserve(currentElem);
+    };
+  }, [hasMore, filteredProducts.length]);
 
   const handleCategorySelect = (slug: string) => {
     setActiveCategorySlug(slug);
@@ -297,8 +335,9 @@ function CategoriesContent() {
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {filteredProducts.map((product) => {
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {displayedProducts.map((product) => {
                   const cartItem = cart.find((item) => item.product.id === product.id);
                   const quantity = cartItem ? cartItem.quantity : 0;
 
@@ -405,7 +444,35 @@ function CategoriesContent() {
                   );
                 })}
               </div>
-            )}
+
+              {/* ── Category Automatic Infinite Scroll Indicator ── */}
+              {filteredProducts.length > CATEGORY_PRODUCTS_PER_SESSION && (
+                <div className="mt-8 flex flex-col items-center justify-center space-y-3">
+                  {hasMore ? (
+                    <div ref={loadMoreRef} className="py-6 flex flex-col items-center justify-center w-full">
+                      <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border border-gray-200/80 shadow-xs text-xs font-bold text-gray-700">
+                        <Loader2 className="w-4 h-4 animate-spin text-[#E11A22]" />
+                        <span>Loading more products...</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="pt-2 flex items-center gap-2 text-xs font-semibold text-gray-400">
+                      <span>✓ All {filteredProducts.length} products loaded</span>
+                      <span>•</span>
+                      <button
+                        type="button"
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        className="text-[#E11A22] hover:underline inline-flex items-center gap-0.5 cursor-pointer font-bold"
+                      >
+                        <span>Back to top</span>
+                        <ArrowUp className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
+          )}
 
           </main>
         </div>

@@ -27,6 +27,7 @@ import { useApp } from "@/context/AppContext";
 import { orderService } from "@/services/orders";
 import { supabase } from "@/lib/supabase/client";
 import { Order, CartItem } from "@/types";
+import { sendDeliveryUpdateNotification } from "@/services/pushNotification";
 
 export default function OrderDetailPage({
   params,
@@ -200,7 +201,13 @@ export default function OrderDetailPage({
         },
         (payload: any) => {
           if (payload?.new?.status) {
-            setDbOrder((prev) => prev ? { ...prev, status: payload.new.status as any } : null);
+            const nextStatus = payload.new.status;
+            setDbOrder((prev) => {
+              if (prev && prev.status !== nextStatus) {
+                sendDeliveryUpdateNotification(prev, `Status updated to ${nextStatus}`).catch(() => {});
+              }
+              return prev ? { ...prev, status: nextStatus as any } : null;
+            });
           }
         }
       )
@@ -218,6 +225,7 @@ export default function OrderDetailPage({
     try {
       const ok = await orderService.updateOrderStatus(order.id, newStatus);
       if (ok) {
+        sendDeliveryUpdateNotification(order, `Status updated to ${newStatus}`).catch(() => {});
         setDbOrder((prev) => prev ? { ...prev, status: newStatus as any } : { ...order, status: newStatus as any });
       }
     } catch (err) {

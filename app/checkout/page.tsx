@@ -29,6 +29,7 @@ import { supabase } from "@/lib/supabase/client";
 import { deliveryService } from "@/services/delivery";
 import { cartService } from "@/services/cart";
 import confetti from "canvas-confetti";
+import { sendOrderConfirmedNotification } from "@/services/pushNotification";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -271,6 +272,11 @@ export default function CheckoutPage() {
       // ── COD ──────────────────────────────────────────────────────────
       if (paymentMethod === 'Cash on Delivery') {
         try { confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); } catch {}
+        sendOrderConfirmedNotification({
+          id: orderId,
+          orderNumber: data.order?.order_number || orderId,
+          totalAmount: data.order?.total || totalAmount,
+        }).catch(() => {});
         clearCart();
         router.push(`/orders/${orderId}`);
         return;
@@ -304,6 +310,11 @@ export default function CheckoutPage() {
           ondismiss: () => { setIsPlacing(false); },
         },
         handler: () => {
+          sendOrderConfirmedNotification({
+            id: orderId,
+            orderNumber: data.order?.order_number || orderId,
+            totalAmount: data.order?.total || totalAmount,
+          }).catch(() => {});
           clearCart();
           router.push(`/orders/${orderId}`);
         },

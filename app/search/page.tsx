@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, ChevronRight, ShoppingBag, X } from "lucide-react";
+import { Search, ChevronRight, ShoppingBag, X, Loader2, ArrowUp, ChevronDown } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { ProductCard } from "@/components/ProductCard";
+
+const SEARCH_PRODUCTS_PER_SESSION = 15;
 
 function SearchPageContent() {
   const router = useRouter();
@@ -14,6 +16,9 @@ function SearchPageContent() {
 
   const { products, searchQuery, setSearchQuery } = useApp();
   const [localQuery, setLocalQuery] = useState(initialQuery);
+  const [visibleCount, setVisibleCount] = useState(SEARCH_PRODUCTS_PER_SESSION);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (initialQuery) {
@@ -21,6 +26,10 @@ function SearchPageContent() {
       setSearchQuery(initialQuery);
     }
   }, [initialQuery, setSearchQuery]);
+
+  useEffect(() => {
+    setVisibleCount(SEARCH_PRODUCTS_PER_SESSION);
+  }, [localQuery]);
 
   const queryToUse = localQuery.trim().toLowerCase();
 
@@ -32,6 +41,33 @@ function SearchPageContent() {
           p.category.toLowerCase().includes(queryToUse)
       )
     : products;
+
+  const displayedResults = searchResults.slice(0, visibleCount);
+  const hasMore = visibleCount < searchResults.length;
+
+  useEffect(() => {
+    if (!hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsLoadingMore(true);
+          setTimeout(() => {
+            setVisibleCount((prev) => Math.min(prev + SEARCH_PRODUCTS_PER_SESSION, searchResults.length));
+            setIsLoadingMore(false);
+          }, 250);
+        }
+      },
+      { rootMargin: '350px' }
+    );
+
+    const currentElem = loadMoreRef.current;
+    if (currentElem) observer.observe(currentElem);
+
+    return () => {
+      if (currentElem) observer.unobserve(currentElem);
+    };
+  }, [hasMore, searchResults.length]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -136,10 +172,39 @@ function SearchPageContent() {
 
         {/* Results Grid */}
         {searchResults.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4">
-            {searchResults.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+          <div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4">
+              {displayedResults.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+
+            {/* ── Search Automatic Infinite Scroll Indicator ── */}
+            {searchResults.length > SEARCH_PRODUCTS_PER_SESSION && (
+              <div className="mt-8 flex flex-col items-center justify-center space-y-3">
+                {hasMore ? (
+                  <div ref={loadMoreRef} className="py-6 flex flex-col items-center justify-center w-full">
+                    <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border border-gray-200/80 shadow-xs text-xs font-bold text-gray-700">
+                      <Loader2 className="w-4 h-4 animate-spin text-[#E11A22]" />
+                      <span>Loading more products...</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="pt-2 flex items-center gap-2 text-xs font-semibold text-gray-400">
+                    <span>✓ All {searchResults.length} products loaded</span>
+                    <span>•</span>
+                    <button
+                      type="button"
+                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                      className="text-[#E11A22] hover:underline inline-flex items-center gap-0.5 cursor-pointer font-bold"
+                    >
+                      <span>Back to top</span>
+                      <ArrowUp className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         ) : (
           <div className="bg-white rounded-2xl border border-gray-200/90 p-12 text-center shadow-2xs">

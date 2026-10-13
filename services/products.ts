@@ -106,7 +106,7 @@ export const productService = {
               categories ( id, name )
             )
           `)
-          .gt('stock_quantity', 5)
+          .gte('stock_quantity', 5)
           .eq('products.active', true);
 
         if (storeId) {
@@ -151,7 +151,7 @@ export const productService = {
         const mapped: Product[] = [];
 
         productMap.forEach(({ p, stockQty }) => {
-          if (stockQty <= 5) return;
+          if (stockQty < 5) return;
 
           const mrp = Number(p.mrp || 0);
           const sellingPrice = Number(p.selling_price || 0);
@@ -276,7 +276,7 @@ export const productService = {
               `${p.name} — fresh daily essential available for guaranteed on-time doorstep delivery from K MART.`,
           };
         })
-        .filter((p) => (p.stockCount ?? 0) > 5);
+        .filter((p) => (p.stockCount ?? 0) >= 5);
 
       return mappedDb;
     } catch (err: any) {
