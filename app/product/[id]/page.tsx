@@ -273,9 +273,9 @@ export default function ProductDetailPage({
                 <div className="mt-6 space-y-3">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     {inCartQuantity === 0 ? (
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 flex-1">
                         {/* Stepper for first addition */}
-                        <div className="flex items-center border border-gray-300 rounded-xl bg-white shadow-2xs overflow-hidden h-12">
+                        <div className="flex items-center border border-gray-300 rounded-xl bg-white shadow-2xs overflow-hidden h-12 shrink-0">
                           <button
                             onClick={() => setLocalQty((q) => Math.max(1, q - 1))}
                             className="w-10 h-full flex items-center justify-center hover:bg-gray-100 text-gray-600 transition-colors cursor-pointer"
@@ -299,16 +299,16 @@ export default function ProductDetailPage({
                             addToCart(product, localQty);
                             setIsCartOpen(true);
                           }}
-                          className="flex-1 h-12 bg-[#E11A22] hover:bg-[#c8141b] text-white font-bold text-sm px-6 rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                          className="flex-1 h-12 bg-[#E11A22] hover:bg-[#c8141b] text-white font-bold text-sm px-4 sm:px-6 rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all cursor-pointer"
                         >
                           <ShoppingBag className="w-4 h-4" />
                           <span>Add to Cart</span>
                         </button>
                       </div>
                     ) : (
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 flex-1">
                         {/* Already in cart controller */}
-                        <div className="flex items-center border-2 border-[#E11A22] rounded-xl bg-red-50 text-[#E11A22] overflow-hidden h-12">
+                        <div className="flex items-center border-2 border-[#E11A22] rounded-xl bg-red-50 text-[#E11A22] overflow-hidden h-12 shrink-0">
                           <button
                             onClick={() => updateQuantity(product.id, inCartQuantity - 1)}
                             className="w-11 h-full flex items-center justify-center hover:bg-red-100 transition-colors cursor-pointer"
@@ -328,7 +328,7 @@ export default function ProductDetailPage({
 
                         <Link
                           href="/cart"
-                          className="flex-1 h-12 border border-[#0A2540] text-[#0A2540] hover:bg-[#0A2540] hover:text-white font-bold text-sm px-6 rounded-xl flex items-center justify-center gap-2 transition-all"
+                          className="flex-1 h-12 border border-[#0A2540] text-[#0A2540] hover:bg-[#0A2540] hover:text-white font-bold text-sm px-4 sm:px-6 rounded-xl flex items-center justify-center gap-2 transition-all"
                         >
                           <span>View in Cart</span>
                           <ChevronRight className="w-4 h-4" />
@@ -339,7 +339,7 @@ export default function ProductDetailPage({
                     {/* Buy Now Button */}
                     <button
                       onClick={handleBuyNow}
-                      className="h-12 bg-[#0A2540] hover:bg-[#123154] text-white font-bold text-sm px-8 rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                      className="h-12 bg-[#0A2540] hover:bg-[#123154] text-white font-bold text-sm px-6 sm:px-8 rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all cursor-pointer w-full sm:w-auto"
                     >
                       <span>Buy Now</span>
                       <ChevronRight className="w-4 h-4" />

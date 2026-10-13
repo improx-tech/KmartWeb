@@ -12,7 +12,7 @@ export const DeliveryInfoBar: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
 
         {/* 3 Info columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-8 flex-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-8 flex-1">
 
           {/* Fast Delivery */}
           <div className="flex items-center gap-2.5">

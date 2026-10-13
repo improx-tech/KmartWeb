@@ -81,7 +81,7 @@ export const HeroCarousel: React.FC = () => {
 
   return (
     <div
-      className="relative rounded-2xl overflow-hidden shadow-2xs border border-gray-200/70 h-[280px] sm:h-[320px] md:h-[340px] w-full"
+      className="relative rounded-2xl overflow-hidden shadow-2xs border border-gray-200/70 h-[200px] xs:h-[230px] sm:h-[300px] md:h-[340px] w-full"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -93,35 +93,35 @@ export const HeroCarousel: React.FC = () => {
         {slides.map((slide, i) => (
           <div
             key={slide.id}
-            className={`w-full h-full shrink-0 ${slide.bgColor} p-6 sm:p-10 lg:p-12 flex items-center justify-between gap-6 relative`}
+            className={`w-full h-full shrink-0 ${slide.bgColor} px-4 py-5 sm:p-10 lg:p-12 flex items-center justify-between gap-4 sm:gap-6 relative`}
           >
             {/* Left Column Content */}
-            <div className="flex-1 max-w-lg text-left space-y-3 z-10">
-              <span className="text-xs font-bold text-[#0A2540] uppercase tracking-wider block">
+            <div className="flex-1 max-w-lg text-left space-y-2 sm:space-y-3 z-10">
+              <span className="text-[10px] sm:text-xs font-bold text-[#0A2540] uppercase tracking-wider block">
                 {slide.tag}
               </span>
 
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#E11A22] tracking-tight leading-tight">
+              <h1 className="text-lg xs:text-xl sm:text-3xl lg:text-4xl font-black text-[#E11A22] tracking-tight leading-tight">
                 {slide.title}
               </h1>
 
-              <p className="text-xs sm:text-sm text-gray-600 font-medium max-w-md">
+              <p className="hidden sm:block text-xs sm:text-sm text-gray-600 font-medium max-w-md">
                 {slide.description}
               </p>
 
-              <div className="pt-2">
+              <div className="pt-1">
                 <button
                   type="button"
                   onClick={() => handleCta(slide.ctaCategory)}
-                  className="bg-[#E11A22] hover:bg-[#c8141b] text-white px-5 sm:px-6 py-2.5 rounded-lg font-bold text-xs sm:text-sm inline-flex items-center gap-2 shadow-xs transition-colors cursor-pointer"
+                  className="bg-[#E11A22] hover:bg-[#c8141b] text-white px-3 sm:px-5 md:px-6 py-2 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm inline-flex items-center gap-1.5 sm:gap-2 shadow-xs transition-colors cursor-pointer"
                 >
                   <span>{slide.btnText}</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
               </div>
 
               {/* Slide indicators at bottom-left */}
-              <div className="flex items-center gap-1.5 pt-3">
+              <div className="flex items-center gap-1.5 pt-1 sm:pt-3">
                 {slides.map((_, idx) => (
                   <button
                     key={idx}
@@ -136,17 +136,17 @@ export const HeroCarousel: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Column Banner Image */}
+            {/* Right Column Banner Image — hidden on mobile */}
             <div
               onClick={() => handleCta(slide.ctaCategory)}
-              className="hidden sm:flex relative shrink-0 w-72 md:w-80 lg:w-[440px] h-[190px] sm:h-[230px] md:h-[260px] items-center justify-center pr-2 cursor-pointer"
+              className="hidden sm:flex relative shrink-0 w-60 md:w-80 lg:w-[440px] h-[190px] sm:h-[220px] md:h-[260px] items-center justify-center pr-2 cursor-pointer"
             >
               <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-lg border-2 border-white/80 bg-white group">
                 <Image
                   src={slide.image}
                   alt={slide.title}
                   fill
-                  sizes="(max-width: 640px) 0px, (max-width: 768px) 288px, (max-width: 1024px) 320px, 440px"
+                  sizes="(max-width: 640px) 0px, (max-width: 768px) 240px, (max-width: 1024px) 320px, 440px"
                   className="object-cover transform group-hover:scale-105 transition-transform duration-700"
                   priority={i === 0}
                   loading={i === 0 ? 'eager' : 'lazy'}

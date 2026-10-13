@@ -336,7 +336,7 @@ function CategoriesContent() {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {displayedProducts.map((product) => {
                   const cartItem = cart.find((item) => item.product.id === product.id);
                   const quantity = cartItem ? cartItem.quantity : 0;
