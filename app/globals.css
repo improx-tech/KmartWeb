@@ -73,3 +73,39 @@
 @media (min-width: 475px) {
   .xs\:h-\[230px\] { height: 230px; }
 }
+
+/* Smooth Skeleton Shimmer and Image Transitions */
+@keyframes shimmerWave {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    #f3f4f6 0%,
+    #e5e7eb 50%,
+    #f3f4f6 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerWave 1.6s ease-in-out infinite;
+}
+
+@keyframes fadeInSmooth {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInSmooth {
+  animation: fadeInSmooth 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

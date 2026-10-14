@@ -82,10 +82,10 @@ export const StoreOffersSection: React.FC = () => {
         {storeOffers.map((offer) => (
           <div
             key={offer.id}
-            className="bg-white rounded-2xl border border-gray-200/90 p-5 flex items-center justify-between gap-4 shadow-2xs hover:shadow-sm transition-shadow relative overflow-hidden group"
+            className="h-full bg-white rounded-2xl border border-gray-200/90 p-5 flex items-center justify-between gap-4 shadow-2xs hover:shadow-sm transition-shadow relative overflow-hidden group"
           >
             {/* Left Content */}
-            <div className="flex-1 space-y-2 text-left z-10">
+            <div className="flex-1 min-w-0 space-y-2 text-left z-10">
               <span className="text-[11px] font-bold text-[#E11A22] uppercase tracking-wider block">
                 {offer.storeLabel}
               </span>

@@ -57,13 +57,37 @@ export const requestNotificationPermission = async (): Promise<NotificationPermi
   }
 };
 
-export const sendPushNotification = async (payload: PushNotificationPayload): Promise<boolean> => {
+/**
+ * Dispatch an in-app toast notification via CustomEvent.
+ * Works independently of browser notification permission.
+ */
+const dispatchInAppNotification = (payload: PushNotificationPayload & { status?: string; orderId?: string; orderNumber?: string }) => {
+  if (typeof window === 'undefined') return;
+  try {
+    window.dispatchEvent(
+      new CustomEvent('kmart-order-notification', {
+        detail: {
+          id: `toast-${Date.now()}`,
+          title: payload.title,
+          body: payload.body,
+          status: payload.status,
+          orderNumber: payload.orderNumber,
+          orderId: payload.orderId,
+          url: payload.url,
+          timestamp: Date.now(),
+        },
+      })
+    );
+  } catch {}
+};
+
+export const sendPushNotification = async (payload: PushNotificationPayload & { status?: string; orderId?: string; orderNumber?: string }): Promise<boolean> => {
   if (!isPushSupported()) return false;
 
-  if (Notification.permission !== 'granted') {
-    const perm = await requestNotificationPermission();
-    if (perm !== 'granted') return false;
-  }
+  // ── Always fire in-app toast regardless of browser permission ──
+  dispatchInAppNotification(payload);
+
+  if (Notification.permission !== 'granted') return false;
 
   const options: NotificationOptions & { [key: string]: any } = {
     body: payload.body,
@@ -186,12 +210,15 @@ export const sendOrderConfirmedNotification = async (
 
   return sendPushNotification({
     title: '🎉 Order Confirmed! — K-Mart',
-    body: `Invoice #${invoiceNumber} (Order #${orderNumber})${
+    body: `Order #${orderNumber}${
       resolvedTotal ? ` for ₹${resolvedTotal.toLocaleString('en-IN')}` : ''
-    } has been placed. We are preparing it for delivery!`,
+    } has been placed. We are preparing it for you!`,
     icon: '/logo.png',
     url: orderId ? `/orders/${orderId}` : '/profile',
     tag: `order-${orderId || orderNumber}`,
+    status: 'CONFIRMED',
+    orderId,
+    orderNumber,
   });
 };
 
@@ -201,21 +228,41 @@ export const sendDeliveryUpdateNotification = async (
 ) => {
   const { orderId, orderNumber, invoiceNumber } = resolveOrderInvoiceDetails(orderOrId);
 
+  // Extract a clean status keyword from the statusText for icon purposes
+  const rawStatus = statusText.toUpperCase().replace(/STATUS UPDATED TO\s*/i, '').trim();
+
+  const STATUS_MESSAGES: Record<string, string> = {
+    'PACKED':             '📦 Your order is packed and ready!',
+    'OUT_FOR_DELIVERY':   '🚚 Your order is out for delivery!',
+    'DELIVERED':          '✅ Your order has been delivered. Enjoy!',
+    'PICKED_UP':          '✅ Order collected successfully!',
+    'PREPARING':          '👨‍🍳 Your order is being prepared.',
+    'CONFIRMED':          '✔️ Your order is confirmed by K-Mart.',
+    'READY_FOR_PICKUP':   '🏪 Your order is ready for store pickup.',
+    'DELIVERY_ASSIGNED':  '🛵 A delivery partner has been assigned.',
+  };
+
+  const friendlyMsg = STATUS_MESSAGES[rawStatus] || `Status: ${rawStatus.replace(/_/g, ' ')}`;
+
   return sendPushNotification({
-    title: '🚚 Delivery Alert — K-Mart',
-    body: `Invoice #${invoiceNumber} (Order #${orderNumber}): ${statusText}`,
+    title: '📲 Order Update — K-Mart',
+    body: `Order #${orderNumber}: ${friendlyMsg}`,
     icon: '/logo.png',
     url: orderId ? `/orders/${orderId}` : '/profile',
     tag: `delivery-${orderId || orderNumber}`,
+    status: rawStatus,
+    orderId,
+    orderNumber,
   });
 };
 
 export const sendWelcomeNotification = async () => {
   return sendPushNotification({
     title: '🚚 Delivery Alerts Enabled! — K-Mart',
-    body: 'You will receive live updates when your orders are dispatched and out for delivery.',
+    body: 'You will now receive live updates when your orders are packed, dispatched and delivered.',
     icon: '/logo.png',
     url: '/profile',
     tag: 'welcome-delivery-alert',
+    status: 'CONFIRMED',
   });
 };

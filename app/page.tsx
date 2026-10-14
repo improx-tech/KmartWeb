@@ -6,6 +6,7 @@ import { useApp } from '../context/AppContext';
 import { HeroCarousel } from '../components/HeroCarousel';
 import { CategoryPills } from '../components/CategoryPills';
 import { ProductCard } from '../components/ProductCard';
+import { ProductCardSkeleton } from '../components/ProductCardSkeleton';
 import { TrustBadges } from '../components/TrustBadges';
 import { StoreOffersSection } from '../components/StoreOffersSection';
 import { FreeDeliveryBanner } from '../components/FreeDeliveryBanner';
@@ -70,10 +71,10 @@ export default function HomePage() {
           setTimeout(() => {
             setVisibleCount((prev) => Math.min(prev + PRODUCTS_PER_SESSION, filteredProducts.length));
             setIsLoadingMore(false);
-          }, 250);
+          }, 200);
         }
       },
-      { rootMargin: '350px' }
+      { rootMargin: '450px' }
     );
 
     const currentElem = loadMoreRef.current;
@@ -156,10 +157,23 @@ export default function HomePage() {
         </div>
 
         {/* Product Grid (5 columns on desktop) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4">
-          {displayedProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4 min-h-[300px]">
+          {isLoadingProducts && products.length === 0 ? (
+            Array.from({ length: 15 }).map((_, idx) => (
+              <ProductCardSkeleton key={`init-skeleton-${idx}`} />
+            ))
+          ) : (
+            <>
+              {displayedProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+              {isLoadingMore && (
+                Array.from({ length: 5 }).map((_, idx) => (
+                  <ProductCardSkeleton key={`more-skeleton-${idx}`} />
+                ))
+              )}
+            </>
+          )}
 
           {filteredProducts.length === 0 && !isLoadingProducts && (
             <div className="col-span-full bg-white rounded-xl p-10 text-center border border-gray-200">

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
@@ -16,10 +16,157 @@ import {
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { Order } from "@/types";
+import { supabase } from "@/lib/supabase/client";
 
 export default function OrderHistoryPage() {
   const router = useRouter();
-  const { orders, addToCart, removeOrder } = useApp();
+  const { orders: contextOrders, addToCart, removeOrder } = useApp();
+
+  // Local live orders — starts from context, updated by Supabase realtime
+  const [liveOrders, setLiveOrders] = useState<Order[]>(contextOrders);
+
+  // Keep liveOrders in sync when context loads initially
+  useEffect(() => {
+    if (contextOrders.length > 0 && liveOrders.length === 0) {
+      setLiveOrders(contextOrders);
+    }
+  }, [contextOrders]);
+
+  // Fetch fresh orders from DB and subscribe to realtime changes
+  useEffect(() => {
+    let userId: string | null = null;
+
+    const fetchAndSubscribe = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      userId = user.id;
+
+      // Fetch all orders for this user fresh from DB
+      const { data } = await supabase
+        .from('orders')
+        .select('id, order_number, status, total, subtotal, delivery_fee, payment_method, created_at, order_type, delivery_address_snapshot')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+
+      if (data && data.length > 0) {
+        setLiveOrders((prev) => {
+          // Merge DB rows with existing context items (context has full CartItem data)
+          const contextMap = new Map(contextOrders.map((o) => [o.id, o]));
+          return data.map((row: any) => {
+            const existing = contextMap.get(row.id);
+            return existing
+              ? { ...existing, status: row.status } // update status from DB
+              : {
+                  id: row.id,
+                  orderNumber: row.order_number || `KM-${row.id.slice(0, 6).toUpperCase()}`,
+                  orderType: row.order_type || 'DELIVERY',
+                  status: row.status,
+                  totalAmount: Number(row.total || 0),
+                  itemTotal: Number(row.subtotal || 0),
+                  deliveryFee: Number(row.delivery_fee || 0),
+                  discount: 0,
+                  handlingFee: 0,
+                  platformFee: 0,
+                  paymentMethod: row.payment_method === 'ONLINE' ? 'Razorpay' : 'Cash on Delivery',
+                  createdAt: row.created_at,
+                  items: [],
+                  deliverySlot: { slotId: undefined, time: 'Scheduled', day: 'Scheduled', date: undefined },
+                  deliveryAddress: row.delivery_address_snapshot?.line1 ? {
+                    id: 'snapshot',
+                    label: row.delivery_address_snapshot.label || 'Home',
+                    fullName: row.delivery_address_snapshot.full_name || '',
+                    phone: row.delivery_address_snapshot.phone || '',
+                    line1: row.delivery_address_snapshot.line1,
+                    line2: row.delivery_address_snapshot.line2 || '',
+                    city: row.delivery_address_snapshot.city || '',
+                    state: row.delivery_address_snapshot.state || '',
+                    pincode: row.delivery_address_snapshot.pincode || '',
+                    latitude: 0,
+                    longitude: 0,
+                  } : null,
+                } as Order;
+          });
+        });
+      }
+
+      // Subscribe to realtime status/address changes for ALL user orders
+      const channel = supabase
+        .channel(`orders-list-${userId}`)
+        .on(
+          'postgres_changes',
+          {
+            event: 'UPDATE',
+            schema: 'public',
+            table: 'orders',
+            filter: `user_id=eq.${userId}`,
+          },
+          (payload: any) => {
+            const updated = payload?.new;
+            if (!updated?.id) return;
+            setLiveOrders((prev) =>
+              prev.map((o) =>
+                o.id === updated.id
+                  ? {
+                      ...o,
+                      status: updated.status ?? o.status,
+                      totalAmount: updated.total ? Number(updated.total) : o.totalAmount,
+                      deliveryAddress: updated.delivery_address_snapshot?.line1
+                        ? {
+                            id: 'snapshot',
+                            label: updated.delivery_address_snapshot.label || 'Home',
+                            fullName: updated.delivery_address_snapshot.full_name || '',
+                            phone: updated.delivery_address_snapshot.phone || '',
+                            line1: updated.delivery_address_snapshot.line1,
+                            line2: updated.delivery_address_snapshot.line2 || '',
+                            city: updated.delivery_address_snapshot.city || '',
+                            state: updated.delivery_address_snapshot.state || '',
+                            pincode: updated.delivery_address_snapshot.pincode || '',
+                            latitude: 0,
+                            longitude: 0,
+                          }
+                        : o.deliveryAddress,
+                    }
+                  : o
+              )
+            );
+          }
+        )
+        .subscribe((status) => {
+          console.log('[OrdersList] Realtime channel:', status);
+        });
+
+      // Polling fallback every 5 s — re-fetches status for all orders
+      const pollInterval = setInterval(async () => {
+        const { data: fresh } = await supabase
+          .from('orders')
+          .select('id, status, total, delivery_address_snapshot')
+          .eq('user_id', userId!)
+          .order('created_at', { ascending: false });
+
+        if (fresh) {
+          setLiveOrders((prev) =>
+            prev.map((o) => {
+              const row = (fresh as any[]).find((r: any) => r.id === o.id);
+              return row ? { ...o, status: row.status ?? o.status } : o;
+            })
+          );
+        }
+      }, 5000);
+
+      return () => {
+        supabase.removeChannel(channel);
+        clearInterval(pollInterval);
+      };
+    };
+
+    const cleanup = fetchAndSubscribe();
+    return () => {
+      cleanup.then((fn) => fn?.());
+    };
+  }, []);
+
+  // Use liveOrders if populated, fall back to contextOrders
+  const orders = liveOrders.length > 0 ? liveOrders : contextOrders;
 
   const handleReorder = (order: Order) => {
     order.items.forEach((it) => {

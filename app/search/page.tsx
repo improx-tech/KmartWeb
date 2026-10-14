@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Search, ChevronRight, ShoppingBag, X, Loader2, ArrowUp, ChevronDown } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { ProductCard } from "@/components/ProductCard";
+import { ProductCardSkeleton } from "@/components/ProductCardSkeleton";
 
 const SEARCH_PRODUCTS_PER_SESSION = 15;
 
@@ -14,7 +15,7 @@ function SearchPageContent() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q") || "";
 
-  const { products, searchQuery, setSearchQuery } = useApp();
+  const { products, isLoadingProducts, searchQuery, setSearchQuery } = useApp();
   const [localQuery, setLocalQuery] = useState(initialQuery);
   const [visibleCount, setVisibleCount] = useState(SEARCH_PRODUCTS_PER_SESSION);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -55,10 +56,10 @@ function SearchPageContent() {
           setTimeout(() => {
             setVisibleCount((prev) => Math.min(prev + SEARCH_PRODUCTS_PER_SESSION, searchResults.length));
             setIsLoadingMore(false);
-          }, 250);
+          }, 200);
         }
       },
-      { rootMargin: '350px' }
+      { rootMargin: '450px' }
     );
 
     const currentElem = loadMoreRef.current;
@@ -165,18 +166,31 @@ function SearchPageContent() {
               {queryToUse ? `Results for "${queryToUse}"` : "All Products"}
             </h1>
             <p className="text-xs text-gray-500 mt-0.5">
-              Showing {searchResults.length} {searchResults.length === 1 ? "item" : "items"} available for delivery on time
+              {isLoadingProducts && products.length === 0
+                ? "Loading products..."
+                : `Showing ${searchResults.length} ${searchResults.length === 1 ? "item" : "items"} available for delivery on time`}
             </p>
           </div>
         </div>
 
         {/* Results Grid */}
-        {searchResults.length > 0 ? (
+        {isLoadingProducts && products.length === 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4 min-h-[300px]">
+            {Array.from({ length: 10 }).map((_, idx) => (
+              <ProductCardSkeleton key={`search-skeleton-${idx}`} />
+            ))}
+          </div>
+        ) : searchResults.length > 0 ? (
           <div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4 min-h-[300px]">
               {displayedResults.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
+              {isLoadingMore && (
+                Array.from({ length: 5 }).map((_, idx) => (
+                  <ProductCardSkeleton key={`search-more-skeleton-${idx}`} />
+                ))
+              )}
             </div>
 
             {/* ── Search Automatic Infinite Scroll Indicator ── */}

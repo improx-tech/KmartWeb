@@ -60,11 +60,49 @@ export default function ProductDetailPage({
   // Find product from context (populated from DB)
   const product = products.find((p) => p.id === resolvedId);
 
+  const [isMainImageLoaded, setIsMainImageLoaded] = useState(false);
+
   if (isLoadingProducts && !product) {
     return (
-      <div className="min-h-[70vh] bg-[#F8F9FA] flex flex-col items-center justify-center px-4 py-16 text-center">
-        <div className="w-10 h-10 border-4 border-[#E11A22] border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-sm font-bold text-gray-700">Loading product details...</p>
+      <div className="min-h-screen bg-[#F8F9FA] pb-16 animate-fadeInSmooth">
+        {/* Breadcrumb Skeleton */}
+        <div className="bg-white border-b border-gray-200/80 shadow-2xs">
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+            <div className="h-4 w-60 bg-gray-200 rounded animate-shimmer" />
+          </div>
+        </div>
+
+        {/* Main Product Container Skeleton */}
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+          <div className="bg-white rounded-2xl border border-gray-200/90 shadow-xs p-5 sm:p-8 lg:p-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+              {/* Left Column Skeleton */}
+              <div className="lg:col-span-5 flex flex-col space-y-4">
+                <div className="aspect-square w-full rounded-2xl bg-gray-100 animate-shimmer" />
+                <div className="flex gap-2">
+                  <div className="w-16 h-16 rounded-xl bg-gray-100 animate-shimmer" />
+                  <div className="w-16 h-16 rounded-xl bg-gray-100 animate-shimmer" />
+                  <div className="w-16 h-16 rounded-xl bg-gray-100 animate-shimmer" />
+                </div>
+              </div>
+
+              {/* Right Column Skeleton */}
+              <div className="lg:col-span-7 flex flex-col space-y-4">
+                <div className="h-3.5 w-32 bg-gray-200 rounded animate-shimmer" />
+                <div className="h-7 w-3/4 bg-gray-200 rounded animate-shimmer" />
+                <div className="h-4 w-40 bg-gray-100 rounded animate-shimmer" />
+                <div className="h-8 w-48 bg-gray-200 rounded animate-shimmer pt-2" />
+                <div className="h-20 w-full bg-gray-50 rounded-xl animate-shimmer" />
+                <div className="h-12 w-full sm:w-64 bg-gray-200 rounded-xl animate-shimmer mt-4" />
+                <div className="grid grid-cols-3 gap-3 pt-4">
+                  <div className="h-16 bg-gray-50 rounded-xl animate-shimmer" />
+                  <div className="h-16 bg-gray-50 rounded-xl animate-shimmer" />
+                  <div className="h-16 bg-gray-50 rounded-xl animate-shimmer" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -193,11 +231,18 @@ export default function ProductDetailPage({
                   </button>
                 </div>
 
-                {/* Main Product Image */}
+                {/* Main Product Image with smooth blur-up */}
+                {!isMainImageLoaded && (
+                  <div className="absolute inset-0 animate-shimmer bg-gray-100 z-0" />
+                )}
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  className={`max-h-full max-w-full object-contain group-hover:scale-105 transition-all duration-500 ease-out z-1 ${
+                    isMainImageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                  }`}
+                  loading="lazy"
+                  onLoad={() => setIsMainImageLoaded(true)}
                 />
 
                 {/* Delivery Badge */}

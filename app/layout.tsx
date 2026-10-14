@@ -49,6 +49,10 @@ const PushNotificationPrompt = dynamic(
   () => import('../components/PushNotificationPrompt').then((m) => m.PushNotificationPrompt),
   { ssr: false }
 );
+const OrderNotificationToast = dynamic(
+  () => import('../components/OrderNotificationToast').then((m) => m.OrderNotificationToast),
+  { ssr: false }
+);
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -101,6 +105,9 @@ export default function RootLayout({
 
           {/* Web Push Notification Prompt Banner */}
           <PushNotificationPrompt />
+
+          {/* In-App Order Status Notification Toast */}
+          <OrderNotificationToast />
         </AppProvider>
       </body>
     </html>

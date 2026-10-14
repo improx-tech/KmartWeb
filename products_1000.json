@@ -1,0 +1,8002 @@
+[
+  {
+    "id": "e5c6baae-a579-4e67-8842-57c72d463c7b",
+    "name": "PARLE MONACO @20/-",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "002d2470-a062-48a1-9c7e-97b3572db1a5",
+    "name": "PATANJALI ALOE GEL FW",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7a78943c-b811-4312-9e2d-44854b531da3",
+    "name": "PATANJALI DITERGENT POWDER 5 KG",
+    "mrp": 240,
+    "selling_price": 230,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "413e0573-8b39-441d-85d9-dd6e72ce9ade",
+    "name": "JULIES MELODIES ASSO.",
+    "mrp": 199,
+    "selling_price": 199,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9bf3da8d-d9e8-42c9-9caf-e0af5ffbdea0",
+    "name": "JAHAGIRDAR BROWN AGARBATTI",
+    "mrp": 199,
+    "selling_price": 199,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3f1b5887-f2de-4cd1-9a2a-e3b5fe01d6cc",
+    "name": "PATANJALI DANT KANTI SENSITIVE",
+    "mrp": 80,
+    "selling_price": 79,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "aa9d14f1-385c-41d1-9749-2e404c986182",
+    "name": "AASHIRVAAD ATTA 2KG",
+    "mrp": 103,
+    "selling_price": 97,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ca6f45ed-d731-4877-9fc2-46282309dcce",
+    "name": "CYCLE MEDINI DHOOP",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "92215fdc-f5e9-4712-8fe1-4c2b5b9e4445",
+    "name": "ZED BLACK RAATRANI NIGHT QUEEN 15G",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e88d8f0d-3f13-4e8d-bb18-01ad36642918",
+    "name": "SAI NAMAN AGARBATTI 50G",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5e0a580a-70a4-4edf-88a8-cf2f26b2eb49",
+    "name": "ZED BLACK PARFUM CW 120G",
+    "mrp": 70,
+    "selling_price": 65,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ad368e99-7a5e-4882-946f-e108f1e54323",
+    "name": "CYCLE 3IN 1 AGARBATTI @50",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1913eca2-6c46-4d6b-998b-cf29a11bd84f",
+    "name": "SHAH SUGANDH FRESH ROSE 100G",
+    "mrp": 60,
+    "selling_price": 59,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "67552a6b-4fd3-43c4-aafb-6f70a7fc4b8d",
+    "name": "PLATINA STRAWBERRY PREMIUM STICKS 100G",
+    "mrp": 80,
+    "selling_price": 80,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "73b4dae5-04ba-427a-b936-bcdcfaf6d5f6",
+    "name": "ZED BLACK DEEP CHANDAN AGARBATTI 20G",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "45ae8752-01b6-4c1e-be90-abc912881b2e",
+    "name": "SHUBHDEEP GUGGAL AGARBATTI 15 STICKS",
+    "mrp": 12,
+    "selling_price": 12,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "940e2686-3fac-46a9-8e38-12a46992ec6f",
+    "name": "ZED BLACK DUBAI SHAMAMA AGARBATTI 15G",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7345717d-b768-4115-a905-ab0e91736495",
+    "name": "ZED BLACK PARFUME 1M 120GM",
+    "mrp": 70,
+    "selling_price": 65,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "13b527cc-3843-4090-a113-a51b8ee7edcf",
+    "name": "ZED BLACK KEWDA CHANDAN DHOOP 20 STICKS",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9629fcff-45ad-4783-9944-ba21f7980f00",
+    "name": "GUGGAL CUP SAMBRANI 12 PIECE",
+    "mrp": 90,
+    "selling_price": 89,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2fc75bb5-5730-440e-8688-17eca8f51c74",
+    "name": "CYCLE NATURES GIFTS AGARBATTI 65G",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d873fc7d-a1ba-4b33-9134-4be2e7f87d01",
+    "name": "SHAH CHOCOLATE AGARBATTI 100G",
+    "mrp": 125,
+    "selling_price": 124,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "efd497c5-d1d9-4262-a439-543128ba6292",
+    "name": "TOPSI VELVET AGARBATTI",
+    "mrp": 70,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e152755b-15b7-4d63-8acb-1f860ce8e3a5",
+    "name": "SUHANA SPECIAL UDID PAPAD1 KG",
+    "mrp": 279,
+    "selling_price": 274,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2d8db0eb-f17d-46af-a98b-9c39a209a150",
+    "name": "VANISH OXI ACTION 400ML",
+    "mrp": 155,
+    "selling_price": 154,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d854d177-64aa-457d-bb18-b93f90c2bbac",
+    "name": "ANUVED HALDI RAKTACHANDAN 125G",
+    "mrp": 65,
+    "selling_price": 64,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5821fbd4-5687-4f2d-80d6-b8e7eabdb6d5",
+    "name": "KRIPA HAIR TONIC 100ML",
+    "mrp": 120,
+    "selling_price": 119,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "aabb50cd-ecde-403f-a9db-8faffe4762e8",
+    "name": "NESCAFE CLASSIC JAR 90GM",
+    "mrp": 445,
+    "selling_price": 435,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f08458ea-a34b-4bb4-b10e-8f94bafae1db",
+    "name": "HIMALAYA HAPPY BABY GIFT PACK",
+    "mrp": 670,
+    "selling_price": 650,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1a96148b-7cb2-425a-aaa1-b7ab7afd4199",
+    "name": "VICCO NARAYANI CREAM 30G",
+    "mrp": 80,
+    "selling_price": 79,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "793be7f7-093b-4507-b14c-8ab69b0274c4",
+    "name": "JOHNSONS BABY POWDER 30G",
+    "mrp": 14,
+    "selling_price": 14,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7da4f337-c1a7-47c6-9da7-cfdb5a4c883b",
+    "name": "JOHNSONS BABY OIL 50ML",
+    "mrp": 75,
+    "selling_price": 74,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "334d8779-1704-44d3-9208-4ab3869a26b6",
+    "name": "HIMALAYA INTIMATE WASH 100 ML",
+    "mrp": 125,
+    "selling_price": 124,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ac199acf-f833-4826-83ea-a077dbd78ac6",
+    "name": "OREO ORIGINAL SANDWICH BISCUITS 150G",
+    "mrp": 30,
+    "selling_price": 29.5,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c767708a-e89c-480e-8cff-c08042d59a33",
+    "name": "DAIRY MILK LICKABLES 20G",
+    "mrp": 40,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "32531686-52c9-467b-b191-3823fe288fe8",
+    "name": "BROOKE BOND TAJ MAHAL TEA BAG - 25N",
+    "mrp": 80,
+    "selling_price": 79,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ac6855da-c272-4171-b8a9-0b6ee26f6cfb",
+    "name": "BROOM",
+    "mrp": 95,
+    "selling_price": 85,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "09e9e7bb-fe00-49ed-8b1f-91185ec6f141",
+    "name": "SIDDHIVINAYAK KHAJUR LADU",
+    "mrp": 210,
+    "selling_price": 180,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "bda1c168-648c-4e97-8ea8-4981b79a98db",
+    "name": "SUHANA CUMIN POWDER",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d2212cca-a6fb-4f69-9d10-ccedfce316e5",
+    "name": "GORE BANDHU BHEL MIX-180GM",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "85dcade1-bc3d-424b-a49b-f51096e63ad7",
+    "name": "GORE BANDHU POHA CHIWADA-200GM",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0e16f926-79b2-4519-8730-310752bfc77d",
+    "name": "SPL BLACK PEPPER POWDER",
+    "mrp": 40,
+    "selling_price": 39,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3aeede79-11ed-4769-a701-3828add3a7ad",
+    "name": "CADBURY NUTTIES",
+    "mrp": 58,
+    "selling_price": 58,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7282177b-e510-4ea6-9507-c66bba68607d",
+    "name": "NUTRITIUS CHIKKI COFFEE",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4fd00cac-6ff5-4b33-ba14-5835a8392357",
+    "name": "KISSAN SAUCE DIP 1KG",
+    "mrp": 78,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9ee16ff8-33fe-4c22-a8ac-29bdb5ea17d4",
+    "name": "BOSS NOTE BOOK SINGAL LINE 68 PAGES",
+    "mrp": 22,
+    "selling_price": 21,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "cc4c9826-16bb-4dd6-9eac-41b8f28b91ca",
+    "name": "NAVNEET NOTE BOOK 172 PAGES",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a0f2f324-e0d7-4b97-9355-f9b921c661f6",
+    "name": "BORIC ACID POWDER 200 GMS",
+    "mrp": 76,
+    "selling_price": 75,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3247d22c-7705-4c3f-9df3-ba1834a1a85c",
+    "name": "OZO FIGHTER 1 LTR",
+    "mrp": 75,
+    "selling_price": 75,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0fb97ac0-cc5a-49ac-a14f-46a8b61e5664",
+    "name": "SAN BOUNCE DREAM CREAM 120 G",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b2519ba3-9a34-4ffd-904d-46182bb34e76",
+    "name": "KOHE KNIFE 1140.2",
+    "mrp": 130,
+    "selling_price": 110,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8dcab56b-428a-4fe5-812b-8ff4c585fbbe",
+    "name": "SUN BOUNCE DREAM CREAM CHOCO VANILLA 60G",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "930a61b9-e080-4347-9af7-acac072229d5",
+    "name": "SUN .BOUNCE DREAM CREAM 60G",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "26a88635-295d-4a0e-b9a4-04a390f559f2",
+    "name": "SUNSILK STUNNING BLACK SHINE SHAMPOO 90 ML",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5393f450-38b5-48d0-8a5b-e6ec208a320d",
+    "name": "DETTOL ORIGINAL PROTECTION 300G",
+    "mrp": 107,
+    "selling_price": 106,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "18c21398-9a48-4cb2-b023-59d0dcbfdb09",
+    "name": "DETTOL SKINCARE SOAP 500G",
+    "mrp": 362,
+    "selling_price": 360,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a40a60fc-c95e-4474-8638-063a41357863",
+    "name": "YOUVA LONG BOOK SERIES 172 PAGES",
+    "mrp": 75,
+    "selling_price": 68,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0e1440f9-4264-43e5-b1b4-a6a61329c869",
+    "name": "YOUVA NB SL EB",
+    "mrp": 30,
+    "selling_price": 21,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7d21aaa6-cc4f-49f9-a57d-8ae9191a0f42",
+    "name": "YOUVA LONG BOOK EG 68 PAGES",
+    "mrp": 22,
+    "selling_price": 21,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1c58c295-4f07-468d-b339-e3ab1bcb9493",
+    "name": "YOUVA LONG BOOK EF",
+    "mrp": 22,
+    "selling_price": 21,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "06d838d3-44af-4c85-a1de-f15b5d96b0b1",
+    "name": "YOUVA JUMBO NOTEBOOK DD",
+    "mrp": 45,
+    "selling_price": 41,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ab7fa275-8091-433a-8eba-88425421f8e8",
+    "name": "HIMALAYA COMPLETE CARE TOOTHPASTE 300 GM",
+    "mrp": 177,
+    "selling_price": 176,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b9e3cbbc-c18a-470e-ab94-fbcf5c1a70e4",
+    "name": "HIMALAYA SPARKLING WHITE TOOTHPASTE 320G",
+    "mrp": 180,
+    "selling_price": 178,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "92ad9a1c-0f08-4938-b028-87241d5c57e5",
+    "name": "HIMALAYA FRESH START OIL CLEAR FACE WASH",
+    "mrp": 85,
+    "selling_price": 84,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "91bf171b-d9ec-4a62-841c-02d6c111d337",
+    "name": "HIMALAYA FRESH START BLNEBESRY FACE WASH",
+    "mrp": 85,
+    "selling_price": 84,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "dd9e1eae-47e7-48e1-9f2c-ed55c9fab581",
+    "name": "HIMALAYA LEMAN OIL CLEAR FACE WASH",
+    "mrp": 85,
+    "selling_price": 84,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4b96bd8d-6a80-47db-99be-1402ce3ca1c1",
+    "name": "HIMALAYA STRAWBERRY OIL CLEAR FACE WASH",
+    "mrp": 85,
+    "selling_price": 84,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "261b1d4f-ff97-4835-a56a-8dc2116ef32d",
+    "name": "SURF EXCEL EASY WASH 1 KG",
+    "mrp": 99,
+    "selling_price": 98,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fa13c38d-0480-4fd5-8b43-a2ef951732f7",
+    "name": "DATE CROWN 500GM",
+    "mrp": 155,
+    "selling_price": 130,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "38599087-2be6-497b-b38b-620bc54f2cce",
+    "name": "RAM BANDHU MANGO PICKLE 350G",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "81431e36-3945-4409-82b6-15defc776fb7",
+    "name": "RAM BANDHU CHILLI PICKLE 200GM",
+    "mrp": 75,
+    "selling_price": 72,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2270dc5c-da3e-44fe-b6d5-b9f05197def3",
+    "name": "PARACHUTE COCONUT OIL 200ML",
+    "mrp": 69,
+    "selling_price": 68,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "df49a6fd-2370-4abc-a3ef-828474e866bb",
+    "name": "NIKE WOMAN TRENDY",
+    "mrp": 249,
+    "selling_price": 244,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4fdb1959-cda8-435c-9066-ee9dff43796d",
+    "name": "NIKE UP OR DOWN FOR MAN",
+    "mrp": 249,
+    "selling_price": 244,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "435dfdb6-6a8b-43ad-9c72-40e13e881763",
+    "name": "NIKE WOMAN BASIC SCARLET DEO",
+    "mrp": 249,
+    "selling_price": 244,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0dfdfd53-77e4-4b5c-a96f-39e547cc4cb2",
+    "name": "NIKE CASUAL DEO",
+    "mrp": 249,
+    "selling_price": 244,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b5480a5e-cba9-4030-bc49-f564faa7dd5a",
+    "name": "NIKE HUB MAN DEO",
+    "mrp": 249,
+    "selling_price": 239,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "989f8733-c2dc-467f-896e-f8c86a71bbf7",
+    "name": "NIKE WOMAN CASUAL",
+    "mrp": 249,
+    "selling_price": 244,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f04638d9-8cf4-4203-b315-7e5219efa1dd",
+    "name": "NIKE PURE DEO",
+    "mrp": 249,
+    "selling_price": 244,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "bd3d84ad-a226-49b5-aa23-c03706aa814f",
+    "name": "NIKE UP OR DOWN DEO",
+    "mrp": 249,
+    "selling_price": 244,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c69cf183-f94b-4378-8960-f4f9b52896ad",
+    "name": "NIKE ION MAN DEO",
+    "mrp": 249,
+    "selling_price": 244,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f57b3c07-9565-4cad-bb83-64619cda98a1",
+    "name": "NIKE FISSION DEO WOMAN",
+    "mrp": 249,
+    "selling_price": 244,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "de929adf-a416-4715-9037-e012e6563f82",
+    "name": "T MUSK CANDY AGARBATHI",
+    "mrp": 75,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "cd9f0a31-d1c8-483e-b9a0-8beed3ca33d6",
+    "name": "TOO YUMM VEGGIE STIX 52 GM",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9c236854-3b2a-45f3-a416-2281e88f1f1a",
+    "name": "ELITE MILK TOAST",
+    "mrp": 45,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9bffb38a-04fa-4f1d-a272-a6ee423a2677",
+    "name": "BOSS COLOUR PENCILS",
+    "mrp": 18,
+    "selling_price": 18,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2ab11f58-193c-4aa4-b589-3db5d785f56a",
+    "name": "FLAIR COLOUR 12P",
+    "mrp": 45,
+    "selling_price": 44,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "232853f8-577e-4e9e-8a98-ae7c30eb610b",
+    "name": "FUN STRIPES PENCILS",
+    "mrp": 50,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6d6cb31d-50c8-400c-9236-f7a6ec1c9821",
+    "name": "COLOUR PENCILS 12",
+    "mrp": 25,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "26906144-1a75-41a4-b3ec-e4faacd94cff",
+    "name": "YOUVA WHITE ADHESIVE 105 G",
+    "mrp": 45,
+    "selling_price": 44,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "469ef06b-fd90-43f0-8dfc-cc98d31f8bc9",
+    "name": "YOUVA MATHEMATICAL DRAWING SET",
+    "mrp": 20,
+    "selling_price": 18,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8c449fd6-02a9-4d08-960d-8ace589451a8",
+    "name": "YOUVA POSTER COLOURS 12",
+    "mrp": 150,
+    "selling_price": 140,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "06453548-410d-4789-8b1f-78ded4a6dbea",
+    "name": "YOUVA TORUS GEOMETRY BOX",
+    "mrp": 125,
+    "selling_price": 115,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "213dc094-eb37-4f81-8abb-f41a3a5bb866",
+    "name": "YOUVA TEMPERA COLOURS",
+    "mrp": 20,
+    "selling_price": 19,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8e8f719c-9edb-48a4-9cb2-54d2b17641fa",
+    "name": "YOUVA POSTER COLOURS 6",
+    "mrp": 80,
+    "selling_price": 75,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "83b27d42-3f0e-4461-99ce-73b8de0fb722",
+    "name": "YOUVA COLOUR PENCILS 2IN 1",
+    "mrp": 60,
+    "selling_price": 58,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4b6fc776-08c6-438c-a99d-072aee0d7783",
+    "name": "YOUVA BOLD WAX CRAYONS PACK OF 24",
+    "mrp": 90,
+    "selling_price": 85,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "389d8d3c-3daa-4a16-bd19-3d6258cd1c32",
+    "name": "YOUVA PLASTIC CRAYONS 12 SHADES",
+    "mrp": 60,
+    "selling_price": 58,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "aa980fff-e0fa-4c1b-a0fc-498273a8e52c",
+    "name": "YOUVA BOLD WAX CRAYONS 12",
+    "mrp": 50,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5989d818-aaa0-46fc-b757-6d9874a95e08",
+    "name": "COLGATE GENTLE SEN. TB",
+    "mrp": 65,
+    "selling_price": 64,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "50eff1fc-b978-4fa3-8a40-4c50bf4e5994",
+    "name": "YOUVA 12 COLOUR PENCILS",
+    "mrp": 125,
+    "selling_price": 120,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8259b9d3-1b12-4543-bc0e-a0ae5f6ee0b5",
+    "name": "YOUVA 2 IN 1 COLOUR PENCILS 12",
+    "mrp": 125,
+    "selling_price": 120,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b48eeb36-6595-4031-bf48-f073ed55b5f1",
+    "name": "YOUVA STALLION PENCIL",
+    "mrp": 150,
+    "selling_price": 140,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "db4b4117-9924-45a6-a9d3-4d18d9405fcd",
+    "name": "CHIKKI",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9f3a066b-111c-4ab3-9d89-3130fe97c876",
+    "name": "NUTRITIUS DRY FRUIT CHIKKI",
+    "mrp": 75,
+    "selling_price": 75,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6518ab27-047e-4bcc-9d28-d7433f0bc050",
+    "name": "NUTRITIUS ALOMAON BUTTER CHIKKI",
+    "mrp": 75,
+    "selling_price": 75,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "981fc4b4-d67b-4d2d-af49-be95f4310294",
+    "name": "GULDHEP-10KG",
+    "mrp": 500,
+    "selling_price": 400,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9345bf33-1653-4570-9e6d-bb282ad2fecd",
+    "name": "ANCHOR KIDS BRUSH @30",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "29f6cdec-9d45-4934-b874-5c81ea302552",
+    "name": "CHILKA MOONGDAL 250GM",
+    "mrp": 38,
+    "selling_price": 32,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0c9caea2-a67d-47e1-adc3-de474a55ff00",
+    "name": "CHILKA MOONGDAL 500GM",
+    "mrp": 70,
+    "selling_price": 64,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4358ae76-3cee-4b6a-ad77-cf850c4cbd42",
+    "name": "CHILKA MUGDAL 500GM",
+    "mrp": 75,
+    "selling_price": 64,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b3b7abe9-ba5f-4d0e-9d9f-41f9622d55d9",
+    "name": "CHILKA UDID DAL 250GM",
+    "mrp": 42,
+    "selling_price": 38,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9091acfc-ac7f-44f0-9c2e-dcbed627265e",
+    "name": "CHILKA UDID DAL 500GM",
+    "mrp": 80,
+    "selling_price": 74,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fd7f0489-3f83-4216-b253-072b6ed038cf",
+    "name": "MYF ORG PEANUT BUTTER CRUNCHY 1.25KG",
+    "mrp": 649,
+    "selling_price": 490,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2a98aff8-2d09-4970-92d9-6c91474f8eb7",
+    "name": "CHILLI VINEGAR 170ML",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d9baf3e8-d857-45cc-ba12-4242f543b207",
+    "name": "CHIMATE",
+    "mrp": 35,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "68db1120-1b5b-48b1-a0d9-ca6be331dbc5",
+    "name": "CHIMTA",
+    "mrp": 40,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a34fa4f2-ff6c-455e-90c7-91208091818c",
+    "name": "INA LINA 50ML",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a6be91bb-34da-4c84-a4dc-4676dfc2aa6d",
+    "name": "ULLAS KEWADA",
+    "mrp": 50,
+    "selling_price": 48,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8cfd1554-ce77-4e50-8b0f-43e3e429b0f7",
+    "name": "CHINCH 200GM",
+    "mrp": 65,
+    "selling_price": 55,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1c3587ef-5b37-4811-9900-5bc4079a9343",
+    "name": "CHINCH 100GM",
+    "mrp": 35,
+    "selling_price": 28,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "75141f30-9560-4808-ba59-ef9c0f96f5c0",
+    "name": "CHINCH 500GM",
+    "mrp": 140,
+    "selling_price": 130,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "701825f7-9769-4cdb-8496-dea82a836fd0",
+    "name": "CHINCH GOLI 100GM",
+    "mrp": 25,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a1bd23cf-03ec-4e4b-81dd-088e3b2d250d",
+    "name": "CHINGS CHICKEN 65 MASALA 25G",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a4775100-a878-481e-80c4-06e2041065cd",
+    "name": "YOUVA COLOUR PENCILS 24",
+    "mrp": 210,
+    "selling_price": 200,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2c32280c-2348-40b6-8910-25b7c4198901",
+    "name": "YOUVA OIL PASTELS 25",
+    "mrp": 80,
+    "selling_price": 75,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "92e62337-04f2-4958-8a47-eec5b7a95f0a",
+    "name": "FUN PENCIL KIT",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ca35c24c-8d6e-4fba-8165-32b991425631",
+    "name": "NIVEA SHOWER CREAM - CREAM CARE",
+    "mrp": 85,
+    "selling_price": 84,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0389cf9e-80e6-44af-b814-9e084ef4f842",
+    "name": "NIVEA SHOWER CREAM - CREAM SOFT",
+    "mrp": 85,
+    "selling_price": 84,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "78ebb1fc-6de7-4b0c-8601-61393f86eb19",
+    "name": "NIVEA AFTER SHAVE LOTION - SENSITIVE",
+    "mrp": 209,
+    "selling_price": 207,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2918f3cf-8237-4f26-a7b3-65ac6be026cb",
+    "name": "ENVY BLUSH DEO",
+    "mrp": 220,
+    "selling_price": 210,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9a493ea8-d290-4323-a0d7-63652f5cf204",
+    "name": "RAM BANDHU MANGO PICKLE 100 GM",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "577e68ee-2822-47b8-a37b-57165f79a147",
+    "name": "VIP HAIR COLOUR SHAMPOO 40ML",
+    "mrp": 96,
+    "selling_price": 95,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c835a9fd-145f-4b8a-859c-670d773331e1",
+    "name": "DENVER RIDER",
+    "mrp": 220,
+    "selling_price": 170,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c194ed09-98cd-4bd8-a925-d9ff198d1bb5",
+    "name": "DARK FAN. CHOCO FILLS",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "92a6bfa8-c59b-4bfa-9828-e33bfb077711",
+    "name": "SPOTZERO DECK MOP COTTON",
+    "mrp": 199,
+    "selling_price": 190,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c8fa33ff-b566-422e-81ec-866cd729ff89",
+    "name": "SPOTZERO ECO FLOOR WIPER",
+    "mrp": 175,
+    "selling_price": 170,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2d57c152-7b9a-4836-a53d-19fa637a847f",
+    "name": "SPOTZERO 360 DEGREE WATER WIPER",
+    "mrp": 230,
+    "selling_price": 220,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7676df0f-9d59-496e-9d7f-23da20bcd897",
+    "name": "SPOTZERO WATER WIPER- SMALL",
+    "mrp": 189,
+    "selling_price": 180,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "aab2b984-8eaf-4c37-974e-06c67c68050a",
+    "name": "SPOTZERO ELITE SPIN MOP",
+    "mrp": 1749,
+    "selling_price": 1660,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8f7b9772-4e6d-41e4-86e8-026822eebc42",
+    "name": "SPOTZERO MUG 1 LTR",
+    "mrp": 59,
+    "selling_price": 55,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b5560434-5543-474b-87da-fbfba02d4daf",
+    "name": "SPOTZERO SUPER SPIN MOP",
+    "mrp": 1450,
+    "selling_price": 1150,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fb457a7c-54ee-4606-86fd-86420570bb67",
+    "name": "REYNOLDS PEN",
+    "mrp": 25,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "25a68d45-67e9-4c52-b7b0-61a35367d550",
+    "name": "NEW GALA SCRUB PAD",
+    "mrp": 90,
+    "selling_price": 90,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8fe476b3-2f4c-4585-982e-fb76f09558c6",
+    "name": "GALA TOILEAN",
+    "mrp": 109,
+    "selling_price": 109,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "73a89e6e-bf72-4743-896f-8edc9169f6bf",
+    "name": "GALA GRASS BROOM",
+    "mrp": 170,
+    "selling_price": 160,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4294fa6c-9a38-4303-a4e5-2eb91cd50611",
+    "name": "PALM OIL 1LTR",
+    "mrp": 125,
+    "selling_price": 105,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "432d1589-f10f-4ba7-aacf-bd71c31b0a76",
+    "name": "EVEREST MEAT MASALA 15G",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ec93b2a2-00fd-4c10-980a-a139535e8569",
+    "name": "PRIYAGOLD BUTTER BITE 700G",
+    "mrp": 165,
+    "selling_price": 85,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "57da2c22-8785-4865-9889-a41ed8b1dbe5",
+    "name": "LIPTON GREENTEA PURE & LIGHT25N",
+    "mrp": 170,
+    "selling_price": 169,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f4a3f90a-13ce-417d-a2ea-b8d5f4fa7724",
+    "name": "VITHOBA TOOTHPASTE ROOTFIX",
+    "mrp": 65,
+    "selling_price": 65,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2f486f40-e525-4b93-bda0-ccc218d0e69d",
+    "name": "RAMSONS BLACK WALLET 100 ML",
+    "mrp": 425,
+    "selling_price": 420,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "86e24210-c2dd-4a44-9f6f-c8dd7bd1147e",
+    "name": "LAZEEZ FISH FRY MIX",
+    "mrp": 25,
+    "selling_price": 24,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a448664b-5f49-4e78-9dc7-e56d14ea346e",
+    "name": "LAZEEZ LUCKUY TANDOORI MIX",
+    "mrp": 35,
+    "selling_price": 34,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f95a22d2-74cd-4e16-a142-030cece1db23",
+    "name": "LAZEEZ LUCKY DALCHA MIX",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "30701e9e-ca3e-4c02-9d9b-97f8a0505d93",
+    "name": "LAZEEZ LUCKY CHICKAN LOLLYPOP MIX",
+    "mrp": 20,
+    "selling_price": 19,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d89539f6-91f5-4293-ae20-fb691753c4e3",
+    "name": "LAZEEZ DALCHA MIX",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "094de357-99c4-48d2-8ea4-17786055e6b3",
+    "name": "LAZEEZ BIRYANI MASALA MIX",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0ce672fa-813b-4931-b08c-58bd9fbd862f",
+    "name": "LIPTON GREENTEA HONEY LEMON",
+    "mrp": 165,
+    "selling_price": 163,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1c8e2fa7-36cc-40c2-b36c-30b103d68ea7",
+    "name": "PONDS BRIGHT BEAUTY FACE WASH",
+    "mrp": 25,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9a653840-6cb8-450e-a695-9dcbabeb6903",
+    "name": "BRI. NUTRI CHOICE RAGI BISCUITS",
+    "mrp": 75,
+    "selling_price": 75,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "86d58a84-81b7-4779-9f4e-bb3112f491eb",
+    "name": "FUTANE 1 KG",
+    "mrp": 200,
+    "selling_price": 120,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "defbf029-5b93-4936-abf3-590b030ff9d0",
+    "name": "DIZZLE BANARSI PAN",
+    "mrp": 116,
+    "selling_price": 116,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0aafd03d-56a1-423b-8dfd-4bc3d455148f",
+    "name": "DAAWAT BROWN BASMATI RICE 1 KG",
+    "mrp": 175,
+    "selling_price": 150,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "49888cba-1a16-4c7f-a164-9b6b0f7f78d2",
+    "name": "COOKWELL SANDWICH",
+    "mrp": 62,
+    "selling_price": 62,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8a97393d-5409-46bd-a0d9-5cf9f0f3464a",
+    "name": "CHITALE GULABJAM 250GM",
+    "mrp": 90,
+    "selling_price": 90,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "858467e2-549b-4965-afa8-dfed6f8747c7",
+    "name": "CHHEDAS LONG BANANA CHIPS",
+    "mrp": 70,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1b9f05d9-4441-499e-b2aa-e73d852b348a",
+    "name": "WHISPER ULTRA SOFT 7 P@70",
+    "mrp": 90,
+    "selling_price": 88,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fd9014c0-fa55-4fc4-82bf-423c3b964c15",
+    "name": "NUTRITIUS RAJGIRA CHIKKI",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9256a95b-f70a-4749-a57a-019e6b47f5cf",
+    "name": "ACTIVE WHEEL 2 IN 1",
+    "mrp": 37,
+    "selling_price": 36,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b8e64bce-3cbd-4ec7-ab2a-8aa3a45fb7d5",
+    "name": "KISSAN TOMATO KETCHUP 1KG",
+    "mrp": 159,
+    "selling_price": 157,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "59e8331e-78b3-44d8-91b8-1f7d86c521f0",
+    "name": "SUHANA CHICKEN BIRYANI MASALA",
+    "mrp": 25,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7c7be025-a147-4244-bdeb-32d442228a34",
+    "name": "SUHANA CHICKAN SUKHA (FRY) MASALA",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "dde03959-82c6-4fef-800d-d64ef16f73d4",
+    "name": "SUHANA MUTTON SUKHA (FRY) MASALA",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "54d91535-a008-42c3-b001-3872e832054e",
+    "name": "SUHANA MUTTON RASSA MASALA",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "08e9e1d7-859c-45d9-99b2-3b201acac4b6",
+    "name": "SUHANA FRIED RICE INDO - CHINESE MIX",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "57462c4e-4d76-4e92-bc29-cc41c960ab12",
+    "name": "SUHANA SCHEZWAN NOODLES INDO CHINESE MIX",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7d2f6605-f617-4b0b-a022-68b8dfcfbf22",
+    "name": "SUHANA SCHEZWAN FRIED RICE CHINESE MIX",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e00149fe-6871-4a2e-b0f8-7c0afb56bb54",
+    "name": "PARLE NUTRICRUNCH DIGESTIVE 200GM",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "22ce2fa4-dca0-41fc-84d0-65567643317c",
+    "name": "BAKE MUNCH FRUIT TOAST",
+    "mrp": 55,
+    "selling_price": 55,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "110e1c42-74ba-432f-850b-730b5f39df1a",
+    "name": "PREMIUM RUSK TOSTED BREAD 200 G",
+    "mrp": 45,
+    "selling_price": 44,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "607f1e1c-78aa-4dee-9fa3-294bb76ea304",
+    "name": "BAKE MUNCH KHARI 200G",
+    "mrp": 75,
+    "selling_price": 74,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7a1b096f-90f2-4643-9950-feaf02c226e0",
+    "name": "HIDE & SEEK CHOCOCHIPS",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "44ec547f-38d0-4e6d-96ba-685a3db0329c",
+    "name": "CHOCOMOCCO SQUARE",
+    "mrp": 220,
+    "selling_price": 220,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e9ef2bda-37e2-45d7-94d5-ac7f4c565077",
+    "name": "ITALIAN DELIGHT 55 GM",
+    "mrp": 90,
+    "selling_price": 80,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "dd9157d4-ac18-4c2f-98ed-b55ce2f5dd20",
+    "name": "DELIGHT DRIED BLUEBERRIES-150GM",
+    "mrp": 540,
+    "selling_price": 540,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "28b39014-b80c-435a-89dc-407b756f9f5d",
+    "name": "DELIGHT ROYAL MIX-200GM",
+    "mrp": 599,
+    "selling_price": 569,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3a54f125-84c4-41b3-b2ff-7b936460937f",
+    "name": "DELIGHT ALMONDS-200GM",
+    "mrp": 379,
+    "selling_price": 360,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "72c6d065-4860-46fa-adfc-ad8cb9a45229",
+    "name": "ITALIAN DELIGHT 88 GM",
+    "mrp": 250,
+    "selling_price": 200,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "52230311-5a01-4398-977d-c1e968fd0938",
+    "name": "POLO MINT",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e5f996e3-f47f-464c-b41b-b15feea78fb9",
+    "name": "MAGGI NOODLES 140GM",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7ea1fb41-91cb-43eb-b95b-86347d0be741",
+    "name": "MAGGI NOODLES 8PACK",
+    "mrp": 112,
+    "selling_price": 111,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b07350d0-d999-4a54-991d-0a3a3ab47ed8",
+    "name": "SACK",
+    "mrp": 1000,
+    "selling_price": 1000,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "052913b1-4454-4adb-acac-8e2bc0dda558",
+    "name": "CELLO PURO GLISS 600",
+    "mrp": 179,
+    "selling_price": 160,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0dfa1ecb-3335-4885-84a3-0408d4dd9737",
+    "name": "REYNOLDS JETTER CLASSIC",
+    "mrp": 25,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c873d3c2-ab54-4539-9575-298dd4129db5",
+    "name": "CELLO SWIPE WIPE MOP",
+    "mrp": 362,
+    "selling_price": 345,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "99396738-b85a-4d81-a6c6-265a83359a77",
+    "name": "CELLO H2O BOTTLE",
+    "mrp": 197,
+    "selling_price": 180,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9a3581e9-76c8-4145-a9e1-86a825da1c87",
+    "name": "CELLO NEXA FRESH BARNI",
+    "mrp": 120,
+    "selling_price": 95,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5922b89b-3bba-415a-9fa2-4c32b365706a",
+    "name": "KIWI SHOE POLISH BLACK",
+    "mrp": 52,
+    "selling_price": 51,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "38242759-76f6-4512-813a-34cfa3251e2e",
+    "name": "CELLO PURO KIDS 400ML",
+    "mrp": 156,
+    "selling_price": 140,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "026f52e4-2c2b-41e6-a6d3-a3697c278a2e",
+    "name": "CELLO CHHOTA BHEEM INK PEN",
+    "mrp": 45,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b1a3140f-720e-4c59-996a-e9c448a78ed0",
+    "name": "NACHANI PAPAD 500GM",
+    "mrp": 80,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8c4a39f5-3d3a-45e8-8f83-71249867e7ef",
+    "name": "PERSONAA KARALA CHUNTNEY",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2f285f71-f87f-408f-b6e6-994418103813",
+    "name": "PERSONAA GARLIC COCONUT CHUNTEY",
+    "mrp": 40,
+    "selling_price": 39,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3bf7d0fb-2229-424c-bbef-f96c08ce2f86",
+    "name": "MARSHMALLPW VANILLA",
+    "mrp": 125,
+    "selling_price": 120,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "085bcdb2-720b-4ba8-a96d-544300804b24",
+    "name": "PATANJALI HALDI CHANDAN KANTI 300GM",
+    "mrp": 87,
+    "selling_price": 86,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7b796e30-46ab-4502-87cd-637e90ac06f7",
+    "name": "JIVANA CLASSIC SUGAR-1KG OFFER- - -",
+    "mrp": 65,
+    "selling_price": 44,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "acd21905-dbb7-4015-b37a-c2cd338c97bd",
+    "name": "GALA QUICK SPIN MOP REFILL",
+    "mrp": 365,
+    "selling_price": 350,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e8eff367-6b1e-4973-93fe-ab4448a6fcc2",
+    "name": "GALA QUICK SPIN MOP HANDLE",
+    "mrp": 750,
+    "selling_price": 695,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0691c9f1-4632-46a5-835b-f91217520b9b",
+    "name": "CLOSEUP EVERFRESH -24GM",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7992dea9-c6f2-4832-94ce-3c9d5359c3b6",
+    "name": "PEPSODENT CAVIRY PROTECTION-80GM",
+    "mrp": 52,
+    "selling_price": 51,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2a3ae57c-e6ad-4acd-b854-d04d97576fbb",
+    "name": "WAGH BAKARI PREMIUM LEAF TEA 1 KG",
+    "mrp": 620,
+    "selling_price": 540,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3ba05c3c-539c-4bb0-a5a2-d6a6689a50d3",
+    "name": "GM REAL MAGNET - 150GM",
+    "mrp": 60,
+    "selling_price": 58,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8e08d016-696a-4839-9e78-fc50c54e275b",
+    "name": "ROSEE PREMIUM INCENSE STICKS-125GM",
+    "mrp": 60,
+    "selling_price": 58,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0b66e976-1e18-4adc-891b-0f6fd0868528",
+    "name": "SUNFLOWER OIL LOOSE",
+    "mrp": 190,
+    "selling_price": 175,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "85020301-48f9-4e58-b155-b859f6074a0a",
+    "name": "LOOSE OIL",
+    "mrp": 200,
+    "selling_price": 132,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5d11bf96-6b0d-41e4-8682-ca26d377e863",
+    "name": "DETTOL ORIGINAL-75GM",
+    "mrp": 27,
+    "selling_price": 26.5,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b30452cf-f621-416d-99b3-590816deae76",
+    "name": "COLGATE TOOTHPASTE-110GM",
+    "mrp": 46,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e6f4f9f7-4404-4cd1-97e3-54962b9f0ad6",
+    "name": "NIRMA SHAKTI DETERGENT CAKE",
+    "mrp": 10,
+    "selling_price": 9.5,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b84323ee-ed32-4f13-9610-b69c6cbab2ac",
+    "name": "GIFFY DISH WASH GEL LEMON &SALT",
+    "mrp": 105,
+    "selling_price": 103,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c2173fdd-692a-437e-b94c-7c32823a849f",
+    "name": "GIFFY DISH WASH GEL 290ML",
+    "mrp": 35,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "89c78c21-f75a-4b10-b225-97c7a586d63a",
+    "name": "GIFFY 290ML",
+    "mrp": 35,
+    "selling_price": 34,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fd39b644-1ec3-4d9e-b41e-d5e01b2142a0",
+    "name": "LIFEBUOY NEEM-59GM",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4360a47a-eca0-4b07-9b52-604f625eae76",
+    "name": "WHEEL BLUE BAR",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4bffbb3c-834f-4467-8833-6d59abea0e7d",
+    "name": "NIRAMA PINK SOAP",
+    "mrp": 10,
+    "selling_price": 9,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "24c0502c-97f3-450a-85c7-814ef202e0f8",
+    "name": "SURYA LITE SOYABEAN OIL-1L",
+    "mrp": 120,
+    "selling_price": 80,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "28ff7eb0-96e9-4dd7-ab34-492e90790154",
+    "name": "HAJMOLA IMALI-",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3f237183-6aec-4962-b10d-8680b1204dbf",
+    "name": "FOGG FINE BAY BREEZE 120 ML",
+    "mrp": 275,
+    "selling_price": 265,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "599fce28-d342-46ee-b24a-ec57a187a758",
+    "name": "CHOCOS 26GM",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "77912554-58fc-40de-b427-91deb2eb4ea3",
+    "name": "CHOCOS 385 GM",
+    "mrp": 210,
+    "selling_price": 205,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d53a66f5-9226-415a-a265-a74fd846f9bf",
+    "name": "CHOCOS 700GM",
+    "mrp": 310,
+    "selling_price": 305,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "15d50817-028c-448e-8f77-e687258b13b8",
+    "name": "NUTRITIUS PEANUT CHIKKI",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d8e031d2-1b73-445d-b165-1597871517f6",
+    "name": "CHOCOS CRUNCHY BITES 26GM",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ff837372-a2d2-4c79-99f3-61cf9a02be88",
+    "name": "CHOCOS CRUNCHY BITES 390GM",
+    "mrp": 180,
+    "selling_price": 178,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e202c34f-5fdf-46c8-a1e1-ba473a4cf053",
+    "name": "CHOCOS DUET 125GM",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c0ce8a26-b5e7-4ed2-91f7-5116c59d426c",
+    "name": "CHOCOS DUET 27GM",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5e2fa755-0552-45a0-8dfd-cbc8538dcf55",
+    "name": "CHOCOS DUET 375GM",
+    "mrp": 215,
+    "selling_price": 213,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2da412ec-56d4-4c7e-a6c8-2ce05873485e",
+    "name": "KELLOGGS SPECIAL 455GM",
+    "mrp": 255,
+    "selling_price": 253,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0404ec10-5ca0-4f74-91d6-3640692f59be",
+    "name": "CHOCOS MOONS & STARS",
+    "mrp": 220,
+    "selling_price": 219,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d1e2a6b5-a836-4167-8a60-3fe76c8b9b4e",
+    "name": "CHOCOSFILLS 175 GM",
+    "mrp": 95,
+    "selling_price": 94,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b206fca2-fc26-4f17-93e1-7cf8ea812aa9",
+    "name": "CHOCOS VARIETY PACK",
+    "mrp": 70,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2a72f6d4-4131-41c6-b038-e225b7d969d6",
+    "name": "AIR FRESHENER 200GM",
+    "mrp": 120,
+    "selling_price": 119,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f5a9e789-29ed-48aa-a1e6-d3b1a4e37c78",
+    "name": "CHOKO FLAKES 350 GM (OFFER)",
+    "mrp": 189,
+    "selling_price": 189,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f3f3ed3a-f91d-4201-9289-d3db45d67559",
+    "name": "CHOLE 500GM",
+    "mrp": 65,
+    "selling_price": 58,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "92dd1001-eb20-4bec-b561-f5174c0ea317",
+    "name": "PATANJALI TOMATO KETCHUP 1 KG",
+    "mrp": 120,
+    "selling_price": 118,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "cf9d268d-0cee-445a-bef2-5935832eb3a6",
+    "name": "TIDE DP L&M 5KG",
+    "mrp": 635,
+    "selling_price": 625,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6956a442-5dbb-4fb1-803b-315cbf18aea5",
+    "name": "TIDE DP 1KG J&R",
+    "mrp": 140,
+    "selling_price": 139,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "11d2ceef-b311-485b-a3be-be5037ba0313",
+    "name": "TIDE NATURALS OF LEMON &CHANDAN 140 G",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0f85c85e-307d-43bd-9466-33a9eda601cd",
+    "name": "NIVEA PURE TALC",
+    "mrp": 99,
+    "selling_price": 98,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "df45186a-9c3f-400b-873a-c15e1c9c1420",
+    "name": "SINDHAV NAMAK POWDER 1 KG",
+    "mrp": 100,
+    "selling_price": 65,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a3f2ff9e-7948-4e37-b4bb-cde09f12dcfe",
+    "name": "BALAJI BLACK SALT 1 KG",
+    "mrp": 60,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e986814c-a40f-4713-b5d4-8377764063ca",
+    "name": "TATA ROCK SALT 1KG",
+    "mrp": 120,
+    "selling_price": 99,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "02d0ca0f-2137-4193-a080-0d1b88370d57",
+    "name": "PARLE MILANO MIXED BERRIES 75 G",
+    "mrp": 35,
+    "selling_price": 35,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6ee20529-b14e-4b61-a770-d50380c28cdf",
+    "name": "PARLE 20-20 BUTTER COOCKIES",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "edfbd451-9fb9-4d11-9d08-c915c965c5c2",
+    "name": "YOUVA NOTE BOOK 76 PAGES",
+    "mrp": 25,
+    "selling_price": 24,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3cff9d51-9326-4122-9419-3bf18e695ce2",
+    "name": "PARLE HIDE&SEEK CHOCO ROLLS",
+    "mrp": 40,
+    "selling_price": 39,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0dedf6c4-156a-4ca6-b5b9-e1514b91cfee",
+    "name": "CORRECTION PEN",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "63e4d32d-00d4-45c1-8360-431d068fc77a",
+    "name": "BOSS NOTE BOOK 76 PAGES",
+    "mrp": 17,
+    "selling_price": 16,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "46e28504-ad2b-49ac-9427-d155cba479c0",
+    "name": "CADBURY BOURN VITA-500GM",
+    "mrp": 199,
+    "selling_price": 198,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "82ac1af0-d3a9-46da-b2e6-f9b1131015d0",
+    "name": "TOOTH PICK",
+    "mrp": 30,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c35bffad-1b03-4a4c-a831-cf8ee9488df7",
+    "name": "STAR ZING WHITE CHINESE PEPPER MASALA 500G",
+    "mrp": 220,
+    "selling_price": 200,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "323fb0f8-41bf-4cbf-b316-f07f0a9d64ed",
+    "name": "CAMEL POSTER COLOURS 6",
+    "mrp": 100,
+    "selling_price": 98,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ac57a170-9e74-407e-aed9-f1b5b1e8439e",
+    "name": "KNORR CHINESE NOODLES HOT &SPICY",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ecc9b835-b9d9-475d-ab6c-03bc12fa8ccd",
+    "name": "KISSAN SWEET SPICY",
+    "mrp": 80,
+    "selling_price": 78,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "813e90d5-9e66-48f4-a2d1-08dcd1e43009",
+    "name": "COOKWELL BIACK PEPPER POWDER 25G",
+    "mrp": 49,
+    "selling_price": 48,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "437cd00d-0b2e-46f4-9f6e-a2f6f6c2441c",
+    "name": "ASHTHAGANDHA",
+    "mrp": 12,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b33b6120-48e7-478f-955c-e1134764d4fa",
+    "name": "MAGGI NOODLES MASALA 560G",
+    "mrp": 120,
+    "selling_price": 115,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "cc5a2b2c-70c3-49a4-99ba-b778d273cf89",
+    "name": "PAPER CUP",
+    "mrp": 50,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fb181017-a132-476a-8fb4-87b0ba809d2c",
+    "name": "MAGGI NUTRI -LICIOUS ATTA",
+    "mrp": 28,
+    "selling_price": 24,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a94205a9-295c-4a0c-a845-ce856641c889",
+    "name": "STOPZERO MILTON PEBBLE MUG 1.5 L.",
+    "mrp": 76,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e6165f07-814f-4195-8950-7188ba59438d",
+    "name": "STOPZERO DUSTPAN SET WITH BRUSH",
+    "mrp": 249,
+    "selling_price": 240,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4484760f-5665-4ff8-9849-37e82fd69af5",
+    "name": "SPOTZERO 1N NEW MUG 1 L.",
+    "mrp": 32,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "cf6c5936-9ff1-4d30-bbc4-a047d5bde87f",
+    "name": "SPOTZERO TOILET BRUSH WITH CADDY ROUND",
+    "mrp": 199,
+    "selling_price": 195,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fdd84c65-d43b-41e1-ae72-d68cd6624fcb",
+    "name": "NET SIG NAT URE 78 G",
+    "mrp": 75,
+    "selling_price": 74,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b7ab3342-6783-4e5d-9721-659db0533b42",
+    "name": "PAMPER XXL-16@399",
+    "mrp": 399,
+    "selling_price": 394,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b600550a-a494-480b-ac2d-43023f1a1b73",
+    "name": "NEW PAMPERS PANTS 9 - 14 KG",
+    "mrp": 449,
+    "selling_price": 430,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7fb805f4-da75-4a4d-8a58-8a8907c17806",
+    "name": "PAMPERS NEW BABY-18PAD@199",
+    "mrp": 199,
+    "selling_price": 194,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "599cd2ab-f404-4a4a-95b7-d3beafdb31c4",
+    "name": "GILLETTE FUSION 5+1",
+    "mrp": 350,
+    "selling_price": 345,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "11481e0d-a2b3-468c-b2d0-6ab633f10634",
+    "name": "GILLETTE 7 O CLOCK STERLING",
+    "mrp": 125,
+    "selling_price": 124,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "72578ce2-c26f-466a-9719-f878db0d44f2",
+    "name": "GILLETTE SHAVING CREAM 30 G",
+    "mrp": 40,
+    "selling_price": 39,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "163900da-eb80-4226-8a4a-716ccab85a37",
+    "name": "GILLETTE REGULAR SHAVING CREAM",
+    "mrp": 69,
+    "selling_price": 68,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1a830fff-b006-42cf-9f49-f1686f8d8825",
+    "name": "HEAD & SHOULDERS SMOOTH & SILKY CONDITIONER 170 ML",
+    "mrp": 180,
+    "selling_price": 179,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fdd158d5-de0c-46b7-83b9-8a279e64aafe",
+    "name": "GILLETTE 7 O CLOCK SUPER PLATINUM",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f1890e88-b2ba-4687-9711-cd9327a03ac2",
+    "name": "GILLETE GUARD 6 BLADE",
+    "mrp": 60,
+    "selling_price": 58,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ee248d36-72e5-4174-b119-0778c482e985",
+    "name": "OM SHANTI KAPUR",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a38cc01a-d9de-4067-a556-5c4dd92d10db",
+    "name": "ORAL -B KIDS TB",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c25d3da9-6357-48ce-922a-03257c8fcb00",
+    "name": "UDAD PAPAD",
+    "mrp": 47,
+    "selling_price": 46,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4f9e1936-13e2-4320-9dbb-e512dd259f9f",
+    "name": "PARLE RUSK MILK TOSAT 200G",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "480c26bf-aab8-4a29-b1de-cf4ca23d284e",
+    "name": "FAB JAM-IN",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3fff5322-f9a8-4ffe-87ff-c303a0d6da38",
+    "name": "COLGATE STRONG TEETH 100GM",
+    "mrp": 73,
+    "selling_price": 72,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6430a585-7712-4036-9ea3-7c016ca6cffb",
+    "name": "COLGATE SUPER FLEXI TOOTHBRUSH",
+    "mrp": 18,
+    "selling_price": 18,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "988f7c46-4ebf-48f0-9231-bc6ca89df9b4",
+    "name": "GILLETTE FOAM REG.50G",
+    "mrp": 95,
+    "selling_price": 94,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6c290f99-15ea-4eaa-959b-6203edfc7a6d",
+    "name": "VICKS BABYRUB-50ML",
+    "mrp": 215,
+    "selling_price": 214,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e637d9d6-afe5-4f2e-9236-fec67287dd36",
+    "name": "TRU SHINE TOILET CLEANER 1LTR",
+    "mrp": 141,
+    "selling_price": 141,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d6da16c9-c77a-4114-88b3-9ac509750096",
+    "name": "LUX FRESH SPLASH-3X100GM",
+    "mrp": 73,
+    "selling_price": 72,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1d74f25b-fc08-4187-b47d-2f6032e1b168",
+    "name": "CHINGS MANCHURIAN NOODELS",
+    "mrp": 80,
+    "selling_price": 79,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c5e54c1c-c71d-4482-9130-3b488c084a8b",
+    "name": "MENS FAIR & LOVELY",
+    "mrp": 75,
+    "selling_price": 74,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f9cfa043-c178-424b-8b67-c5c66f526400",
+    "name": "JEET GULDEP 950 GM",
+    "mrp": 100,
+    "selling_price": 65,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ed96ed63-19c2-43db-bfbe-c87c67cad11d",
+    "name": "JEET GULDHEP450GM",
+    "mrp": 40,
+    "selling_price": 35,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e24051d2-60ad-4c2f-b90a-e9cb24ff3280",
+    "name": "MENS FAIR & LOVLEY 9G",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f8d9ed13-efe1-4ab4-8d0d-6851bfa7d02c",
+    "name": "GHADI DETERGENT 2 KG",
+    "mrp": 124,
+    "selling_price": 123,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7ee456e7-dd0d-4e1e-840f-9b4309fdcb12",
+    "name": "SILVER PATRAVALI-60",
+    "mrp": 75,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "27b657be-9488-4a27-8b59-0d86a441617d",
+    "name": "BRITTANIYA BUTTER 100GM",
+    "mrp": 65,
+    "selling_price": 64,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3ad5f5ee-08c0-46ed-9271-eb70dc890e08",
+    "name": "LION HONEY 15G",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "caae2cec-18fd-4b7d-b86b-1a369e8cdb7f",
+    "name": "SHAHUSHRI SOLAPURI SHENGA CHATANI @75",
+    "mrp": 53,
+    "selling_price": 35,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b8f58094-b8cf-494a-a80d-46c7fa5ce4c4",
+    "name": "YARDLEY LUXRY SOAP",
+    "mrp": 61,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "86cf3d2d-5044-419a-95a1-25e92a9e08a4",
+    "name": "PURE SOAP CASE",
+    "mrp": 40,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "80bb8ee3-5217-44da-af9d-0fb70f38adcc",
+    "name": "KHADI BATHING BAR",
+    "mrp": 90,
+    "selling_price": 89,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "50b56b0b-7576-4908-8506-a8b818c51003",
+    "name": "HERBAL SOAP CASE",
+    "mrp": 38,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "82e95466-30c9-4eae-b9eb-b4f275f56848",
+    "name": "LITTLE BABY SIPPER",
+    "mrp": 75,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "445069dd-ba23-477e-a518-d156828fd668",
+    "name": "LIZOL DISINFECTANT SURFACE CLEANER 650ML",
+    "mrp": 93,
+    "selling_price": 92,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "82aff1fd-0657-4c82-8371-3079d74340d3",
+    "name": "DETTOL ORGINAL LIQUID HANDWASH",
+    "mrp": 134,
+    "selling_price": 134,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1cc3d288-046a-4a3d-b7e8-fd052547f7ea",
+    "name": "NOW @ BOURN VITA 75 G",
+    "mrp": 28,
+    "selling_price": 28,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "93a80765-ec0c-49e0-8af0-6a95ee305d93",
+    "name": "CHOCOS MAGIC HEARTS",
+    "mrp": 205,
+    "selling_price": 203,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "64a8d2fa-7165-40b4-b2c1-94ab6dee7e38",
+    "name": "SUNDER COCONUT BISCUITS",
+    "mrp": 75,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ab3ce972-ffed-47f7-ae5b-c49482047113",
+    "name": "NOW @ BOURN VITA 1KG",
+    "mrp": 348,
+    "selling_price": 340,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "75517e14-684b-4bf3-99de-707d9176ef64",
+    "name": "BOURN VITA 500G..",
+    "mrp": 245,
+    "selling_price": 243,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "af8a8556-dd75-4424-b405-d2f09062b478",
+    "name": "SILK OREO RED VELVET",
+    "mrp": 175,
+    "selling_price": 175,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3178fa4b-2bd5-4363-a509-daa5449db9b4",
+    "name": "OREO BISCUIT 100GM*3",
+    "mrp": 99,
+    "selling_price": 98,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c46f3be4-e73b-46e8-9b5b-22fd769fd67f",
+    "name": "ORIGINAL OREO 51.5G",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9ff09c55-46ad-4659-8d40-624d2dca6dfb",
+    "name": "COOKWELL GULAB JAMUN MIX",
+    "mrp": 110,
+    "selling_price": 110,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0cd4c566-66a2-4556-94a0-f60635416739",
+    "name": "RATAN MULTI STORAGE CONTAINER",
+    "mrp": 475,
+    "selling_price": 290,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1f4746f7-2f32-4cbf-a0c9-5c3fb8cfa9bc",
+    "name": "LIFEMATE PATALA SQUARE",
+    "mrp": 347,
+    "selling_price": 195,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b2386a8a-0b9c-4902-a551-38e44a9ca99b",
+    "name": "DAZZELING PET JAR SET",
+    "mrp": 277,
+    "selling_price": 160,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4891d873-e328-40a7-b5fc-a3b5c7968a2a",
+    "name": "JAY SALT & PEPPER WITH TRAY",
+    "mrp": 105,
+    "selling_price": 75,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ccba339d-935f-458e-819c-850ed3facf3a",
+    "name": "GAVRAN HARBHARA 1KG",
+    "mrp": 110,
+    "selling_price": 98,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "10607691-e493-4f06-8ee8-6dc50e84f24d",
+    "name": "RUSHI LITE COCONUT OIL-500ML",
+    "mrp": 160,
+    "selling_price": 100,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8dc6a138-db9d-446e-9d10-e3f772e0423b",
+    "name": "LIPTON GREEN TEA HONEY LEMON",
+    "mrp": 200,
+    "selling_price": 183,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9c4d90e2-a38a-462c-a0ae-198e4bc77de1",
+    "name": "BRITANNIA TOASTEA",
+    "mrp": 40,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8440d6fb-2568-4d6e-9c12-e5c552d32c56",
+    "name": "LEMON GRASS",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "dccca041-0690-4235-a926-ad1f3300a2ed",
+    "name": "VIMLAM COW GHEE 1.5 LTR",
+    "mrp": 700,
+    "selling_price": 700,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "55df9497-e057-4d8a-864d-018153fcdd78",
+    "name": "KETKI COW GHEE 500 ML",
+    "mrp": 290,
+    "selling_price": 265,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f681ee8e-d77b-4458-9f40-8656e9229523",
+    "name": "KETKI BUFFALO GHEE 500 ML",
+    "mrp": 290,
+    "selling_price": 265,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "56500ea6-17e8-4ebe-88ab-d3695ed56e1c",
+    "name": "KATDARE BEKING POWDER",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ac877a9f-950b-4064-bd31-b8238eb19477",
+    "name": "INSTANT UPWAS BHAJANI MIX-500GM",
+    "mrp": 48,
+    "selling_price": 48,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9f8cb3d5-7cac-489d-bb75-a859fba41fc8",
+    "name": "COOKWELL JEERA POWDER 50GM",
+    "mrp": 44,
+    "selling_price": 43,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8fd15834-e37f-4ae2-8fe1-cece9aec7eda",
+    "name": "KELLOGGS OATS MASAT MASALA 500 G",
+    "mrp": 175,
+    "selling_price": 174,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5953b062-420c-4d33-9db2-bdd5ce2e8198",
+    "name": "DONGARYA",
+    "mrp": 12,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fae5a1d1-a9a2-4302-bb28-a5a03b94b793",
+    "name": "DONGARYA-20",
+    "mrp": 25,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "903cd7da-7591-458a-9656-6b2cfade97d5",
+    "name": "PATANJALI ALOE VERA HAND WASH 200ML",
+    "mrp": 45,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "35c93bbc-5950-4025-b0bd-8d6d72cc2860",
+    "name": "AASTHA DHOOP DELUXE",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e90a4b9f-149b-48ca-8ecf-9ee83bdc7b01",
+    "name": "TOPSI KIRTAN 4IN1",
+    "mrp": 60,
+    "selling_price": 59,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3c32f709-e19b-4fbe-a86d-92d8e6fb2b57",
+    "name": "TOP LINE ROCK SALT-1KG",
+    "mrp": 80,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "04fe1a50-eddf-4158-b2cf-c12645774e44",
+    "name": "DELIGHT TOPSI 170G",
+    "mrp": 60,
+    "selling_price": 59,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ac7864c8-9a92-47f4-8b05-b41868c6a17b",
+    "name": "TOPSI SHAHI CHANDAN AGARBATTI",
+    "mrp": 70,
+    "selling_price": 68,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9f3d7609-60e2-4971-9a33-45f9e0a4b1e3",
+    "name": "TOPSI ROSE DHOOP",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7390097d-065e-4652-85d0-fe3526290792",
+    "name": "MOGRA PREMIUM STICKS 170G",
+    "mrp": 70,
+    "selling_price": 65,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ff304606-f571-482f-b262-ca8f5c9fb6e2",
+    "name": "T0PSI GUGGAL DHOOP",
+    "mrp": 60,
+    "selling_price": 59,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e85fb7d7-bef6-49e7-a246-9b44227ba857",
+    "name": "CLINIC PLUS SHAMPOO@20/-",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0dbc6aeb-7d05-45a2-a832-989139e5171c",
+    "name": "CLINIC PLUS AYURVEDA CARE SHAMPOO 80ML",
+    "mrp": 52,
+    "selling_price": 51,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a08d5eca-008b-4b77-a6aa-2c70789de29f",
+    "name": "SOFTOUCH GB CONDITIONER COMBO PACK",
+    "mrp": 245,
+    "selling_price": 240,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e9f269f6-3ea9-4916-9065-6dbf06a97f55",
+    "name": "TOPSI RAJNIGANDHA AGARBATTI",
+    "mrp": 70,
+    "selling_price": 68,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "81e2c724-51d0-4968-998c-f89fb9ee6f53",
+    "name": "CLINIC PLUS DANDRUFF SHAMPOO 175ML",
+    "mrp": 85,
+    "selling_price": 84,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "dd792484-f2f5-42ed-87ad-6a0121249c9d",
+    "name": "CLINIC PLUS N.STRONG SHAMPOO 340ML",
+    "mrp": 159,
+    "selling_price": 129,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "aaf37666-58a8-4825-ad15-a4f00e029ec6",
+    "name": "CLINIC PLUS EGG PROTEIN SHAMPOO",
+    "mrp": 115,
+    "selling_price": 114,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a1efb5df-fe77-430b-b456-4eaabb72dca2",
+    "name": "CLINIC PLUS S.T.SHAMPOO 175ML",
+    "mrp": 84,
+    "selling_price": 83,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "cd41488d-e71c-435e-894b-52b20e9c57fa",
+    "name": "PUDIN HARA FIZZ LEMON",
+    "mrp": 7,
+    "selling_price": 7,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "26f09159-8554-4429-bdcd-1a954aed1d75",
+    "name": "CLINIC PLUS SHAMPO 40ML",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0dfaacd0-08ca-47f1-82d9-8c955099a01d",
+    "name": "CLINIC PLUS SHAMPOO 2/-",
+    "mrp": 32,
+    "selling_price": 32,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7ded7e38-7c40-46f1-8e1c-6e626fafd8c0",
+    "name": "VATIKA AYURVEDIC 6.5ML",
+    "mrp": 16,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "dc77e03d-c365-4706-9fed-975ca98991d6",
+    "name": "CLINIC PLUS STRONG & THICK 175ML",
+    "mrp": 105,
+    "selling_price": 104,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c561f0ef-e43b-40b5-b014-4807f9911aa1",
+    "name": "NILONS CHICKEN TIKKA MASALA MIX 80 G",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "95f84f6b-4758-4f43-9a3b-a45756aa62e0",
+    "name": "PRO CLEAN CLEANER 500 ML",
+    "mrp": 91,
+    "selling_price": 90,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "51189e46-cc8e-4343-9510-918ec315f900",
+    "name": "HR SALTED KAJU",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d5bebd44-5274-4ce9-9f7d-e258f193b66e",
+    "name": "SARGAM BIG SHOT -3KG",
+    "mrp": 285,
+    "selling_price": 280,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f4ba78fc-e0f3-4e1a-9dc9-06e312f55009",
+    "name": "SAPPHIRE ECLAIRS CHOCOLATE",
+    "mrp": 150,
+    "selling_price": 150,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "670537a1-f44a-4f07-b0bf-54ce4340890d",
+    "name": "FOGG HAPPINESS 100G/120ML",
+    "mrp": 199,
+    "selling_price": 195,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1ce6693c-483c-48ba-879d-fdab3adee6ca",
+    "name": "FOGG FOCUS",
+    "mrp": 199,
+    "selling_price": 195,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f16cb0cc-babd-4286-8584-90c625059371",
+    "name": "FOGG ENERGY",
+    "mrp": 199,
+    "selling_price": 195,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d066a1d6-a5bc-494b-8035-5dae12f58695",
+    "name": "HOMEMADE DAHI 200G",
+    "mrp": 35,
+    "selling_price": 35,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f68b14d6-6ca8-4769-bc32-28dc4d65ccd3",
+    "name": "SCHEZWAN INSTANT NOODLES 240G",
+    "mrp": 80,
+    "selling_price": 79,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "552b0e38-a68b-4503-8635-7547afa839e3",
+    "name": "YARDLEY LONDON QUANTUM BODY SPRAY 150 ML",
+    "mrp": 199,
+    "selling_price": 195,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b1e9d217-7517-48ab-881d-6fd232486d9b",
+    "name": "YARDLEY LONDON GOLD BODY SPRAY 75 ML",
+    "mrp": 110,
+    "selling_price": 108,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6f381ed5-76ba-46cf-9375-77f819163160",
+    "name": "YARDLEY LONDON ELEGANCE BODY SPRAY 75 ML",
+    "mrp": 110,
+    "selling_price": 108,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "af63e73c-c6cc-4911-a46d-8814ad3ba35c",
+    "name": "BEDEKAR MIXED PICKLE-200GM",
+    "mrp": 80,
+    "selling_price": 79,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "98734ed3-54b4-4376-b50e-6c86dd44652b",
+    "name": "LIFEBUOY HANDWASH 2+1",
+    "mrp": 120,
+    "selling_price": 119,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "96b3c574-cad0-40a3-988a-b793e7a75a20",
+    "name": "LIFEBUOY COOL FRESH HANDWASH 215 ML",
+    "mrp": 82,
+    "selling_price": 81,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a028890d-22bf-4f12-842a-0eec7dfcff0f",
+    "name": "DOVE COMBO OFFER PACK",
+    "mrp": 150,
+    "selling_price": 148,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "dccd7379-c9a9-4e16-b845-5bb236de3995",
+    "name": "SURF EXCEL QUICK WASH 2KG",
+    "mrp": 450,
+    "selling_price": 448,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d8b000dc-3783-4503-a13f-72f30769f99c",
+    "name": "NEW FENA SUPERWASH 1KG",
+    "mrp": 71,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a25d67a3-b7fe-4631-8b01-83e1e760df55",
+    "name": "HIMALAYA TULSI-HW-185ML",
+    "mrp": 50,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7793b9a0-c55b-4a6c-b867-e87ef729aa5a",
+    "name": "HIMALAYA TULSI & ALOE-HW-185ML",
+    "mrp": 50,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c145caa4-a8c8-4d20-b5c8-eb6cfcb883c1",
+    "name": "SURF EXCEL POWDER 500 G",
+    "mrp": 85,
+    "selling_price": 84,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7ab073da-12db-4301-b79d-66da23e56035",
+    "name": "MENTOS ORANGE",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e856593d-9c16-4613-a3d9-31f2ecbd8e37",
+    "name": "CHHEDAS CHIPSONA C&O",
+    "mrp": 45,
+    "selling_price": 44,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d3844866-a53b-4fc7-88f0-8d17fe98d5f0",
+    "name": "MENTOS MINT",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ddd30796-1603-4589-b5a0-932b1cb9cb69",
+    "name": "MAYURI FLOOR CLEANER 1LTR",
+    "mrp": 98,
+    "selling_price": 65,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "143ad819-797f-47f3-9a5e-901b4b450e82",
+    "name": "MENTOS STRAWBERRY",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "de858969-8a80-48f2-8628-d7f88fcc26e4",
+    "name": "TAMBERI PITERI COMBO OF 3",
+    "mrp": 150,
+    "selling_price": 120,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c7914779-92c5-4457-8352-1edcc548fc0a",
+    "name": "EXPELEZ PLUS ++ BUY1 GET FREE",
+    "mrp": 78,
+    "selling_price": 78,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1761eb72-bf6c-450f-8aea-1976192dcb80",
+    "name": "NIVEA MEN VITALITY FRESH",
+    "mrp": 250,
+    "selling_price": 248,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "56d701d3-0c31-4456-b54c-98db70a7030f",
+    "name": "NIVEA CREAM SMOOTH SHOWER CREAM",
+    "mrp": 85,
+    "selling_price": 84,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "19a6c57d-4989-4a33-998d-67555caebb63",
+    "name": "NIVEA MEN DEEP IMPACT",
+    "mrp": 199,
+    "selling_price": 189,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e82354d3-f8e3-4fa4-9ce6-9b9594811c8a",
+    "name": "NIVEA DEO WHITENING-150ML",
+    "mrp": 225,
+    "selling_price": 215,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e45944d0-aad6-4b51-b176-ce3e407836f6",
+    "name": "NIVEA MEN BODY DEODORIZER",
+    "mrp": 250,
+    "selling_price": 245,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "aca5a8c2-dc86-4976-b845-5ec3275eb7ae",
+    "name": "NIVEA MEN DUO BODY DEODORIZER",
+    "mrp": 250,
+    "selling_price": 245,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "24f32388-f961-4537-83cb-bb0aa0046b31",
+    "name": "NIVEA MEN COOL KICK",
+    "mrp": 199,
+    "selling_price": 194,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f0df0b74-21a0-4561-a838-81b0721cfe2a",
+    "name": "NIVEA DEEP IMPACT SHOWER GEL-250ML",
+    "mrp": 199,
+    "selling_price": 197,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e9e6c9c9-2c82-4ad4-a3f1-2dccb03b890b",
+    "name": "OLIVIYA HAIR REMOVER HERBAL",
+    "mrp": 70,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "cdd8c09d-4f63-4c7a-9799-045a69699dcf",
+    "name": "CHAVALI MOHTI 1KG",
+    "mrp": 150,
+    "selling_price": 124,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d38bca35-cfd0-4958-a1c9-43c82da84a99",
+    "name": "SUHANA AKKHA MASOOR MASALA",
+    "mrp": 45,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "cc8e3826-cacf-4e3d-97c2-f1ffd1780542",
+    "name": "CELLO SPECTRA BUCKET",
+    "mrp": 431,
+    "selling_price": 330,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "59bb803f-b0d4-4514-8d9e-bf6804d0bdc2",
+    "name": "CELLO MUG 1 LTR",
+    "mrp": 53,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4c477008-8df6-4662-aab5-e512ef35237c",
+    "name": "CELLO MUG 1.5 LTR",
+    "mrp": 67,
+    "selling_price": 55,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e3e15786-ca67-4ad5-94ad-dc867b8a7646",
+    "name": "CELLO FIIP TOP INSULATED HOT POT",
+    "mrp": 244,
+    "selling_price": 220,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "de02b9de-bbd5-4233-90af-bd52adf28d24",
+    "name": "WHISPER ULTRA SOFT-30 PADS",
+    "mrp": 260,
+    "selling_price": 255,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6a37b2e6-4807-483d-8fc1-ae44c25370d3",
+    "name": "PAMPERS L- 26PANTS",
+    "mrp": 374,
+    "selling_price": 354,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "62cf45e2-5164-4335-b09f-d7758a1efa60",
+    "name": "ORAL B CAVITY DEFENSE BRUSH",
+    "mrp": 25,
+    "selling_price": 24,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "18714499-b7da-48a8-acdf-756a0969eb7a",
+    "name": "ORAL B NEEM B2G2 TB",
+    "mrp": 150,
+    "selling_price": 150,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "bdf11735-05cc-42ca-88bb-1c4d17619ca2",
+    "name": "ORAL -B KIDS TB 3NOS",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "680eb1f3-2c64-4c6e-8281-ef900b7d7dab",
+    "name": "AMBIPUR CAR AQUA",
+    "mrp": 299,
+    "selling_price": 299,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d4aca507-eb42-4475-8674-a8014a294145",
+    "name": "HEAD & SHOULDER SMOOTH & SILKY-360 ML",
+    "mrp": 275,
+    "selling_price": 270,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a829ab84-8470-4b98-996e-fedc1a8ad85e",
+    "name": "AMBI PUR CAR LAVENDER",
+    "mrp": 199,
+    "selling_price": 199,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d95f3f67-d835-4cae-80c2-23d572a8ecd0",
+    "name": "ELAICHI TOAST 250 G",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "545409d6-9ff7-414e-8339-1ce8fd4666e5",
+    "name": "SOCIETY MASALA TEA 100GM",
+    "mrp": 67,
+    "selling_price": 66,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a4155bc5-40f0-4f24-b18c-edfbc3cfb61d",
+    "name": "HIMALAYA GENTLE BABY SOAP",
+    "mrp": 58,
+    "selling_price": 57,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "09959844-a56c-4b10-b113-c52668ff571e",
+    "name": "YOUVA CRAFT PAPER",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "77233667-59f5-4f57-8e6d-64a603a2934a",
+    "name": "LAYER R SHOT ABSOLUTE SERIES POWER 135 ML",
+    "mrp": 225,
+    "selling_price": 220,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "081eba9f-ed53-4088-8fb7-df4f60a203fb",
+    "name": "LAYER R WOTTAGIRL CLASSIC COLLECTION 195 ML",
+    "mrp": 225,
+    "selling_price": 220,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "266742c0-c0fa-467b-8b80-a9b26d2b7d47",
+    "name": "LAYERR SHOT MAXX",
+    "mrp": 195,
+    "selling_price": 185,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ab8dd0ff-29b0-4192-aca4-5a5b0092690f",
+    "name": "CATBURY CELEBRATUNS K",
+    "mrp": 100,
+    "selling_price": 100,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ec5b83b1-1735-43f4-8c48-8888b0f2a7d0",
+    "name": "DABUR LAL TAIL 110ML",
+    "mrp": 95,
+    "selling_price": 94,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fe2f6066-86a5-4e12-af80-a5c1f4f275b0",
+    "name": "DABUR MESWAK 50GM",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1196dd0c-bde5-451c-b578-ceaf9c902396",
+    "name": "SANTOOR GOLD BUY 3GET 1FREE",
+    "mrp": 180,
+    "selling_price": 170,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "90f24c11-6b99-4920-84c0-d3061948b313",
+    "name": "CHANDRIKA AYURVEDIC SOP 5 GET 1FREE",
+    "mrp": 135,
+    "selling_price": 135,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8d4ee516-9d0c-4375-b5bb-9099c2b36612",
+    "name": "SANTOOR SHOWER GEL S&M 250ML",
+    "mrp": 135,
+    "selling_price": 99,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4443ce5c-d570-40e6-bbec-8b5e79f232c1",
+    "name": "DARK FANTASY BOURBON B1G1F",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5880ab17-b1f5-4b08-9ac2-d40e25c83e1f",
+    "name": "PEDIASURE VANILLA DELIGHT",
+    "mrp": 840,
+    "selling_price": 840,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6da4aa96-aed8-46c4-b71b-981a28668084",
+    "name": "COLGATE PLAX PEPPERMINT",
+    "mrp": 88,
+    "selling_price": 87,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "26e24c62-01a1-474b-a8f6-a859d2c38df5",
+    "name": "SOCIETY DESI GHEE-500ML",
+    "mrp": 270,
+    "selling_price": 265,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ca671807-94b9-48bb-9ba0-274438c35fb7",
+    "name": "SOCIETY DESI GHEE-200ML",
+    "mrp": 110,
+    "selling_price": 110,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ab11107d-5f97-40d8-8283-2b69b348a356",
+    "name": "NIVEA MEN DEEP IMPACT COMFORT",
+    "mrp": 199,
+    "selling_price": 195,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "03049783-e280-43ab-8ca7-1d5e72191bb0",
+    "name": "NIVEA MEN FACE WASH DARK SPOT",
+    "mrp": 190,
+    "selling_price": 180,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "76bc1e3f-70d8-42d3-89f4-e549308c04a9",
+    "name": "VIM WITH LEMON & NEEM",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "97316670-e11b-4f84-90f4-f3d2c1be9a7d",
+    "name": "ACT II CLASSIC SALTED COMBO PACK",
+    "mrp": 60,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3c42d637-f1b5-4083-959a-873638f49796",
+    "name": "TOOTHPICK STEEK",
+    "mrp": 40,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4d731c26-fc00-426c-a98c-33cadd317229",
+    "name": "KACCHI SUPARI 100GM",
+    "mrp": 42,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fe9dd4f9-3ff6-4b6b-bc76-103a156bb9ad",
+    "name": "COLGATE ACTIVE SALT NEEM TOOTHPASTE",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a7c69cdc-02ee-4001-b1a8-25e7e7a254dd",
+    "name": "COLGATE ACTIVE SALT PASTE 100GM",
+    "mrp": 78,
+    "selling_price": 77,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3e1adf75-48fc-4c76-83c0-e33cf5b26e69",
+    "name": "COLGATE ACTIVE SALT PASTE 100+10G",
+    "mrp": 79,
+    "selling_price": 76,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "afa1555e-678c-4a0d-9584-2e4db1b19c3d",
+    "name": "COLGATE BRUSH SUPER FLEXI",
+    "mrp": 18,
+    "selling_price": 18,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "00dc1544-f4ca-4712-af5d-d213cbcb0c9a",
+    "name": "COLGATE CHARCOAL DEEP CLEAN 140GM",
+    "mrp": 112,
+    "selling_price": 112,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "13dc5a9c-f9cb-420a-9cad-f0743dde41d1",
+    "name": "HIMALAYA GREEN TEA LEMON",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e8802b9b-4603-455f-a2d0-1b271b84a30e",
+    "name": "SUHANA KOLHAPURI T.RASSA",
+    "mrp": 25,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4f51e893-bf22-40c3-8aa7-fecc424adef3",
+    "name": "TIDE POWDER JASMINE & ROSE 500G",
+    "mrp": 73,
+    "selling_price": 72,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "23a2b4f1-1c50-4029-be0b-6c0d70155f13",
+    "name": "VASMOL AAMLA POWDER HAIR DYE",
+    "mrp": 72,
+    "selling_price": 71,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "84211e33-3109-4192-b762-fd15da02fa74",
+    "name": "SUPER VASMOL AAMLA POWDER HAIR DYE 6 G",
+    "mrp": 12,
+    "selling_price": 12,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ff514224-a51b-48e6-8937-c13735bab391",
+    "name": "PILANKAR BUTTER CHICKEN MASALA",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3de57941-58bb-4829-94f8-d527e854ce71",
+    "name": "MDM KOLHPURI CHICKEN HANDI MASALA 50G",
+    "mrp": 40,
+    "selling_price": 39,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e56b0637-2f34-4ab8-b8bc-823f86e08255",
+    "name": "PILANKAR METKUT",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ccd4be21-5380-4989-8cfe-b86fe3699b1e",
+    "name": "RAM BANDHU MISAL MASALA",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9cb6ee85-f07e-4fac-9462-adc27a2ef30b",
+    "name": "PILANKAR KITCHEN KING MASALA",
+    "mrp": 40,
+    "selling_price": 39,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "66991221-735c-4d0d-bde9-58e9b82dca20",
+    "name": "DETTOL ORIGINAL LIQUID HANDWASH 95/-",
+    "mrp": 140,
+    "selling_price": 139,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "57d0d855-8715-4571-89ee-53756bec7305",
+    "name": "50-50 SWEET SALTY 80G",
+    "mrp": 9,
+    "selling_price": 9,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3f411046-a3d5-44a3-b460-4cbb9755439a",
+    "name": "DETTOL SENSITIVE PH- HAND WASH",
+    "mrp": 134,
+    "selling_price": 133,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "502c5a9d-e746-4684-a7d0-59feaa77f66b",
+    "name": "CAD. DAIRY MILK SILK FRUIT&NUT 137 G",
+    "mrp": 220,
+    "selling_price": 220,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "537d60c2-059b-4691-a204-b62f79efab2f",
+    "name": "DAIRY MILK CHOCOLATE@100",
+    "mrp": 100,
+    "selling_price": 100,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "604168c7-8fec-4638-8fae-dea334c41844",
+    "name": "CDM SILK ROAST ALMOND",
+    "mrp": 214,
+    "selling_price": 214,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "acf0c9ae-bdb7-4313-812f-0160e0e56a83",
+    "name": "CAD DAIRY MILK SILK BUBBLY",
+    "mrp": 215,
+    "selling_price": 215,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3a2db44c-073e-45f3-a5af-3b9b382948fc",
+    "name": "CAD DAIRY MILK SILK CARAMELLO",
+    "mrp": 160,
+    "selling_price": 159,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "285eb1c5-75f9-4762-a301-88f7cc9de30e",
+    "name": "MORTEIN BUY 2 GET 1 FREE",
+    "mrp": 216,
+    "selling_price": 136,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "17187d4a-917a-4eca-80f2-1710c79b8e44",
+    "name": "SAM . BASKET GULSHAN PINK",
+    "mrp": 440,
+    "selling_price": 380,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "65cb80c6-f80a-488c-9401-ea24240de3b9",
+    "name": "SAM. MUG CHINU GREEN",
+    "mrp": 30,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "385640cf-9ba9-47c9-ab52-1c3a7863438b",
+    "name": "SAM. GHAMELA ORANGE",
+    "mrp": 670,
+    "selling_price": 600,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3d546a7d-5983-4dc2-a930-bd5f312784e0",
+    "name": "SAM . GHAMELA BABY BLUE",
+    "mrp": 670,
+    "selling_price": 600,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "35ffc067-9593-460b-86f0-2ea57f05f79a",
+    "name": "SAM . GHAMELA RIDDHI BLUE",
+    "mrp": 435,
+    "selling_price": 400,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9254e38c-835f-4d78-a278-891edc179670",
+    "name": "NESTLE MUNCH NUTS 35.2 G",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8a732401-50bb-490a-9bc0-7cebdd759592",
+    "name": "CADBURY CELEBRATION",
+    "mrp": 110,
+    "selling_price": 109,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "41c8786b-1c14-4597-b5bb-b8201ad82037",
+    "name": "SUNDROP SNACKO SWEET CORN",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a013fa6a-aee3-49e0-8805-43a772e349c6",
+    "name": "BOURN VITA 1 KG REFILL",
+    "mrp": 500,
+    "selling_price": 495,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f8c3a167-5534-4e78-bc1c-9e53db6a857e",
+    "name": "BOURN VITA LIL CHAMPS 200 G",
+    "mrp": 136,
+    "selling_price": 135,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "50b0a3ca-f7b4-4c9d-99c5-a5aff30f2439",
+    "name": "LUCKY FISH CURRY MIX",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "673580db-1707-46bf-b216-11f632ccc035",
+    "name": "MDM KOLHAPURI MUTTON &CHICKEN FRY MASALA 50 G",
+    "mrp": 40,
+    "selling_price": 39,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "246b540e-e028-4f24-9b67-51b64d10dcf2",
+    "name": "STREAX HAIR SERUM 25 ML",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "836c9d1c-c512-46d9-a2f9-bc28fb3a81de",
+    "name": "BHAGYALAXMI MIX FARSAN",
+    "mrp": 180,
+    "selling_price": 180,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "acb3b6e9-d224-481a-82d0-f44eb6df23da",
+    "name": "NAYLON CHIVADA 200GM",
+    "mrp": 50,
+    "selling_price": 42,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a97603a5-077f-427f-9dd7-a5409a6a07e0",
+    "name": "DESERT CROWN FARD",
+    "mrp": 140,
+    "selling_price": 95,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ad738c79-0394-4424-9c4d-df759bc915f0",
+    "name": "CHITALE KHEER MIX 100GM",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2f6724ce-f984-40b1-9ee7-360e00a50d24",
+    "name": "ORISON WATER 1 LTR",
+    "mrp": 20,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7058dc7f-a0f6-45ae-b628-9808e18ceb86",
+    "name": "BUDHANI BROS POTATO WAFERS 60 G",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "bd2fb955-02b0-45fa-9d73-a0659b0ca1e2",
+    "name": "ATHAVALES POTATO CHIWADA SPICY",
+    "mrp": 100,
+    "selling_price": 100,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a63fbab6-1b92-4c5d-8332-c20cb410c331",
+    "name": "GR BUDHANI BROS WEPARS 30G",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4bf8eb54-18dd-4cb0-8730-5b28ba3ea4e2",
+    "name": "FENA MAHABAR 180 GM",
+    "mrp": 10,
+    "selling_price": 9.5,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a84b02ec-c8ef-47ca-875a-f52afef8a5f9",
+    "name": "PARLE 20-20 COOKIES CASHEW",
+    "mrp": 60,
+    "selling_price": 56,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0b3354e1-e70d-4769-8e17-238bb3a0c5fc",
+    "name": "COLGATE GENTLE SENSITIVETB",
+    "mrp": 65,
+    "selling_price": 64,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5b0c38d7-6677-41c4-a302-c764d9c7bb94",
+    "name": "MAMAEARTH LEMON ANTI-DANDRUFF SHAMPOO",
+    "mrp": 349,
+    "selling_price": 348,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3cc559c6-0a69-43ff-8a79-2f3c1b978899",
+    "name": "HUGGIES WONDER PANTS 7-12 KG",
+    "mrp": 60,
+    "selling_price": 55,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3b988ab0-4058-49e7-8112-88e366fc5f2f",
+    "name": "NACHANI BISCUITS",
+    "mrp": 120,
+    "selling_price": 100,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4d9741b5-c817-4d95-b60d-30a0b55d46e7",
+    "name": "TANDUL PAPAD-200GM",
+    "mrp": 35,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7681b3c3-6461-46f5-b225-d2dd33d99e21",
+    "name": "ANAPURNA POHA PAPAD",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3fda9722-48d9-48b0-b08f-59939de51ca6",
+    "name": "YARDLEY ENGLISH ROSE SOAP-100GM",
+    "mrp": 72,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "cc791006-0cac-4c95-b182-d6a97c906c89",
+    "name": "YARDLEY ELEGANCE TALC-100GM",
+    "mrp": 110,
+    "selling_price": 109,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a126354c-88a1-4754-b726-c793b12f0588",
+    "name": "CELLO GOLD XL GEL PEN",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a1852dba-be4b-4fb2-9de4-f7cdefeeee7d",
+    "name": "CELLO X CALIBER PEN",
+    "mrp": 25,
+    "selling_price": 24,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "dd24b063-3ed6-4a1f-a41b-57f0ebe1c019",
+    "name": "CELLO BUTTERFLOW CLIC",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "979fa2dc-0cc0-4853-944d-b749d33bb889",
+    "name": "CELLO POINTEC GEL PEN",
+    "mrp": 25,
+    "selling_price": 24,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7e4c21b5-fb53-4702-9c28-e471c2c721ab",
+    "name": "CELLO TRISTAR ROLLER TANK PEN",
+    "mrp": 40,
+    "selling_price": 39,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "898bd3d4-a073-4359-ae6e-62b18f20286d",
+    "name": "CELLO PINPOINT XS",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "690f1a47-a183-4b86-9e5c-eadf4e99da4f",
+    "name": "CELLO TOPBALL CLICK",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "09694309-5cbb-428d-9b27-3f23e72a89ad",
+    "name": "CELLO POCKET BALLPOINT PEN",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b88f37bb-fc5b-49c7-af7d-a9334212d409",
+    "name": "CELLO MECHANICAL PENCIL 2 LEADS",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ad0c4c5f-ab05-4883-ba0d-29062cbdc630",
+    "name": "CELLO SUPREME 0.7MM",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8b46d7c0-8b99-47a3-b188-4bbd3d5b9ea1",
+    "name": "UNOMAX MECH. PENCILS",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8eae4b3a-ba09-4117-a9b7-01f6bc3c171a",
+    "name": "CELLO AIR TIGHT PET",
+    "mrp": 66,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4ef8e7e6-65af-47fe-8f8b-f18eb1f83733",
+    "name": "GEMINI RICE BRAN OIL 1LTR",
+    "mrp": 180,
+    "selling_price": 170,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f48b00b2-6b6e-4994-aa84-62b7a34f4689",
+    "name": "NAKSHTRA GUL 1KG",
+    "mrp": 90,
+    "selling_price": 65,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b2e39ea3-f888-4f93-8378-5a500b43e1bd",
+    "name": "AROMA LAVENDER AIR FRESHENER",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "44849f1c-eb43-4178-a6cd-5ad963b1c5e2",
+    "name": "AROMA ROSE AIR FRESHENER",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b0f37dc4-cf75-49c3-bcee-b4bc1de0ceb9",
+    "name": "PARLE CLASSIC BISCUITS 250G",
+    "mrp": 25,
+    "selling_price": 24,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "66b08bbf-5ca4-4a04-9dbd-e74b67d1f000",
+    "name": "OZONE SUPREME SANDAL 1L",
+    "mrp": 92,
+    "selling_price": 82,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d58a915c-21c3-490f-a594-ff25627ba6c3",
+    "name": "WHITE PALACE AATA-5KG",
+    "mrp": 250,
+    "selling_price": 180,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e8705434-15cb-46c9-ae46-a313e874459c",
+    "name": "SPOTZERO COMFORT SCRUB",
+    "mrp": 150,
+    "selling_price": 140,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b4cb2f99-0047-4204-9218-625df36f39d6",
+    "name": "PARLE MARIE MULTI VITA",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6a24eafd-161b-4726-a698-0df43f1c4c19",
+    "name": "RED LABLE 500GM",
+    "mrp": 285,
+    "selling_price": 280,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1bc72be8-8f90-40f6-86eb-559da96445a4",
+    "name": "WILD STONE LEATHER DEO",
+    "mrp": 225,
+    "selling_price": 215,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7ef80450-2414-4404-a4d0-97407b11bec4",
+    "name": "DAIRY MILK MOCHA ALMOND 36G",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4145aa91-7ee6-45c3-b5d2-f8bb8cd8e6cf",
+    "name": "COLGATE SUPER FLEXI CHAR BRUSH",
+    "mrp": 25,
+    "selling_price": 24,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2d346e0c-6693-4934-ab1b-c243dc6465f6",
+    "name": "COLGATE SUPER FLEXI BRUSH",
+    "mrp": 40,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "39ad6c5d-f076-4b54-b296-a55d86ed71a4",
+    "name": "COLGATE SUPER JUNIOR TB",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0d762524-9059-4a4f-809f-372e0848abe1",
+    "name": "COLGATE SUPER JUNIOR BRUSH",
+    "mrp": 13,
+    "selling_price": 13,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "91bdc0fc-aecf-402b-b80c-46747e5ac303",
+    "name": "COLGATE SUPER MOTU PATLU BRUSH",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "34f1e4c3-9ea1-4c8a-85e0-257622c59f2b",
+    "name": "COLGATE SUPER RAKSHAK TOOTHPOWDER 200GM",
+    "mrp": 140,
+    "selling_price": 137,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "057ffc89-ef39-4732-9e1e-38afeb419681",
+    "name": "COLGATE SUPER SHINE BRUSH",
+    "mrp": 85,
+    "selling_price": 22,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c02d456d-6a0b-421b-afd3-349784865d2d",
+    "name": "OMS FRYMAS PAPAD",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5bbc3669-848e-4db6-8baa-c9ab3df65c2c",
+    "name": "OM SPE, PAPAD 200GM",
+    "mrp": 35,
+    "selling_price": 35,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "680da3dd-101e-4bf5-b926-68877296f0b8",
+    "name": "VEEBA MAYONNAISE GARLIC",
+    "mrp": 105,
+    "selling_price": 104,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8638c5bf-a54a-4324-88eb-5166eb6e28a9",
+    "name": "OM SPE. KAIRI GOLI",
+    "mrp": 25,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "12efe15a-a37a-40da-8074-d71bcb4a357b",
+    "name": "NUTRITIUS SUKHA MEWA",
+    "mrp": 80,
+    "selling_price": 80,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "764a4656-d2b9-4d6a-be4b-658a10da36c1",
+    "name": "VIM SCRUBER",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "661b6238-fb26-4e6f-8c56-3694fd661cb8",
+    "name": "RANGOLI COLOR MIX",
+    "mrp": 70,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ddaddc03-6283-472d-94bb-4c4696f52467",
+    "name": "GOVIND BUTTER COW MILK 100 G",
+    "mrp": 48,
+    "selling_price": 48,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3f9436b4-47e2-4f0d-bd3b-7d02230ca745",
+    "name": "GALA BRUSHTILE HARD",
+    "mrp": 99,
+    "selling_price": 97,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4154a9aa-2246-43a5-882d-3d33be3db492",
+    "name": "GALA CLOTHEY",
+    "mrp": 79,
+    "selling_price": 78,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "58639a28-a8ab-4bbe-95ad-0f22a268b57c",
+    "name": "GALA KINGKONG BROOM",
+    "mrp": 220,
+    "selling_price": 200,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "11d90710-12d1-4423-a743-0206f97a170a",
+    "name": "WHEELS-200GM",
+    "mrp": 30,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0acc78b3-a131-45e4-8694-9dd679ffd102",
+    "name": "APSARA STRIPES ERESER",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6f825efd-15aa-4f7c-adeb-adbc76f026c7",
+    "name": "PEARS BUY 3 GET 1 FREE",
+    "mrp": 105,
+    "selling_price": 100,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6635c8d1-068e-4319-8bb8-e585e08f1658",
+    "name": "LIFEBUOY CARE ACTIV SILVER SOAP 125 G",
+    "mrp": 28,
+    "selling_price": 27,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e0dbbb9b-3bf5-4c94-ba1a-c7aab4cd27c2",
+    "name": "RUSHI LITE COCONAT OIL 1 L",
+    "mrp": 200,
+    "selling_price": 200,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0ff9a031-1d00-4ac2-86d7-43f08bbf7798",
+    "name": "HARI DARSHAN GULAB DHOOP",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "338d9ab7-1796-4022-adce-12742dabb602",
+    "name": "OK FINE CAMPHOR",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7f08a0bd-01b3-480f-9cee-fb2750ff84aa",
+    "name": "POOJA KHAPUS",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c662a436-86a3-4f12-9520-03b9d48e00ab",
+    "name": "OK FINE CAMPHOR 150 TAB",
+    "mrp": 75,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "844b1878-561c-495d-9175-fbee418219e6",
+    "name": "HIMALAYA NOURISHING BABY SOAP 100G",
+    "mrp": 58,
+    "selling_price": 57,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a5103019-2702-46f5-bcc1-3942bdf03f29",
+    "name": "EVEREST SPECIAL KANDA LASUN MASALA500G",
+    "mrp": 105,
+    "selling_price": 100,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "62ed45aa-9f77-481e-9ed3-f808ee88eb3a",
+    "name": "COLGATE MAX FRESH TOOTHPASTE",
+    "mrp": 51,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c1cac4e4-b718-44fc-b107-7124800bab2e",
+    "name": "ZABEEL PREMIUM BUMAAN-500GM",
+    "mrp": 120,
+    "selling_price": 90,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9636e682-e8f2-449f-9bd0-7a961bdfd83b",
+    "name": "MUSTARD OIL-1L",
+    "mrp": 235,
+    "selling_price": 195,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e91125f0-d60e-4095-be3c-9ef97531d34b",
+    "name": "PANPASAND GOLI 100 GM",
+    "mrp": 25,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "40cfb6ff-ca66-4891-af82-f88be8adec5e",
+    "name": "PAINAAPPLE GOLI 100 GM",
+    "mrp": 20,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d3e83b1f-3456-4905-a64d-54a336e0af45",
+    "name": "KARANJI SATHA 100 GM",
+    "mrp": 20,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "eba39ee5-41c6-4096-8f6e-e67437d1a6ca",
+    "name": "KARANJI SATHA 200 GM",
+    "mrp": 30,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "563a4403-8415-477a-9877-fcfd26df0173",
+    "name": "YOGA BAR MULTIGRAIN",
+    "mrp": 40,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4e10f27a-0114-4d10-b3c8-a124f9aa48ae",
+    "name": "AXE SIG NATURE INTENSE BODY PERFUME 100G",
+    "mrp": 220,
+    "selling_price": 210,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fb56981c-bcf2-4f4f-855a-262b35458799",
+    "name": "AXE SIG NATURE ROGUE BODY PERFUME 100G",
+    "mrp": 190,
+    "selling_price": 185,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4fd01cf4-9a75-4a11-a817-3a020ca74368",
+    "name": "LIFEBUOY PROTECTION HANDWASH 375 ML",
+    "mrp": 82,
+    "selling_price": 80,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7feff55b-b641-41d3-9d37-505ae95b0534",
+    "name": "TRESEMME NEW HAIR FALL DEFFNSE SHAMPOO",
+    "mrp": 63,
+    "selling_price": 62,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "31174504-50f8-4fec-bc94-88af73c14009",
+    "name": "MAMA EARTH ONION CONDITIONER 250ML",
+    "mrp": 349,
+    "selling_price": 345,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "10edf5ad-5c69-4dfa-8d35-98f45d57b464",
+    "name": "DETTOL ORI. 125GM*3 SOAP",
+    "mrp": 180,
+    "selling_price": 178,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1506574f-d568-4337-a2bc-d16272b0151a",
+    "name": "HARPIC STAIN REMOVAL 1000 ML",
+    "mrp": 156,
+    "selling_price": 151,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "62e8b475-ee79-4c7c-9cf5-4fd65f6dfad2",
+    "name": "LIFEBUOY ACTIVE SILVER",
+    "mrp": 68,
+    "selling_price": 67,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c6a8ec33-2358-471a-8e75-6c8b4ed9e445",
+    "name": "DABUR CHYAWANPRASH - 1KG",
+    "mrp": 430,
+    "selling_price": 428,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ce445266-1c40-4d2f-8c50-3dd9b51ad089",
+    "name": "DABUR ODOMOS-8ML",
+    "mrp": 75,
+    "selling_price": 74,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "08ae6a62-103f-4b47-9cac-0e2b76f24ff0",
+    "name": "SUN BOUNCE CHOCO VANILLA 120 G",
+    "mrp": 20,
+    "selling_price": 19.5,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0bb96cbd-28a7-46f2-aac5-5bac7de3a46c",
+    "name": "SAVLON HANDWASH 175ML",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "96042110-52c9-4f51-ba2f-dcd84217db6e",
+    "name": "SAVLON SOAP",
+    "mrp": 35,
+    "selling_price": 34,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6379e96d-73d1-4291-8316-0e7859705af3",
+    "name": "DETTOL ANTISEPTIC LIQUID 1 L",
+    "mrp": 441,
+    "selling_price": 440,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a9f0d6fa-0acd-4059-82d6-ebfc1954c112",
+    "name": "WONDERFULLS COOKIES",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "961ce297-1155-4454-9054-f43e2884c161",
+    "name": "DETTOL SKINCARE EVERYDAY PRO. HANDWASH",
+    "mrp": 134,
+    "selling_price": 133,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "facdf588-c43a-4aee-800c-0d2eb9a54c2a",
+    "name": "GOOD DAY ALPHA 1100",
+    "mrp": 399,
+    "selling_price": 359,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b9df8125-fbe1-4e60-951e-969cf7345a73",
+    "name": "ZED BLACK PINEAPPLE AGARBATTI",
+    "mrp": 70,
+    "selling_price": 68,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "08590485-84ce-43a8-8710-1fbfbb74a005",
+    "name": "HEAD & SHOULDERS SHAMPOO + CONDITIONER",
+    "mrp": 145,
+    "selling_price": 145,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "46b1c8dd-94e2-4495-8dec-dc49c35744c1",
+    "name": "PRO-EASY ULTRA XL+",
+    "mrp": 45,
+    "selling_price": 44,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b72cf1e0-4058-4a39-a77f-aaec2ae604de",
+    "name": "VICKS VAPORUB PACK 50 ML",
+    "mrp": 125,
+    "selling_price": 125,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ad817110-99a2-4f29-89ca-348f7837642a",
+    "name": "GILLETTE GUARD 6",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6012708a-0249-4d63-9811-b43a8421d659",
+    "name": "GILLETTE GUARD 1 - -",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f23be98b-1bbe-4807-9f54-34ec96de20ad",
+    "name": "VED AGARBATTI",
+    "mrp": 80,
+    "selling_price": 80,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8f761953-c5d5-4cdc-8826-da561e68446e",
+    "name": "PARAMGURU AGARBATTI",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d7d06f9a-1e99-42b8-adea-02bc456b4a3f",
+    "name": "KEWDA INCENSE STICKS",
+    "mrp": 63,
+    "selling_price": 62,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "79b9be53-19d0-48e0-8656-ee62fb0c3005",
+    "name": "SON - CHAFA AGARBATTI",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f670f4f3-1546-4fe9-b495-a184e752555f",
+    "name": "SLEEPWELL MOSQUITO AGARBATTI",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "11c4a88f-4aeb-47ca-9a83-27e812a12503",
+    "name": "LAYS CHILE LIMON",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "daa1d615-5798-4519-bf7f-26b2409bccce",
+    "name": "PRAKASH KOL. CHICKEN RASSA",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5f3b24da-195f-4daf-a1cf-6f3aae74019b",
+    "name": "PRAKASH KOL. CHICKEN SUKKA MASALA",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "76e1a55e-f1f3-4b97-83ea-a8bbc50aeccd",
+    "name": "GOVIND GULAB JAMUN MIX 1KG",
+    "mrp": 260,
+    "selling_price": 255,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4ad69518-8465-4b2b-be67-3838bedf419e",
+    "name": "HAMAM SOAP PURE NEEM OIL",
+    "mrp": 45,
+    "selling_price": 44,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e372edd8-60c4-4600-97a1-7653f1cf4c2d",
+    "name": "GILLETTE VECTOR3 FAST SHEV",
+    "mrp": 249,
+    "selling_price": 247,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "78e4e3ca-511c-4049-8802-72f6bdc97fcf",
+    "name": "YOUVA NOT BOOK",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "12f2c71e-a6e1-40c3-be7f-4485509c4e7f",
+    "name": "PARLE- G GOLD 500GM",
+    "mrp": 70,
+    "selling_price": 68,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9289e470-58e3-47dd-995d-78081285d241",
+    "name": "COOKWELL DRY YEAST",
+    "mrp": 49,
+    "selling_price": 48,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7c475bb6-645e-4096-a483-2287576065c8",
+    "name": "COOKWELL ESSENCE",
+    "mrp": 42,
+    "selling_price": 42,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0b3769d3-bbc4-4b2e-a743-13b45178b5b6",
+    "name": "COOKWELL FALOODA MIX KESAR FLAVOUR 200GM",
+    "mrp": 76,
+    "selling_price": 76,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "077d3095-6355-4335-bb26-2303b70143bd",
+    "name": "COOKWELL FALOODA MIX ROSE FLAVOUR 100GM",
+    "mrp": 48,
+    "selling_price": 47,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "31a14467-228e-4b99-96c3-ec93e694658e",
+    "name": "COOKWELL G.M.S.",
+    "mrp": 40,
+    "selling_price": 39,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "720c8504-4752-4bff-9114-3e41f427255d",
+    "name": "COOKWELL NOODLES MASALA",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9966ceeb-031f-4f70-b82d-47894339647b",
+    "name": "DABUR RED SUPER SEVER PACK",
+    "mrp": 169,
+    "selling_price": 168,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ef21b351-49fb-4ce3-8ab1-f73d6678e742",
+    "name": "COOKWELL ZANZANIT MISAL/UASAL MASALA",
+    "mrp": 25,
+    "selling_price": 24,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2fe84a15-3178-4af6-b9f0-4645a2e17fb5",
+    "name": "COOKWELL JELLY STRAWBERRY FLAVOUR 100GM",
+    "mrp": 88,
+    "selling_price": 87,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2b0f1e66-102c-4f92-8fd0-94a30feb1f4c",
+    "name": "COOKWELL JELLY ORANGE FLAVOUR 100GM",
+    "mrp": 68,
+    "selling_price": 67,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1a8bd930-4976-4fa0-a791-dfb5bc478ee0",
+    "name": "HIMALAYA NEEM FACE PACK",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "bcfb6a28-868e-4752-9a01-5e35bc8dbc77",
+    "name": "COOKWELL KESAR PISTA ICE CREAM MIX",
+    "mrp": 48,
+    "selling_price": 47,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e52e5fc2-ca5a-4f31-b584-ecfa0b979837",
+    "name": "LAHYA BATTASE",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "472cf98f-23ac-42a0-97a6-e7e83c088633",
+    "name": "MOMS MAKHANA BBQ",
+    "mrp": 13,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "742ef71d-8734-4895-aa4d-62703c6f7aa6",
+    "name": "YOUVA EXAM BOARD",
+    "mrp": 100,
+    "selling_price": 90,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f448bcbd-147b-4969-8342-476360ba9079",
+    "name": "TULIPS FACIAL TISSUES",
+    "mrp": 75,
+    "selling_price": 65,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "27271c97-960a-48f8-af56-fc1576c01d99",
+    "name": "SAMBRANI AGARBATTI",
+    "mrp": 80,
+    "selling_price": 80,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "33a164f3-6026-436c-b022-0acee00ee94d",
+    "name": "LIFEBUOY CARE ACTIVE SILVER",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ba859948-295a-47fe-bce7-f49c0d7c513b",
+    "name": "CADBURY GEMS-10/-",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0bd4a1de-1f50-420c-a056-2de6cc6d53f0",
+    "name": "NUTRITIUS CRUNCHY PEANUT CHIKKI",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c1c3ddf1-8eab-40f8-9670-90ba131c93e0",
+    "name": "MAGGI TOMATO KETCHUP 970GM",
+    "mrp": 160,
+    "selling_price": 159,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "755694dc-865a-4fcd-8f0c-bfc7594899a2",
+    "name": "S, J, FRIED ONION",
+    "mrp": 35,
+    "selling_price": 35,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e0db25c2-57bb-4dde-9962-f31e5c3e8e48",
+    "name": "PITAMBARI DRAIN CLEANER",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "282eaf83-9ef4-4618-9ef7-7b9fab2d471c",
+    "name": "WAGH BAKRI",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9e0cd482-d64a-46a2-bc7c-42d702571298",
+    "name": "NESTLE EVERY DAY 400GM",
+    "mrp": 255,
+    "selling_price": 253,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9526ac7b-2957-4a00-bdca-e13619798faf",
+    "name": "BARONE NOW BIGGER",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "10dd42ad-81f7-4a5a-874f-7ccdc2f99bc8",
+    "name": "MUNCH MAHA CRUNCH ILICIOUS",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c12f616b-167e-4a50-9c7a-0134e2a63e95",
+    "name": "PURE CAMPHOR 250G",
+    "mrp": 450,
+    "selling_price": 375,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "df96db41-64a0-431d-92b7-d30db175cffe",
+    "name": "PURE CAMPHOR 40GM",
+    "mrp": 100,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2ffbca9f-2bd5-4cfb-a399-adadfa4a82e5",
+    "name": "PURE CAMPHOR 20 GM",
+    "mrp": 60,
+    "selling_price": 35,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "83696641-4526-406a-ba5f-69561cdb366f",
+    "name": "MAGGI MASALA OATS NOODLES",
+    "mrp": 118,
+    "selling_price": 117,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "efcb5c92-1502-4621-abe9-77e8c5bf856f",
+    "name": "KALYAN MISAL TARRI",
+    "mrp": 130,
+    "selling_price": 130,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1d5a0dbb-aac6-45dd-8bfd-81b8f1c4a3d9",
+    "name": "BEDEKAR LIME PIKLE",
+    "mrp": 75,
+    "selling_price": 74,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "381b4307-e921-4b37-9238-e6ef70fb182c",
+    "name": "TIDE 8KG",
+    "mrp": 989,
+    "selling_price": 969,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "23c04f9a-f189-443a-9a24-74b4feca4e23",
+    "name": "TIDE 5KG",
+    "mrp": 725,
+    "selling_price": 720,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1dd0c79d-bfd9-46b1-9359-c0a09bc006fa",
+    "name": "HEAD&SHOULDERS BASIC SMOOTH",
+    "mrp": 32,
+    "selling_price": 32,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c90d45a1-254e-4175-a6cd-47922177132a",
+    "name": "MAGGI SPEAAL MASALA",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "764a91c1-cc04-4677-8fb3-e41cf23f0ce2",
+    "name": "PRO - EASE GO XL",
+    "mrp": 65,
+    "selling_price": 64,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5bfea0df-3150-4fa9-8a90-a88cd16750bc",
+    "name": "DABUR COOL KING HAIR OIL187ML",
+    "mrp": 140,
+    "selling_price": 135,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "cd1dfc1a-088c-42ed-b352-8755279b50fc",
+    "name": "DABUR HONEY 300GM",
+    "mrp": 125,
+    "selling_price": 124,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1d5c462e-578d-4e58-8547-7a8ef99a3344",
+    "name": "MESWAK FAMILY PACK",
+    "mrp": 213,
+    "selling_price": 212,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "71e5928a-7554-4ecb-a10b-705ddc149738",
+    "name": "SENSODYNE DEEP CLEAN",
+    "mrp": 95,
+    "selling_price": 94,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "336a411b-94a8-402a-b790-b8ed049cd004",
+    "name": "APIS HONEY 100GM",
+    "mrp": 60,
+    "selling_price": 59,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "65a6b654-53b2-43ec-8eab-d27ef6078cd2",
+    "name": "CLINIC PLUS+ STRONG &THICK",
+    "mrp": 45,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "707690ae-6151-4d32-8f37-e7d04d9e19c1",
+    "name": "VASELINE SKIN PROTECTING JELLY 100 ML",
+    "mrp": 120,
+    "selling_price": 119,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f30ae655-489b-45d6-bd9d-49d8b692de4a",
+    "name": "VASELINE PJ ORIGINAL 20G",
+    "mrp": 54,
+    "selling_price": 53,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2c65c155-407b-4480-9960-792dc6ea2423",
+    "name": "NEW DOVE DALIY SHINE SHAMPOO 80ML",
+    "mrp": 72,
+    "selling_price": 71,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8bb3e95a-0d05-4ec4-8bf9-710382526c31",
+    "name": "INTENSIVE CARE 40ML",
+    "mrp": 49,
+    "selling_price": 48,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "db2a13f9-c204-411e-9d3b-df8de7733dcb",
+    "name": "CADBURY RUM & RAISIN 50% DARK",
+    "mrp": 134,
+    "selling_price": 134,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3a6e561d-1e19-4533-868c-dd8048438bd0",
+    "name": "OREO BISCUITS JUMBO PACK ORI.",
+    "mrp": 159,
+    "selling_price": 110,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "187201f6-a9c7-4800-9708-a1949e8a6dbe",
+    "name": "FIAMA GEL BAR B&B",
+    "mrp": 35,
+    "selling_price": 34,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e3fee96a-344b-491e-9adf-9023df2a5fb1",
+    "name": "DAIRY MILK CRISPELLO",
+    "mrp": 40,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b516b890-80d5-443e-8748-2ab133d8cdad",
+    "name": "BUDHANI POTATO WAFERS",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "176e52ba-2e17-4e42-aad7-f00fe1ad9650",
+    "name": "VIGO POPULAR DUSTPAN",
+    "mrp": 40,
+    "selling_price": 35,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "42d3dcbe-260b-4cd7-89f7-f61fc784d2f3",
+    "name": "VIGO HOCKEY BRUSH",
+    "mrp": 95,
+    "selling_price": 80,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2fc4e78e-5a1a-4530-9566-ad6b0caa8b72",
+    "name": "NIHAR SHANTI OIL-190ML",
+    "mrp": 79,
+    "selling_price": 78,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fb92e111-19b0-4c9c-aa67-790b1f87fb11",
+    "name": "GODREJ SANDAL TURMERIC SOAP",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7cf9d846-20ff-4104-a3a2-efd3919692d2",
+    "name": "CITRIC ACID-50GM",
+    "mrp": 20,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2a5f6272-128c-473c-a06d-0cebe163f3aa",
+    "name": "PRIYA GOLD BUTTER BITE",
+    "mrp": 165,
+    "selling_price": 85,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8ee4b481-d5f0-43eb-b91c-ea3505170426",
+    "name": "PRIYAGOLD BUTTER BITE COOKIES",
+    "mrp": 150,
+    "selling_price": 130,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6eb62209-4d2b-4732-a2e8-88e876e21c0d",
+    "name": "SUNFEAST ORANGE CREAME 78 GM",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a952a317-7a0f-4e11-86b4-a46f3889ded4",
+    "name": "MAX PROTEIN PERI PERI SNACK",
+    "mrp": 45,
+    "selling_price": 44,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "34416056-55f0-442c-83d9-d5c752c37a2f",
+    "name": "TOO YUMMI ROASTED GARLIC",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "afa25e0b-9ab5-4b18-b160-a0338e184997",
+    "name": "CLEAN MATE",
+    "mrp": 27,
+    "selling_price": 27,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1a5a3af3-01c9-47e9-ba41-c9a9b27f1a09",
+    "name": "OYA WAFER STICK",
+    "mrp": 160,
+    "selling_price": 160,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0b692dd4-f052-4277-84d9-d647c1b68d17",
+    "name": "HIDE & SEEK CASHEW BUTTER",
+    "mrp": 25,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ffe77d91-bcf6-48f5-8ed6-b3feddde7c89",
+    "name": "GARNIER MASK SAKURA GLOW",
+    "mrp": 99,
+    "selling_price": 98,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "206b107a-6b80-48b9-ba1c-0759ee250679",
+    "name": "LOREAL PARIS COLOUR PROTECT-360ML",
+    "mrp": 282,
+    "selling_price": 280,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0786b7d1-2594-4c76-b140-6271cefe8cb4",
+    "name": "LEVER AYUSH SAFRON SOAP-100GM",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8ae12a0d-f468-4ba3-b7b1-b44af532a93a",
+    "name": "VIM GEL-200ML",
+    "mrp": 25,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "500382ee-132b-4798-b80a-d8e7c508912f",
+    "name": "HIMALAYA GREEN TEA CLASSIC",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "51cdc937-53ec-4f91-87e2-6dad9a30d046",
+    "name": "SAMRUDDHI AGARBATTI",
+    "mrp": 65,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f51bea50-c814-4f98-a342-2f5de6726e10",
+    "name": "SON-CHAFA AGARBATTI",
+    "mrp": 65,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "aaf1e8e6-8480-4d6d-b616-ed6e5449f6c1",
+    "name": "ASHIRWAD AATA 10KG",
+    "mrp": 487,
+    "selling_price": 480,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1b5e825c-c910-41bf-8d73-1b49d925ddb8",
+    "name": "LAZEEZ MEAT MASALA MIX",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a81573a4-679b-4bc9-80da-0f9785903b6c",
+    "name": "RIN SOAP 150G +25 G",
+    "mrp": 10,
+    "selling_price": 9,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "75894b50-9e91-460f-9c40-d32be26c4a71",
+    "name": "PARK AVENUE EPIC",
+    "mrp": 225,
+    "selling_price": 215,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3cf7eaf2-3254-4703-aff0-aeb019581592",
+    "name": "PARK AVENUE CLASSIC SHAVING CREAM",
+    "mrp": 75,
+    "selling_price": 74,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4ac8ebc6-d8a7-4e4e-a20f-70c914312e4c",
+    "name": "OREO STRAWBERRY",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ee919f41-e373-4957-9c41-78393a19b11a",
+    "name": "PERK DOU BLE",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "972e184c-08fd-48ca-9d9c-7f58a3c7ae3c",
+    "name": "OREO CHOCO CREME",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "be053a59-03b0-4d9e-abe8-3f04a536d96a",
+    "name": "CAD DAIRY MILK CHOCOLATE@40",
+    "mrp": 40,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "de24d03a-e941-4901-ae54-e79e5e2a79a0",
+    "name": "FUSE CATBURY",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "143348ae-fd8f-49ab-afb2-93a46297f42e",
+    "name": "FALERO CHOCOLATE @50",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0f53dcd9-bf76-4fea-a38f-d613f3ce46e3",
+    "name": "DAIRY MILK FRUT &NUT",
+    "mrp": 90,
+    "selling_price": 90,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "43b82380-54c9-46d5-9fd9-d39f03dc6c7a",
+    "name": "PARK AVENUE SOAP LUXURY",
+    "mrp": 40,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "22691187-3775-44ed-a05a-34749cb32a0c",
+    "name": "DOVE HAIR FALL RECUE CONDITIONER",
+    "mrp": 285,
+    "selling_price": 280,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "43ca15dc-7589-478d-96ec-6a2a9f9fd259",
+    "name": "DOVE DRYNESS CARE",
+    "mrp": 60,
+    "selling_price": 59,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6146eecc-ccbc-4f45-b504-d5b9a1ac16c0",
+    "name": "LAKME CC CREAM",
+    "mrp": 99,
+    "selling_price": 98,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "192fad77-da48-4cb5-924c-d09101fd3585",
+    "name": "BOURN VITA 70GM@30",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "afe71f35-8509-4f68-81fd-f2df0ff0ffa3",
+    "name": "ROYAL BUTTER COOKIES",
+    "mrp": 40,
+    "selling_price": 38,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c5ad9269-01f7-4048-84cc-ef6de29abfe2",
+    "name": "HQ LEGALLY NOTEBOOK",
+    "mrp": 75,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4b6f8f27-865a-4f68-8df0-8f9c791126f7",
+    "name": "NJOY NATURAL WALNUTS-250GM",
+    "mrp": 435,
+    "selling_price": 235,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f536888d-3a2e-4432-b649-8517ffae4778",
+    "name": "LITTLE ACTIVITY BOOK",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "efeb5ddc-056f-4778-b84c-ea4f962734b8",
+    "name": "BLACK MAGNET AGARBATTI",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "05490031-1ef8-4b6f-be9b-cb603ff69c79",
+    "name": "KARACHI S MILLET ALMOND COOKIES",
+    "mrp": 340,
+    "selling_price": 340,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fc21a2a9-9804-44d5-bad5-276318026435",
+    "name": "STRAWBERRY AGARBATTI",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0a220572-b15c-42c0-bae0-34db94b3e038",
+    "name": "ENVY SPRAY VICTORIA",
+    "mrp": 220,
+    "selling_price": 210,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "831480bd-75f6-404a-8d48-7bb4175d7002",
+    "name": "AIR WICK ROSE & SAFFRON AIR FRESHER",
+    "mrp": 138,
+    "selling_price": 137,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "bf9ba40f-768e-4767-b9de-f3ea9876478a",
+    "name": "RAM BHANDHU HING",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9ab598a6-3d2a-4fe1-a887-f01987735ba5",
+    "name": "HR SOYA STICKS 50 G",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "35ca8b92-8822-4fd1-bb88-76691558ad6d",
+    "name": "YIPPEE MAGIC MASALA-360GM",
+    "mrp": 68,
+    "selling_price": 67,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2056bd58-63ba-4223-9475-54acb7174c72",
+    "name": "PATANJALI COWS GHEE200ML",
+    "mrp": 178,
+    "selling_price": 177,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "164a5509-4297-40ea-b543-f81eb7abe1ff",
+    "name": "ATHAVALE POTATO CHIWDA SWEET",
+    "mrp": 100,
+    "selling_price": 100,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "18946ada-9aab-4c97-bdf9-7a88b7dba281",
+    "name": "BRICK GOLI 100 GM",
+    "mrp": 16,
+    "selling_price": 12,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9ae47a31-4b0a-45bb-b0d2-766df67ae2e8",
+    "name": "ACTII POPCORN THEATER PACK",
+    "mrp": 35,
+    "selling_price": 34,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a878654c-d9c2-441d-ae94-f8d44a787aa3",
+    "name": "GOODDAY HARMONY 120GM",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "75effcad-65b5-452a-a1a1-073f06ec0888",
+    "name": "WHISPER ULTRA SOFT XL+45P",
+    "mrp": 440,
+    "selling_price": 440,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5b4a8b72-63d4-4ccc-9240-029aa95978d6",
+    "name": "WHISPER SOFT NIGHT@99",
+    "mrp": 110,
+    "selling_price": 109,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "85ee76e5-7dae-4176-a79f-cfa8eac94d72",
+    "name": "DOUX TISSUE PAPER",
+    "mrp": 60,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e663dd00-8e70-4c4a-acfc-82da69364a39",
+    "name": "NESTLE EVERY DAY 200 G",
+    "mrp": 129,
+    "selling_price": 128,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "82f43a03-28c8-40df-9572-04a0df79c8e1",
+    "name": "NESTLE MILKYBAR MOOSHA",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b7c3f83d-fcb0-4965-af5e-fd6fd7b1097f",
+    "name": "NESTLE MILKYBAR YUMMIER",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "11ca8175-46b8-4aa1-90e6-57d4cb03d997",
+    "name": "SURF EXCEL EASY WASH LIQUID 1 L",
+    "mrp": 205,
+    "selling_price": 203,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ad070185-f690-449f-b611-98bf7c66d15b",
+    "name": "OM BRAND TEA MASALA",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e713019a-adde-4313-9204-909f88eea439",
+    "name": "PAMOERS PANTS@229",
+    "mrp": 229,
+    "selling_price": 224,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "202ae15d-f383-41ce-9c8b-8cc782b5a694",
+    "name": "PAMPERS L-22P",
+    "mrp": 299,
+    "selling_price": 297,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b3bd0cdf-571b-4f04-9039-484a74f3b11a",
+    "name": "PAMPERS PANTS",
+    "mrp": 140,
+    "selling_price": 138,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8cd8f5c6-2d52-4b32-981c-6046b97f98ac",
+    "name": "ORAL-B",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "afed4d60-415f-457c-83cc-01523983ce9a",
+    "name": "ORAL-B SENSITIVE",
+    "mrp": 78,
+    "selling_price": 77,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3583234a-ee9d-4566-83fc-34d1943b88a3",
+    "name": "AMBI PUR LAVENDER BOUQUET @299/-",
+    "mrp": 299,
+    "selling_price": 295,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "68faf78d-07a2-4767-bdea-a9fc2723e1ee",
+    "name": "AMBIPUR ROSE & BLOSSOM",
+    "mrp": 265,
+    "selling_price": 260,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "eee512d9-4efc-48ae-bc11-b63e865b4f84",
+    "name": "AMBIPUR CAR FRESHNER LEMON",
+    "mrp": 299,
+    "selling_price": 295,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "bbacfab9-928d-40c4-8a5d-619df639d4db",
+    "name": "DAAWAT DUBAR BAS.RICE 1KG",
+    "mrp": 120,
+    "selling_price": 95,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d68eaa7c-c133-4132-a0f9-35e7dad5d7c7",
+    "name": "DAAWAT PULAV BASMATI RICE 1KG",
+    "mrp": 177,
+    "selling_price": 138,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6e351c9e-1f71-4157-80f0-d917bb078bd7",
+    "name": "ALL OUT ULTRA 5 IN 1 ORIGINAL",
+    "mrp": 85,
+    "selling_price": 84,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "abea6186-bfbd-43d7-bb96-7faa9532957b",
+    "name": "HERSHEYS CHOCOS @20/-",
+    "mrp": 820,
+    "selling_price": 625,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f74b4f1c-0b83-4e1e-a64e-fb3b7f0b6183",
+    "name": "DAAWAT ROZANA GOLD 1KG",
+    "mrp": 112,
+    "selling_price": 95,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f7c42099-5007-45be-aee7-c2f533ad7e04",
+    "name": "ZEEBA BASAMATI RICE",
+    "mrp": 215,
+    "selling_price": 165,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7d38acb6-dced-4e17-89e7-ce0a99c48de5",
+    "name": "ZEEBA BASAMATI RICE 10KG",
+    "mrp": 890,
+    "selling_price": 575,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d66c8a7e-fa8c-4ce1-bdc1-5975d61a77fa",
+    "name": "DARK FANTASY BOURBON @10/-",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e20a733e-bfc7-4e03-b603-10878a417ef7",
+    "name": "SUNFEAST BOUNCE D&N",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e3d1d0c3-3554-4293-b254-885cf457d4a0",
+    "name": "BOURNVILLE FRUIT &NUT",
+    "mrp": 120,
+    "selling_price": 120,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c8a837f6-e19c-4005-85f3-f30e1c90aa35",
+    "name": "PAMPERS PANTS AIR CHANNELS",
+    "mrp": 115,
+    "selling_price": 113,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "eca2c1c5-c5ff-4e3b-9168-300345e4e505",
+    "name": "PAMPERS PANTS 7PANTS",
+    "mrp": 145,
+    "selling_price": 144,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "aa8d7ea6-1476-4fd2-a4b6-173a150d490b",
+    "name": "PAMPERS PANTS 22 DIPERS",
+    "mrp": 349,
+    "selling_price": 344,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "71d7efab-86f6-4537-bec4-b7e446ed7de3",
+    "name": "PANTENE SHAMPOO",
+    "mrp": 115,
+    "selling_price": 115,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2cf46abf-5fd4-4346-88e5-215222654ac1",
+    "name": "PANTENE SHAMPOO LIVELY CLEN",
+    "mrp": 115,
+    "selling_price": 113,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "434fa200-3680-42c6-bf92-931f98b3a6ce",
+    "name": "AMBIPUR SWEET CITRUS & ZEST",
+    "mrp": 265,
+    "selling_price": 265,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "29188f81-7736-4ffc-ad5a-ea366707064e",
+    "name": "WHISPER NIGHTS PAD @130/-",
+    "mrp": 130,
+    "selling_price": 129,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1865bbbe-325e-4257-ba77-1eeccf818264",
+    "name": "AMBIPUR SANDALWOOD",
+    "mrp": 265,
+    "selling_price": 260,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "964c358c-60c6-4e54-baa2-27107a59ee2d",
+    "name": "AMBIPUR CAR SPA",
+    "mrp": 199,
+    "selling_price": 199,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b16262eb-cd0d-4fd1-8d78-b26c79d09876",
+    "name": "WHISPER BINDAZZ NIGHT@480/-",
+    "mrp": 480,
+    "selling_price": 478,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "bdde7b63-7a27-4c8f-a16f-c30abc99fe2d",
+    "name": "RAMBANDHU CHIVDA MASALA 100GM",
+    "mrp": 60,
+    "selling_price": 59,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f307b12b-2a55-4253-b68f-50e1b774c020",
+    "name": "OLD SPICE",
+    "mrp": 215,
+    "selling_price": 213,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "265087f7-d85b-4efc-89e2-b8e7ed8cc468",
+    "name": "OLAY AGE PROTECT-18GM",
+    "mrp": 189,
+    "selling_price": 185,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d13aaf59-aebf-4e2c-82b4-7e7904b28e97",
+    "name": "WHISPER ULTRA SOFT-15 PADS",
+    "mrp": 175,
+    "selling_price": 173,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3e3cc5fa-45fa-46a8-96d1-88909e0bdb4d",
+    "name": "NESCAFE CLASSIC COFFEE@10/-",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f640f852-7fa0-47da-ad70-b3a2265deb88",
+    "name": "BHAGAR-2KG",
+    "mrp": 160,
+    "selling_price": 140,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f6ba4054-2cfd-42b3-bd74-1252a528fbce",
+    "name": "DABUR GULABARI CLEANSER",
+    "mrp": 105,
+    "selling_price": 103,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "62b93072-706e-4afc-9370-d0adc7725451",
+    "name": "HIMALAYA BRIGHTENING FACCE MASK",
+    "mrp": 75,
+    "selling_price": 74,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "88a403ce-e238-4177-9d51-ea01e3c4349e",
+    "name": "GODREJ PROCLEAN BATHROOM CLEANER 500 ML",
+    "mrp": 182,
+    "selling_price": 182,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1473e37c-b682-41ec-af3e-dc2e5f264579",
+    "name": "SHABU PAPAD 480GM",
+    "mrp": 122,
+    "selling_price": 90,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "adf00d0f-23e1-4446-b99a-be0b1e919267",
+    "name": "KIRTI SOYA 15KG",
+    "mrp": 2700,
+    "selling_price": 2480,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e4ed0b3c-7baf-4c50-a8a5-1924c0704e9d",
+    "name": "PINEAPPLE DHOOP",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b7ccf8fe-54fb-4b95-ada5-1e48b212f73d",
+    "name": "SHAHI CHANDAN DHOOP",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "994e3281-7637-4caf-aff0-c622eb38f411",
+    "name": "SILVER STONE DHOOP",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ff3557ec-9b36-4aa3-bf23-9ecd33e4f17f",
+    "name": "LUX SOFTGLOW 3*100GM",
+    "mrp": 105,
+    "selling_price": 104,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1ef31cfe-1985-496e-a550-c305b07487fb",
+    "name": "VEETHAIR REMOVAL CREAM SILK & FRESH",
+    "mrp": 61,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c8ccc032-c84b-4fdf-8132-28edd44cedda",
+    "name": "VANISH OXI ACTIVE C",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "17c40cde-4be8-4670-9a29-f4554fe18a5a",
+    "name": "VEET SENSITIVE SKIN",
+    "mrp": 63,
+    "selling_price": 62,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a3236eae-6246-405d-ad5d-00e30b28d976",
+    "name": "KISSAN FRESH TOMATO KETCHUP 450G",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0dc5d849-2982-4e36-ad86-8d58a7565251",
+    "name": "MELODY CHOCOLATE-50",
+    "mrp": 800,
+    "selling_price": 800,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ff6687c9-1d0b-48cd-a44c-104a107dd49f",
+    "name": "SWAN PHENYLE-450ML",
+    "mrp": 70,
+    "selling_price": 65,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6534e521-cbe7-4bb7-aeb0-5fb57279772e",
+    "name": "SHIKEKAI POWDER-200GM",
+    "mrp": 50,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a492d577-c764-4687-b9b0-51b3dc964c9f",
+    "name": "SWASTIK MAKA POHA-500GM",
+    "mrp": 50,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ef84d855-f9f5-480a-800d-8024e2e7c08c",
+    "name": "GIFFY LEMON ACTIVE SALT 500 ML",
+    "mrp": 210,
+    "selling_price": 208,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6f16f125-65c2-456e-ba37-5b20b81ac9b4",
+    "name": "MIZZLE CLASS&HOUSEHOLD CLEANER BUY1GET1",
+    "mrp": 65,
+    "selling_price": 65,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "512235ac-0cbf-4da9-86db-ad5d71daf407",
+    "name": "WINKIN COW MILK SHEK",
+    "mrp": 37,
+    "selling_price": 37,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "42914b14-0a95-49c4-9731-b4701af19af6",
+    "name": "CRADLE GUMMY CUP",
+    "mrp": 120,
+    "selling_price": 110,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fd824e5c-8878-4749-9415-5f36df8264dc",
+    "name": "SNICKERS BERRY WHIP CHOCOLATE",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "412a8990-64f4-4dcd-bcb6-0c748b94cad3",
+    "name": "DARSHAN BALANT SOUF",
+    "mrp": 55,
+    "selling_price": 55,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6cb2269b-6ed7-408d-9da9-234aa88739ff",
+    "name": "HINDAVI UTAPPA MIX 500G",
+    "mrp": 70,
+    "selling_price": 68,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6cc09199-0f83-4dd1-bc70-9b69afc3f98f",
+    "name": "OM.SPRCIAL JAVAS CHUTNEY",
+    "mrp": 35,
+    "selling_price": 34,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "450c4154-9a1e-4a8b-9766-79b2e2e45fb8",
+    "name": "NIVEA MEN DEEP IMPACT SHOWER GEL",
+    "mrp": 199,
+    "selling_price": 195,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f9486ce1-dec4-4ed5-9d8d-0134b5464cbd",
+    "name": "GREEN GARDEN AGARBATTI",
+    "mrp": 55,
+    "selling_price": 55,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "22995856-aa6e-44d2-81e8-ddb4a2a2b34e",
+    "name": "TOOTHPIK L",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "640cd471-f145-4d57-a235-e3f5d18fcf12",
+    "name": "ZED BLACK MANTHAN LOBAN DOOP",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1557e84f-ef91-40f1-a2c2-c69d631d7359",
+    "name": "ZED BLACK DHOOP",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "95746920-3559-4140-8165-5a7fc2c9efbe",
+    "name": "BLACK DATES 500GM",
+    "mrp": 300,
+    "selling_price": 120,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e5c9cbab-121c-415b-b0e9-4a4b7dd0e0a3",
+    "name": "MR . SCRUB",
+    "mrp": 25,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "abdf036f-071f-4cdf-bbf2-e21399d7de59",
+    "name": "VICCO TOOTH BRUSH",
+    "mrp": 44,
+    "selling_price": 43,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d535dcb0-fe72-42e0-ab0d-ff4485f9567e",
+    "name": "PERSONAL JUNIOR TOOTHBRUSH",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3e53419a-79b8-4d5d-af80-c2baf88a3e87",
+    "name": "KISSAN MIXED FRUIT JAM 20/-",
+    "mrp": 25,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "18746cba-a332-40b9-8d85-111aeaa125e9",
+    "name": "PERSONAL CHIPKU TOOTHBRUSH",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ed5816a8-9bd2-472d-9beb-2deadae3ace3",
+    "name": "PERSONAL REAL TOOTHBRUSH",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "75674fe1-fc02-4a29-9270-25ed3e5e78ee",
+    "name": "JOY SKIN FRUITS",
+    "mrp": 87,
+    "selling_price": 86,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "954dbf44-82d7-4ef6-a599-4eca102bfa9c",
+    "name": "ENVY PASSION PERFUME",
+    "mrp": 199,
+    "selling_price": 198,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6863df8e-f18b-444d-a781-da0df5a8d952",
+    "name": "WAGH BAKRI NAVCHETAN DANEDAR TEA 250G",
+    "mrp": 55,
+    "selling_price": 53,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c0d74054-0edb-4949-85d7-835d955ba8f7",
+    "name": "DR . OETKER VEG MAYONNAISE FOR BURGER",
+    "mrp": 49,
+    "selling_price": 48,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5b145653-de75-44e2-b464-fb52083c63b9",
+    "name": "GODREJ EXPERT MINI PACK NB",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f3907ef6-b410-42d9-99d2-18c69ec26d42",
+    "name": "LIPTON GREENTEA TULSI NATURA",
+    "mrp": 190,
+    "selling_price": 189,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "304a412b-8bcb-4938-81b5-31c5ca9bb1dd",
+    "name": "RELIANCE MOPZ DISNFECTANT SURFACT CLEANER",
+    "mrp": 87,
+    "selling_price": 87,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "aea646d5-2349-45a0-ac29-ac78c988834c",
+    "name": "OREO SANDWICH BISCUITS",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fd5deb56-ca98-4b31-a5a9-6cefc2582481",
+    "name": "ADITYA CANDLE",
+    "mrp": 120,
+    "selling_price": 110,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7c8d1072-74fe-4801-a050-151a14e5b81c",
+    "name": "ADITYA CANDLE SL",
+    "mrp": 60,
+    "selling_price": 55,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "16492d1a-9445-4929-b12c-c2d68fb2feb5",
+    "name": "ORIENTAL DATES 250GM",
+    "mrp": 249,
+    "selling_price": 120,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b161ef84-9389-4a5c-a830-e4b3876514ac",
+    "name": "JOY HAIR FRUITS BLACK SHAMPOO",
+    "mrp": 160,
+    "selling_price": 145,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c99f950d-019e-4bcb-974e-7ff80f3fdd16",
+    "name": "MAKKA BULK",
+    "mrp": 150,
+    "selling_price": 150,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "bf76377e-2bc7-491c-a98d-610810ca7efb",
+    "name": "PONDS TRIPLE VITAMIN LOTION 100ML",
+    "mrp": 99,
+    "selling_price": 98,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e0c5a32f-a1c9-4d4e-87d7-a0b51b443c5c",
+    "name": "PONDS WHITE BEAUTY 40/-",
+    "mrp": 40,
+    "selling_price": 39,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1f7992f5-038a-4eff-84af-ea559b4c3f8c",
+    "name": "LOREAL TOTAL REPAIR SHAMPOO",
+    "mrp": 169,
+    "selling_price": 167,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7248ba0d-5d5f-4ac8-9d25-a1e756bfd920",
+    "name": "LIFEBUOY HAND SANITIZER",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "72766ba5-fe35-458b-b3f9-9c6ae21ad509",
+    "name": "MUG PIVALA 1 KG",
+    "mrp": 270,
+    "selling_price": 200,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b28c0cb0-960b-4c84-869c-94f29ea0cb40",
+    "name": "FOGG FLYER THRILL",
+    "mrp": 180,
+    "selling_price": 175,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a616db89-a34e-4401-8192-8fb5ccf25309",
+    "name": "FOGG FLYER MARVEL",
+    "mrp": 180,
+    "selling_price": 180,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6e19785f-9922-4030-afec-aff260284635",
+    "name": "DARK FANTASY CHOCOFILL 150G",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "aa8ddb66-3415-468c-afaa-7d890aee5627",
+    "name": "ORANGE RED COLOUR",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "80c1317e-b7da-40a2-93ee-ea9052b2ad40",
+    "name": "FOOD CHUMP VINEGAR 200 ML",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ed2f900d-eff0-4fa3-a455-075c118077c5",
+    "name": "SUNFEAST BAURBON BLISS BUY 3 GET 1",
+    "mrp": 40,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "19657992-e382-4b54-bbaf-4d6885552280",
+    "name": "VEG HAKKA NOODELS",
+    "mrp": 25,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6cb251ca-0a76-40a4-aed4-4d8e4211b045",
+    "name": "SUHANA CHICKEN GRAVY MIX 80 GM",
+    "mrp": 56,
+    "selling_price": 55,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9971c017-c6de-485f-896c-8c1595ed18e9",
+    "name": "TREAT KOOL VANILA 120GM",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7d193608-c6be-4889-9bcd-5b3f0ac57f47",
+    "name": "MAGGI OATS MASALA NOODLES",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e16d678a-f061-4a6e-a941-49e20fc7c81d",
+    "name": "MAGGI FAMILY FUN PACK",
+    "mrp": 112,
+    "selling_price": 111,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3c49ad01-6b0c-4797-806f-d3af556e4214",
+    "name": "COOKWELL ESSENCE 20 ML",
+    "mrp": 44,
+    "selling_price": 43,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "519fea43-a7f6-489b-abfa-ed9d2440b46e",
+    "name": "LAXMI HARIDWAR AGARBATTI",
+    "mrp": 55,
+    "selling_price": 53,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "bf8b8a37-9cc3-4cbe-b3e8-a9193ccec514",
+    "name": "HARIDWAR AGARBATTI",
+    "mrp": 55,
+    "selling_price": 53,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e66bad0e-9835-4593-aab5-e976a16b53cd",
+    "name": "TIFFANY CREAM BISCUITS CHOCOLATE",
+    "mrp": 250,
+    "selling_price": 250,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "47e7d48b-bbe1-4de0-b613-400e23f1a0b9",
+    "name": "CHAKAN GHANA KARDAI OIL-1L",
+    "mrp": 230,
+    "selling_price": 185,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6b0c3da8-6097-468a-8a7d-435d045ed782",
+    "name": "MAMAEARTH FACE WASH UBTAN",
+    "mrp": 199,
+    "selling_price": 197,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d6b3d71b-6fbe-4c25-b95d-4e4b3ef83fdc",
+    "name": "KESH KANTI ADVANCED SHAMPOO",
+    "mrp": 120,
+    "selling_price": 119,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8e60ff8d-ea08-47aa-b8f2-50b083458ce6",
+    "name": "OM SPE. CHAKLI PITH 500GM",
+    "mrp": 150,
+    "selling_price": 145,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3f0d4f38-feda-4aa3-8ade-ffbbad0aadbc",
+    "name": "NATARAJ KIT",
+    "mrp": 12,
+    "selling_price": 12,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "acf2c160-b4a3-47c9-bf24-a300c4c6149d",
+    "name": "NATARAJ ALL SPARKR",
+    "mrp": 25,
+    "selling_price": 24,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "860fea2e-943d-4300-a257-e7d823a0830f",
+    "name": "NATARAJ LARGE CUTTER",
+    "mrp": 20,
+    "selling_price": 19,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d05ce5e2-d65c-497d-b291-7f4a83f92ef2",
+    "name": "NATARAJ HANDY CUTTER",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "55beb405-8b4b-4138-8a12-91da05317b26",
+    "name": "HARI DARSHAN CHANDAN DHOOP 10 STICKS",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "18443000-fc86-4cce-b119-4ce920ab11b4",
+    "name": "DHYANAM SAMRANI DHOOP",
+    "mrp": 60,
+    "selling_price": 58,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "adf85b57-ae21-40c6-aff9-13416bb03eae",
+    "name": "ULLAS SAANVI AGARBATTI",
+    "mrp": 60,
+    "selling_price": 58,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "129d156e-4dea-410f-a9fb-343907d42d16",
+    "name": "LAXMI DHOOP STICKS",
+    "mrp": 35,
+    "selling_price": 34,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3d7fff59-3efd-4116-8b00-53a09e9650de",
+    "name": "NYLON POHA 20KG BULK",
+    "mrp": 42,
+    "selling_price": 42,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b9898c40-addd-456e-961e-e3b2206a5fd7",
+    "name": "LAXMI NARAYAN MISAL FARSAN",
+    "mrp": 125,
+    "selling_price": 120,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "462a4a65-158f-4bf1-848f-51f48094a1e3",
+    "name": "MONACO SIXER SALTED 200G",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "13eeabc7-3269-4538-b94d-51908b38240d",
+    "name": "COOLWELL VEG MAYONNISE",
+    "mrp": 49,
+    "selling_price": 48,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "58810787-ae8f-4087-84b5-52771c558147",
+    "name": "LAXMI NARAYAN TASTY NUTS 200G",
+    "mrp": 60,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "543777bc-2e1d-4bb6-9561-43496a2437db",
+    "name": "LAXMINARAYAN BHAVNAGARI SHEV",
+    "mrp": 60,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fdb8054e-f864-43d7-b6ae-ecb40632f5f2",
+    "name": "CADBURY DAIRY MILK MINIS",
+    "mrp": 149,
+    "selling_price": 148,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a2c5933f-165a-45f2-a27e-5cad7ebb87f2",
+    "name": "RUSK 1KG",
+    "mrp": 20,
+    "selling_price": 19.5,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ce5c8cf4-270b-428b-a265-2e8757686d9f",
+    "name": "PARLE MAZELO CHOCOLATE",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "cf3923bd-796d-4f72-808f-ee0c6fd91cf2",
+    "name": "MAHA MANTRA GULAB AGARBATTI",
+    "mrp": 63,
+    "selling_price": 62,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c1939d3b-9aca-4817-8227-258c4548d22f",
+    "name": "MM CHANDAN AGARATTI",
+    "mrp": 63,
+    "selling_price": 62,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d9e5f660-25a2-4524-a0de-96ce853948af",
+    "name": "ZED BLACK LOBAN-150GM",
+    "mrp": 70,
+    "selling_price": 68,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "63bb054a-f4fd-4bfb-8d93-1796bf67ab8e",
+    "name": "ZED BLACK CHAMPA-150GM",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "bab9c437-94b6-42c9-ac36-5e9f4adf5b56",
+    "name": "ZED BLACK KARO-145GM",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f9524959-6018-410f-bd34-f5539c37b34c",
+    "name": "ZED BLACK SRIPHAL DARSHAN-150GM",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "83b1b7bf-fb81-4708-8164-32da83a94c11",
+    "name": "ZEDE BLACK LAVENDER DHOOP",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a6ce3047-f4a1-40d5-9e1e-ca6393a9b9cb",
+    "name": "COLGATE MAX RED",
+    "mrp": 136,
+    "selling_price": 135,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "cb81b45c-9e26-464b-8a8e-44220f31f888",
+    "name": "SUPARI TUKADA-25GM",
+    "mrp": 20,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2b6e2e6b-5d12-4dce-a894-c51843d8e200",
+    "name": "SUPARI TUKADA-100GM",
+    "mrp": 60,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ed652d84-ca21-4a77-b732-0ce4fcf5eee5",
+    "name": "PANATI",
+    "mrp": 60,
+    "selling_price": 35,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3cb7f0b4-de07-4f07-a25d-c8356fbf7903",
+    "name": "DAGADFUL 20GM",
+    "mrp": 25,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "86c0d014-0567-49cb-a853-e3e79ff0c3e6",
+    "name": "POCKY CHOCOLATE",
+    "mrp": 80,
+    "selling_price": 80,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "579d9e31-69dd-491e-9f2f-a2ca4f40004f",
+    "name": "ALMOND HAIR OIL 200ML",
+    "mrp": 115,
+    "selling_price": 113,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c706c185-2a82-4fe5-ac60-834c1c795c47",
+    "name": "DAIRY MILK CRUNCHY CALA",
+    "mrp": 45,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f28c20b8-224c-405a-862c-b9e724c7156e",
+    "name": "DAIRY MILK BUBBLY @185",
+    "mrp": 195,
+    "selling_price": 195,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5b05587e-e8e3-45ec-b654-bbb277a58e7d",
+    "name": "JOY SUN LOTION 60ML",
+    "mrp": 270,
+    "selling_price": 268,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ccab0601-2a34-4461-b871-facd95fd81fd",
+    "name": "BUDHANI POTATO WAFERS 165 G",
+    "mrp": 60,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5032aba2-78b5-4198-bf10-7e349e071595",
+    "name": "SET WET JEY BLAST 20ML",
+    "mrp": 49,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8b698e83-8d87-4681-bef4-46f49316adad",
+    "name": "TOPSI GOLDEN MUSK AGARBATTI",
+    "mrp": 75,
+    "selling_price": 75,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "101b33bb-a4b3-46d8-a589-4ca2606be8eb",
+    "name": "SAFFOLA OATS 1.400GM",
+    "mrp": 245,
+    "selling_price": 243,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b37cfbd2-3be8-41cf-92cd-901d66731a5f",
+    "name": "SMITH & JONES RED PASTA SAUCE",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f45eaa54-8122-408b-8ca5-98146fc5cb20",
+    "name": "SAFFOLA SOYA BHURJI",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3877c05e-c493-4178-a27b-1cab9dc41859",
+    "name": "MR.MAGIC HANDWASH",
+    "mrp": 40,
+    "selling_price": 39,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e9662d77-25cd-407b-a99d-b34e3b1eeefa",
+    "name": "SET WET BEACH BLAST49/-",
+    "mrp": 49,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6768f423-a57e-42b6-9220-43fa09818a21",
+    "name": "CELLO MOP",
+    "mrp": 499,
+    "selling_price": 450,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "67560c35-5025-4f28-b3f9-8cea673caca1",
+    "name": "KATADARE KESHARYOKAT DHOD MASALA 50G",
+    "mrp": 180,
+    "selling_price": 178,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "61ce75c3-7c0b-4465-bf6e-6f3f0518baa4",
+    "name": "TATA PINK SALT 1KG",
+    "mrp": 65,
+    "selling_price": 64,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fa4b1459-9364-4c9c-97dc-b38416648731",
+    "name": "AMUL COOKIES CHOCOLATE",
+    "mrp": 80,
+    "selling_price": 80,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "aa8e0346-47f2-406c-9921-2fb499e082b8",
+    "name": "UNIWASH POWDER 1/2KG",
+    "mrp": 60,
+    "selling_price": 59,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "94487e4e-e703-44fc-b080-cef01addbce3",
+    "name": "AMUL BUTTERSCOTCH ICE CREAM",
+    "mrp": 210,
+    "selling_price": 210,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "dfa4ca15-6430-4e83-819f-05d1856b1b5e",
+    "name": "LIFEBUOY HANDWASH 580 ML",
+    "mrp": 199,
+    "selling_price": 190,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "bc1ba73b-2b06-4db1-84f5-eab1f2d6a160",
+    "name": "POND,S DREAMFLOWER 100GM",
+    "mrp": 85,
+    "selling_price": 83,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6a0f14be-1351-4ee7-8dbf-8952e742bef1",
+    "name": "UNIBIC CHOCOLATE WAFERS",
+    "mrp": 60,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "67680c37-28ac-43d2-ac31-850a136c8162",
+    "name": "NILONS SEWAIYAN 100G",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "249323c1-8e8a-43d5-b6d9-8ad0caa26997",
+    "name": "BOSS NOTE BOOK SINGALE LINE 140 PAGES",
+    "mrp": 55,
+    "selling_price": 53,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a731c24e-5095-4393-96da-57231e07fe27",
+    "name": "YOUVA ORIGINAL NOTEBOOK",
+    "mrp": 45,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4e50f6ac-0bf0-4971-a4a1-d6e563f18c5d",
+    "name": "BOSS SINGLE LINE NOTE BOOK",
+    "mrp": 100,
+    "selling_price": 90,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e4ba9dcf-288b-4d43-a541-f755dc754e8f",
+    "name": "FENA GERMI CLEAN POWDER 1KG",
+    "mrp": 82,
+    "selling_price": 80,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d6538c25-2fc9-48f2-aa5d-356e5d652706",
+    "name": "GOVIND DAHI 500G",
+    "mrp": 45,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "54d3da9c-5615-488e-aab2-1630caf0c5df",
+    "name": "GOVIND AMRAKHAND 100G",
+    "mrp": 25,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3ac8cd9b-73fe-4121-8d1e-39c9d105d203",
+    "name": "GOVIND SHRIKHAND 500 G",
+    "mrp": 150,
+    "selling_price": 148,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "84d9ce3f-0f81-4522-941c-5d0554cd8bd7",
+    "name": "GOVIND SHRIKHAND BADAM PISTA 22/-",
+    "mrp": 33,
+    "selling_price": 33,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f4c85dfa-2f6b-4cc9-8f7d-1b3fe8517480",
+    "name": "GOVIND AMRAKHAND 500G",
+    "mrp": 140,
+    "selling_price": 140,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3fc2cef0-5568-4fa0-9a76-ed460609c47a",
+    "name": "GOVIND AMRAKHAND 250GM",
+    "mrp": 80,
+    "selling_price": 80,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0773faed-5a2b-459d-a303-0961f881c6bf",
+    "name": "KARANJI SATHA 500 GM",
+    "mrp": 50,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fea6b11a-3a8b-47ec-814b-fe79e44ff746",
+    "name": "NITYAM PREMIUM FLORA AGARBATTI",
+    "mrp": 63,
+    "selling_price": 63,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f72bc0b8-cd5c-47ec-b5fd-53b48bf40c44",
+    "name": "DEVBHAKTI AGARBATTI CHAMPA",
+    "mrp": 130,
+    "selling_price": 100,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "69d69d4d-151b-41b3-9a0d-4630c9d7a2fa",
+    "name": "SHALIMAR THE GREAT MATATHA AGARBATTI",
+    "mrp": 70,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2c4df568-7193-4946-8894-3e6fa627c043",
+    "name": "MANTRA AGARBATTI 4G",
+    "mrp": 60,
+    "selling_price": 58,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "68874aa6-55fd-4052-a794-22ee2dc59eb0",
+    "name": "SHALIMAR HONEY AGARBATTI",
+    "mrp": 70,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "317b855d-f799-4de2-8652-afe9921181ec",
+    "name": "MAHA MANTRA MOGRA AGARBATTI",
+    "mrp": 63,
+    "selling_price": 63,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "20c1df58-57f0-4b41-ac2c-948f7e57da01",
+    "name": "SHALIMAR BAY BREEZE",
+    "mrp": 70,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ab749ed1-6751-4c0a-bb8e-d00172de37fa",
+    "name": "CLOSEUP EVER FRESH + 300GM",
+    "mrp": 144,
+    "selling_price": 116,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "80e941d9-cce6-410f-b651-53a39a22f66d",
+    "name": "TRESemme SMOOTH&SHINE 85ML",
+    "mrp": 69,
+    "selling_price": 67,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3f2bc78e-2328-403a-8861-5e7a3db9a862",
+    "name": "TRESEMME KERATIN SMOOTH SHAMPOO 85ML",
+    "mrp": 75,
+    "selling_price": 74,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0e63f3b9-5d51-43f2-8101-fee6e35a229f",
+    "name": "AMUL LASSI 1L",
+    "mrp": 70,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8cb91ec6-75b4-4221-b0d3-d2d6ba39f838",
+    "name": "VEEBA CHEESY PASTA SAUCE",
+    "mrp": 125,
+    "selling_price": 124,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "139efa98-8275-48d0-805f-f57cf343c995",
+    "name": "VEEBA PENUT BUTTER 925GM",
+    "mrp": 299,
+    "selling_price": 297,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "734dd8a8-a363-4d8d-a90c-c85b2ccd0c8a",
+    "name": "KESH KING SHAMPOO@2",
+    "mrp": 32,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "31ed4ab2-d50f-43c9-b337-2ef929a447f3",
+    "name": "DOVE DS SHAMPOO 80ML",
+    "mrp": 68,
+    "selling_price": 67,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8427dd1d-12cf-4dae-8e44-4b18a4e3e220",
+    "name": "NUTRITIUS CHOCOLATE CHIKKI 10/-",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c224e924-693d-41db-9198-274fd876bb13",
+    "name": "DIAMOND CHIPS CREAM N ONION",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7c9ae3ad-7be5-4496-ae44-41a3cdd56402",
+    "name": "SUNDROP DUO COCONUT",
+    "mrp": 40,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "de0b7982-b379-4f31-a67b-24c8c5813e04",
+    "name": "SPOTZERO DRY MOP",
+    "mrp": 650,
+    "selling_price": 620,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6cab6a7d-48ed-4b4f-94f1-3bb05bb3aa90",
+    "name": "ALL OUT FLASH GUARD 10/-",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c5e38f59-28be-4389-9641-3517c3fddaaa",
+    "name": "BLACK SALT POWEDER 100G",
+    "mrp": 8,
+    "selling_price": 8,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2ca66c54-9b5d-4fb5-991a-274d7b569dd2",
+    "name": "SWAN FLOOR CLEANER 1L",
+    "mrp": 92,
+    "selling_price": 70,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8307f20f-f0b6-4733-8f90-9df110a16f13",
+    "name": "CHITALE TOMATO KETCHUP 100 GM",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3c09e16d-a6e2-4d99-ad2d-c2c3f699ba77",
+    "name": "WHISPER NIGHTS XL+@90/-",
+    "mrp": 90,
+    "selling_price": 89,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2c7cc9bc-ea12-4616-bb66-e5b9a6975f38",
+    "name": "WHISPER ULTRA CLEAN XL15P 165",
+    "mrp": 165,
+    "selling_price": 164,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3752812d-7b09-4387-86e8-f71619e2c088",
+    "name": "WHISPER COMFORT @299/-",
+    "mrp": 299,
+    "selling_price": 296,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2665667a-4d8a-435f-a2e4-8fa66efaa993",
+    "name": "WHISPER NIGHT XXXL@300",
+    "mrp": 300,
+    "selling_price": 295,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4b16401d-1846-408a-8a21-910d49ec1d8f",
+    "name": "HEAD & SHOULDERS 2IN1 COOL MENTHOL",
+    "mrp": 185,
+    "selling_price": 183,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "941b69f4-31c2-4c77-8d00-7138d9e93f26",
+    "name": "OLAY ANTI AGEING CREAM",
+    "mrp": 160,
+    "selling_price": 158,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b271039e-0290-48db-bdb6-6eb4e6ca48d5",
+    "name": "HEAD & SHOULDER COOL MENTHOL 180ml",
+    "mrp": 145,
+    "selling_price": 145,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "351e1a09-b460-41e9-a23d-7185b3fc1bc1",
+    "name": "MOMS CHOICE SEVIYAN",
+    "mrp": 25,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "69503792-b490-49ea-b23d-dcbddd27b55e",
+    "name": "BEDEKAR CHAKALI MASALA 50g",
+    "mrp": 35,
+    "selling_price": 35,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a2c5758b-6869-470a-8887-e07cd1fcdf82",
+    "name": "BEDEKAR CHIVDA MASALA 100 GM",
+    "mrp": 30,
+    "selling_price": 29,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "57ef5583-d4d2-4f4c-b18f-1e9eddc3a696",
+    "name": "Good Night Nreen Shakti Low Smoke Coil",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8d9eee7b-da5f-4ae2-ad9c-7a1655c0123e",
+    "name": "NEW NESCAFE CLASSIC 10/-",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ce60c9f8-28fd-4efe-8ac8-381e54edcc83",
+    "name": "GOOD HOME DRAIN CLEANER BUR 3 GET 1 FREE",
+    "mrp": 90,
+    "selling_price": 89,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0d20d4f2-1e5c-4278-8e21-8db62b0a6626",
+    "name": "KOMAL PALAK PAPAD 100GM",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "212d4818-038d-410c-985e-2b1c34b59f7b",
+    "name": "NIVEA SOFT 75ML",
+    "mrp": 110,
+    "selling_price": 109,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d02e63a3-e42c-474d-bfdb-e25966e5629b",
+    "name": "NESTLE KIT KAT",
+    "mrp": 50,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2793a9fa-bb0c-45fc-a9c8-8b8696a21fb0",
+    "name": "BOURN VITA BISCUTS 120G",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "483893f8-6f48-4073-a29f-3cea8c9eaf75",
+    "name": "BOURNVITA BISCUITS @10",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9ace23f0-d234-4494-9e83-dc9813c7f853",
+    "name": "MIZZLE HOME CARE-1L",
+    "mrp": 90,
+    "selling_price": 90,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1a5cac7e-7f3a-405f-8388-23d45a28fe9b",
+    "name": "KIT KAT SHARE A SNAP",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0e00e7b8-d6c8-4f50-bf7f-1dd214dd3ac3",
+    "name": "YIPPEE MASALA NOODLES",
+    "mrp": 28,
+    "selling_price": 28,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ba680ef4-aa01-4783-b736-b1f448559f3a",
+    "name": "RIN SOAP-170GM",
+    "mrp": 10,
+    "selling_price": 9,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b81ebd02-90a4-492c-9e8a-1557f262511c",
+    "name": "VIM BAR LEMONS 155 GM",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a4cebd09-d6f4-4a0d-81c8-2f55665e5cd6",
+    "name": "NEW HAMAM NEEM TULSHI &ALOE VERA",
+    "mrp": 115,
+    "selling_price": 112,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f6677c7b-efb9-49b7-ae84-13fe6b310dce",
+    "name": "DOVE INTENSE REPAIR 80ML",
+    "mrp": 60,
+    "selling_price": 59,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4a7264ef-7173-4e51-a99f-ba4007b0b92e",
+    "name": "CLOSE UP-80GM",
+    "mrp": 48,
+    "selling_price": 47,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8f04f357-242c-4d45-abfb-db6ca0a9658e",
+    "name": "WILD STONE EDGE BODY DEODORANT",
+    "mrp": 249,
+    "selling_price": 199,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c5e15189-c979-4d3d-af7e-13ee320c6820",
+    "name": "COLGATE CHARCOAL TP 200GM",
+    "mrp": 370,
+    "selling_price": 330,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a65a5fa4-5f0e-4d1a-aec9-8c45b8f4fa1f",
+    "name": "COLGATE MAX FRESH COOLING C",
+    "mrp": 136,
+    "selling_price": 135,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5df27f03-db05-478a-8076-fc4681f016ba",
+    "name": "COLGATE ZIG ZAG FREE VEDSHAKTI",
+    "mrp": 30,
+    "selling_price": 30,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "87755150-c1c6-41e5-b827-00b46a21a06e",
+    "name": "GULISTAN PREMIUM INCENSE",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a116b97d-8e79-4a12-8c90-35907033e672",
+    "name": "GUL-450GM",
+    "mrp": 40,
+    "selling_price": 32,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5798a93f-6c4a-4f41-a6b4-79364c69c752",
+    "name": "COLGATE ZIG ZAG AB TOOTHBRUSH",
+    "mrp": 35,
+    "selling_price": 33,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "fcd08f62-7054-4cb7-87f2-e182d021dce8",
+    "name": "VICCO VAJRADANTI 150GM",
+    "mrp": 105,
+    "selling_price": 104,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "672826f0-b277-4720-a327-22bde3e0397c",
+    "name": "VICCO TURMERIC FACE WASH",
+    "mrp": 45,
+    "selling_price": 45,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d4d830e6-e6de-44c5-a612-50c337a1ee45",
+    "name": "NEW LUX 4+1",
+    "mrp": 104,
+    "selling_price": 100,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "bcbb6f3d-c3f0-4919-8ebc-ffe628ca3a87",
+    "name": "HIMALAYA AYURVEDA SANDALSOAP",
+    "mrp": 50,
+    "selling_price": 48,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "5f22fb24-8e99-46cd-96d4-b11ee2367655",
+    "name": "HIMALAYA SUN PROTECT ORANGE",
+    "mrp": 175,
+    "selling_price": 175,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "42f636c4-605b-45cb-8185-f7f1d25d292c",
+    "name": "HIMALAYA MEN DAILY NOURISH STYING GEL",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "abaad9f7-9ef0-4d02-9b16-1abef7b90f14",
+    "name": "HIMALAYA MEN ANTI-HAIR FALL",
+    "mrp": 48,
+    "selling_price": 48,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e1d1c651-d35b-4400-a0d5-3f24d8162f02",
+    "name": "MIZZLE HOME CARE BUY1 GET1",
+    "mrp": 90,
+    "selling_price": 90,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "80762bbe-1303-49bc-8cc8-ae26792ba4f0",
+    "name": "PARLE MARIE",
+    "mrp": 10,
+    "selling_price": 9,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d31d6d8f-8d16-4392-96fb-acb95e435d4b",
+    "name": "SUPERR PITHI SAKHAR 500GM",
+    "mrp": 35,
+    "selling_price": 28,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ff9ed8eb-7ebe-4f8b-a38f-21b033cfc942",
+    "name": "BHAGAR PITH BHARI-2KG",
+    "mrp": 180,
+    "selling_price": 160,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e35a3797-61e2-4a21-bf0b-d70419f22279",
+    "name": "NESTLE MUNCH MAX",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d829c135-2433-471e-b25a-9bb91090cb21",
+    "name": "EVERY DAY NESTLE 10/-",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c501462b-aa68-42a5-aba6-f57635413636",
+    "name": "KELI WAFERS 100GM",
+    "mrp": 40,
+    "selling_price": 40,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "81a139e9-a773-4488-9725-52f7f3b06c91",
+    "name": "RIN POWDER-4KG",
+    "mrp": 450,
+    "selling_price": 440,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9d365681-3bf1-4453-96e5-fdb1025a015a",
+    "name": "AXE SIGNATURE TEMPTATION",
+    "mrp": 74,
+    "selling_price": 73,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "3fecc8cf-80b8-4fa3-805b-60e551e956a2",
+    "name": "OK FINE CAMPHOR 15/-",
+    "mrp": 15,
+    "selling_price": 15,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f6093e00-dfc6-4d2d-9548-b8ca08ef92b2",
+    "name": "HIMALAYA REFRESHING BABY SOAP BUY 3GET1 FREE",
+    "mrp": 126,
+    "selling_price": 124,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b5d26cb3-b1e4-4e86-bc68-6fa4b78c8467",
+    "name": "HIMALAYA EXTRA MOISTURIZING BABY SOAP",
+    "mrp": 180,
+    "selling_price": 179,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2bc280e0-4fc6-4b04-80c4-58537c2bfc5b",
+    "name": "GHADI MACHINE WASH -3KG",
+    "mrp": 385,
+    "selling_price": 380,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "2a5e7a6a-2e3e-44d1-973a-af971c7f62e3",
+    "name": "UNIBIC SHORTBREAD BISCUITS",
+    "mrp": 60,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b2b5819b-ac6c-4107-ace1-01ead1756c09",
+    "name": "UNIBIC FRUIT&NUT COOKIES",
+    "mrp": 55,
+    "selling_price": 55,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "568a17ce-4579-480a-936e-86e08208f9df",
+    "name": "SUNFEAST MOM,MAGIC CASHIEW &ALMOND",
+    "mrp": 142,
+    "selling_price": 99,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8bf321ba-54c1-4424-82a2-0f21c061fd2e",
+    "name": "TOP BISCUITS@10/-",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b38fcf4e-651c-4365-ad97-b5efb5791e07",
+    "name": "EVERYUTH PURE & LIGHT PACK",
+    "mrp": 99,
+    "selling_price": 98,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b60b99da-de41-4c7c-b7ef-fce698b127a4",
+    "name": "ANCHOR ALL ROUND PROTECTION PEST",
+    "mrp": 40,
+    "selling_price": 39,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "916bfee9-b92f-4bfe-90c6-df88730b782d",
+    "name": "EVERYUTH PURE & LIGHT-50GM",
+    "mrp": 125,
+    "selling_price": 123,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6154ac1c-0566-4138-844f-729be2edc5b4",
+    "name": "DOY CARE ALOEVERA-3x75gm",
+    "mrp": 50,
+    "selling_price": 48,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f17bef48-0417-47a4-b03f-27f29eeab69b",
+    "name": "DOY CARE MILK CREAM-3x75GM",
+    "mrp": 50,
+    "selling_price": 49,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "126db94c-16f2-49e4-b18c-c9529a9c40e4",
+    "name": "ANCHOR ALL ROUND PROTECTION 200GM",
+    "mrp": 65,
+    "selling_price": 63,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "84043bea-c8e1-49a2-9f2f-7c37d28577b9",
+    "name": "PANZANI PASTA MACARONI RIGATE",
+    "mrp": 159,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "f42971a7-4867-47c1-9ba9-5baab2270e02",
+    "name": "ANCHOR ALL ROUND PROTECTION 400G",
+    "mrp": 120,
+    "selling_price": 118,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "9312998c-7c18-4ac9-bb2c-adbfbba3eb4c",
+    "name": "BATATA CHIWADA-100GM",
+    "mrp": 25,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "8d0aaa98-9688-46df-a8fb-91076cd6572e",
+    "name": "GOVIND SHRIKHAND BADAM PISTA 250G",
+    "mrp": 80,
+    "selling_price": 80,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "0da9f9cc-80eb-4ad2-8702-c6e84be512db",
+    "name": "ARIEL TL LIQUID 500ML",
+    "mrp": 138,
+    "selling_price": 137,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "978945fd-fcbe-4d75-a4b1-a9de4140f5ee",
+    "name": "DETTOL COOL SOAP 125GM",
+    "mrp": 55,
+    "selling_price": 54,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "53956459-e613-4b18-8410-109f10c39250",
+    "name": "DETTOL COOL H.W.200ML",
+    "mrp": 99,
+    "selling_price": 99,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4916372e-0a7a-4d04-b91c-fc6577f4c10d",
+    "name": "TIDE WITH EXTRA POWER+ 2KG",
+    "mrp": 196,
+    "selling_price": 192,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "648fa9d1-d546-4ad3-ba86-ad9ce348ae25",
+    "name": "GILLETTE EMACH3",
+    "mrp": 260,
+    "selling_price": 258,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "92c45526-1b08-4115-aa70-4f2839929a65",
+    "name": "PAMPERS S 32 PANTS",
+    "mrp": 399,
+    "selling_price": 394,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1a5e3a40-b0e8-440c-972f-9105a54887c2",
+    "name": "PAMPERS PANTS 12PANT",
+    "mrp": 24,
+    "selling_price": 24,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6ba71061-06e2-4b3b-8b9d-5a336d5a4391",
+    "name": "PAMPERS PANTS 14 PANT",
+    "mrp": 28,
+    "selling_price": 28,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "07c94a7d-fdcd-4d43-95ee-ca29861e6e1b",
+    "name": "SIMPLY VENUS",
+    "mrp": 89,
+    "selling_price": 88,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "955874a5-039b-447a-b301-c492d8164de6",
+    "name": "GILLETTE PRESTO BUY 3 GET 1 FREE",
+    "mrp": 25,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6be9d976-bda7-4487-96fa-4767de3df87b",
+    "name": "GILLETTE MACH3 TURBO 10 SHAVE",
+    "mrp": 290,
+    "selling_price": 288,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b46a7faa-751f-43a6-aa20-337dd3d96976",
+    "name": "UNIWASH DETERGENT POWDER 1/2KG",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6a97e0d3-663f-4f26-a867-8069f124f860",
+    "name": "COOKWELL HONEY 50G",
+    "mrp": 39,
+    "selling_price": 39,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4a7a0324-d732-44f1-8336-936647ca91e6",
+    "name": "LION KASHMIR HONEY 100G",
+    "mrp": 60,
+    "selling_price": 59,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "6ecb8cc6-49de-468b-a976-3972eb27f8eb",
+    "name": "EVEREST TIKHALAL EXTRA HOT",
+    "mrp": 140,
+    "selling_price": 138,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ba4ad992-ef45-4990-9302-61efda18f2a3",
+    "name": "CELLO CONTAINER-1L",
+    "mrp": 48,
+    "selling_price": 43,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "a8f62f10-4164-47e4-9840-764958d1fc83",
+    "name": "ORAL B SHINY CLEAN SOFT",
+    "mrp": 198,
+    "selling_price": 198,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "93a6b20e-438b-4956-88cf-d38600dac869",
+    "name": "WHISPER CHOICE XL @50",
+    "mrp": 50,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "29a021c2-408e-462e-b344-5a055efc5850",
+    "name": "WHISPER ULTRA SOFT XL 15 PADS",
+    "mrp": 210,
+    "selling_price": 205,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "7f9a7fd0-f14b-42a2-ae3f-b447ceecc462",
+    "name": "WHISPER CHOICE UL 20S@155",
+    "mrp": 155,
+    "selling_price": 154,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "54024c08-9de8-44aa-a673-b799b1746dc3",
+    "name": "ORAL B SHINY CLEAN",
+    "mrp": 20,
+    "selling_price": 20,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "82e829c7-0940-44b7-9258-bfbd6f200cac",
+    "name": "QUICK CLEAN PERFECT SHINE EVERY TIME",
+    "mrp": 15,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c8354754-707e-4b01-a60c-9122a143ddf9",
+    "name": "CORNFLOUR-500GM",
+    "mrp": 55,
+    "selling_price": 50,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "4af5839f-833a-4280-b1a6-81d696852a4a",
+    "name": "MAGGI PAZZTA MUSHROOM PENNE",
+    "mrp": 32,
+    "selling_price": 28,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c81d4318-1a2b-408e-93ba-154b8d0fd01c",
+    "name": "MAGGI PAZZTA MASALA PENNE",
+    "mrp": 28,
+    "selling_price": 28,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "d7a9b97a-d584-439b-a1f4-1d672c584ec9",
+    "name": "MAGGI PAZZTA CHEESE MACRONI",
+    "mrp": 35,
+    "selling_price": 34,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "96b27963-dd33-43b3-b8c7-9bf966613452",
+    "name": "MAGGI PAZZTA CHEESY MACARONI",
+    "mrp": 35,
+    "selling_price": 25,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "b6870127-330f-4e7b-ae6c-3294c52cf96c",
+    "name": "GOVIND GULAB JAMUN MIX 180 GM",
+    "mrp": 120,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "853b0345-0793-4a1f-a285-10429d1c233b",
+    "name": "SARGAM GATTU",
+    "mrp": 70,
+    "selling_price": 69,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "1d645790-4f1a-4979-b814-8800bddb150e",
+    "name": "VIM GEL 1.8L",
+    "mrp": 348,
+    "selling_price": 340,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "50377056-cd73-40f0-a583-dda4a0d8fcc4",
+    "name": "RAZAN DATES-250GM",
+    "mrp": 72,
+    "selling_price": 60,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "ef144296-43b9-4bc9-8cbc-0595f787979e",
+    "name": "KALE TEEL-50GM",
+    "mrp": 20,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "c5576835-daea-4d47-a4a7-4fc1364694bb",
+    "name": "HIRAVI VILAYACHI 1KG",
+    "mrp": 12,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "e60528c6-1e7e-49b4-bff3-e3965e5bb008",
+    "name": "OREO BISCUITS FAMILY PACK",
+    "mrp": 85,
+    "selling_price": 85,
+    "weight_unit": "",
+    "brand": "K MART"
+  },
+  {
+    "id": "aea1b5b8-c0cf-42ed-a8d0-ea870d70bc15",
+    "name": "CRISPELLO CADBURY @10",
+    "mrp": 10,
+    "selling_price": 10,
+    "weight_unit": "",
+    "brand": "K MART"
+  }
+]

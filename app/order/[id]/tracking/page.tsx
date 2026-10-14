@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
   ArrowLeft,
@@ -17,6 +17,7 @@ import {
 
 import { orderService, OrderStatus, OrderTracking } from '@/services/orders';
 import { supabase } from '@/lib/supabase/client';
+import { sendDeliveryUpdateNotification } from '@/services/pushNotification';
 
 const DELIVERY_STEPS: OrderStatus[] = [
   'CREATED',
@@ -119,7 +120,7 @@ export default function OrderTrackingPage() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState('');
 
-  async function loadTracking(showRefresh = false) {
+  const loadTracking = useCallback(async (showRefresh = false) => {
     if (!orderId) return;
 
     try {
@@ -156,7 +157,18 @@ export default function OrderTrackingPage() {
         return;
       }
 
-      setTracking(result.data);
+      // Use callback form to compare old vs new status and fire notification
+      setTracking((prev) => {
+        const prevStatus = prev?.status ?? '';
+        const nextStatus = result.data!.status ?? '';
+        if (showRefresh && prevStatus && nextStatus && prevStatus !== nextStatus) {
+          sendDeliveryUpdateNotification(
+            { id: orderId },
+            `Status updated to ${nextStatus}`
+          ).catch(() => {});
+        }
+        return result.data!;
+      });
     } catch (err: any) {
       console.error(
         '[OrderTrackingPage] load error:',
@@ -171,11 +183,59 @@ export default function OrderTrackingPage() {
       setLoading(false);
       setRefreshing(false);
     }
-  }
+  }, [orderId, router]);
 
   useEffect(() => {
     loadTracking();
-  }, [orderId]);
+  }, [loadTracking]);
+
+  // ── Real-time subscription — react to ANY order update ───────────────────
+  useEffect(() => {
+    if (!orderId) return;
+
+    // Supabase Realtime WebSocket
+    const channel = supabase
+      .channel(`tracking-${orderId}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'orders',
+          filter: `id=eq.${orderId}`,
+        },
+        (payload: any) => {
+          const incoming = payload?.new;
+          if (!incoming) return;
+
+          // Fire notification only if status actually changed
+          const newStatus: string | undefined = incoming.status;
+          if (newStatus) {
+            sendDeliveryUpdateNotification(
+              { id: orderId },
+              `Status updated to ${newStatus}`
+            ).catch(() => {});
+          }
+
+          // Always refresh tracking data for ANY field change
+          loadTracking(true);
+        }
+      )
+      .subscribe((status) => {
+        console.log('[Tracking] Realtime channel:', status);
+      });
+
+    // Polling fallback every 4 s
+    const pollInterval = setInterval(() => {
+      loadTracking(true);
+    }, 4000);
+
+    return () => {
+      supabase.removeChannel(channel);
+      clearInterval(pollInterval);
+    };
+  }, [orderId, loadTracking]);
+  // ─────────────────────────────────────────────────────────────────────────
 
   const steps = useMemo(() => {
     if (!tracking) return DELIVERY_STEPS;
