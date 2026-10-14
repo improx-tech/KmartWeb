@@ -132,7 +132,7 @@ export default function OrderDetailPage({
         const addressSnapshot = data.delivery_address_snapshot || {};
         const customerSnapshot = (data as any).customer_snapshot || {};
 
-        const newOrder = {
+        setDbOrder({
           id: data.id,
           orderNumber: data.order_number || `KM-${data.id.slice(0, 6).toUpperCase()}`,
           orderType: (data.order_type as any) || (data.pickup_store_id ? 'PICKUP' : (contextOrder?.orderType || 'DELIVERY')),
@@ -165,24 +165,9 @@ export default function OrderDetailPage({
             day: data.scheduled_delivery_date || 'Scheduled',
             date: data.scheduled_delivery_date,
           },
-          paymentMethod: (data.payment_method === 'ONLINE' ? 'Razorpay' : 'Cash on Delivery') as 'Razorpay' | 'Cash on Delivery' | 'COD' | 'ONLINE',
+          paymentMethod: data.payment_method === 'ONLINE' ? 'Razorpay' : 'Cash on Delivery',
           status: data.status || 'Order Confirmed',
           createdAt: data.created_at,
-        };
-
-        // Use callback form so we can compare old status vs new status
-        // This fires notifications on EVERY poll/refresh that detects a change
-        setDbOrder((prev) => {
-          const prevStatus = prev?.status ?? '';
-          const nextStatus = newOrder.status ?? '';
-          if (silent && prevStatus && nextStatus && prevStatus !== nextStatus) {
-            // Status changed — fire in-app toast notification
-            sendDeliveryUpdateNotification(
-              { id: newOrder.id, orderNumber: newOrder.orderNumber },
-              `Status updated to ${nextStatus}`
-            ).catch(() => {});
-          }
-          return newOrder;
         });
       }
     } catch (err: any) {
@@ -205,7 +190,6 @@ export default function OrderDetailPage({
   useEffect(() => {
     if (!resolvedId) return;
 
-    // ── Supabase Realtime WebSocket ──────────────────────────────────────────
     const channel = supabase
       .channel(`order-detail-${resolvedId}`)
       .on(
@@ -232,22 +216,14 @@ export default function OrderDetailPage({
           }
 
           // Re-fetch the full order to pick up ALL changed fields
+          // (address snapshot, delivery slot, payment status, etc.)
           fetchOrderFromDb(resolvedId, true);
         }
       )
-      .subscribe((status) => {
-        console.log('[OrderDetail] Realtime channel:', status);
-      });
-
-    // ── Polling fallback every 4 s ───────────────────────────────────────────
-    // Works even if Supabase Realtime is not enabled on the orders table.
-    const pollInterval = setInterval(() => {
-      fetchOrderFromDb(resolvedId, true);
-    }, 4000);
+      .subscribe();
 
     return () => {
       supabase.removeChannel(channel);
-      clearInterval(pollInterval);
     };
   }, [resolvedId, fetchOrderFromDb]);
 

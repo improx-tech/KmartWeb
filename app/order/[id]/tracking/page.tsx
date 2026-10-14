@@ -157,18 +157,7 @@ export default function OrderTrackingPage() {
         return;
       }
 
-      // Use callback form to compare old vs new status and fire notification
-      setTracking((prev) => {
-        const prevStatus = prev?.status ?? '';
-        const nextStatus = result.data!.status ?? '';
-        if (showRefresh && prevStatus && nextStatus && prevStatus !== nextStatus) {
-          sendDeliveryUpdateNotification(
-            { id: orderId },
-            `Status updated to ${nextStatus}`
-          ).catch(() => {});
-        }
-        return result.data!;
-      });
+      setTracking(result.data);
     } catch (err: any) {
       console.error(
         '[OrderTrackingPage] load error:',
@@ -193,7 +182,6 @@ export default function OrderTrackingPage() {
   useEffect(() => {
     if (!orderId) return;
 
-    // Supabase Realtime WebSocket
     const channel = supabase
       .channel(`tracking-${orderId}`)
       .on(
@@ -218,21 +206,14 @@ export default function OrderTrackingPage() {
           }
 
           // Always refresh tracking data for ANY field change
+          // (catches address, status, delivery slot, etc.)
           loadTracking(true);
         }
       )
-      .subscribe((status) => {
-        console.log('[Tracking] Realtime channel:', status);
-      });
-
-    // Polling fallback every 4 s
-    const pollInterval = setInterval(() => {
-      loadTracking(true);
-    }, 4000);
+      .subscribe();
 
     return () => {
       supabase.removeChannel(channel);
-      clearInterval(pollInterval);
     };
   }, [orderId, loadTracking]);
   // ─────────────────────────────────────────────────────────────────────────

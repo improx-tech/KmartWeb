@@ -131,31 +131,10 @@ export default function OrderHistoryPage() {
             );
           }
         )
-        .subscribe((status) => {
-          console.log('[OrdersList] Realtime channel:', status);
-        });
-
-      // Polling fallback every 5 s — re-fetches status for all orders
-      const pollInterval = setInterval(async () => {
-        const { data: fresh } = await supabase
-          .from('orders')
-          .select('id, status, total, delivery_address_snapshot')
-          .eq('user_id', userId!)
-          .order('created_at', { ascending: false });
-
-        if (fresh) {
-          setLiveOrders((prev) =>
-            prev.map((o) => {
-              const row = (fresh as any[]).find((r: any) => r.id === o.id);
-              return row ? { ...o, status: row.status ?? o.status } : o;
-            })
-          );
-        }
-      }, 5000);
+        .subscribe();
 
       return () => {
         supabase.removeChannel(channel);
-        clearInterval(pollInterval);
       };
     };
 
