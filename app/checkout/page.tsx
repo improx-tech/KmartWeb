@@ -28,6 +28,8 @@ import { Address, DeliverySlotItem } from "@/types";
 import { supabase } from "@/lib/supabase/client";
 import { deliveryService } from "@/services/delivery";
 import { cartService } from "@/services/cart";
+import { DeliveryMap, DeliveryLocationData } from "@/components/DeliveryMap";
+import { getCurrentDeviceLocation } from "@/lib/geolocation";
 import confetti from "canvas-confetti";
 import { sendOrderConfirmedNotification } from "@/services/pushNotification";
 
