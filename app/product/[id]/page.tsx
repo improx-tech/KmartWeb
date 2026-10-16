@@ -20,6 +20,8 @@ import {
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { ProductCard } from "@/components/ProductCard";
+import { productService } from "@/services/products";
+import { Product } from "@/types";
 
 export default function ProductDetailPage({
   params,
@@ -51,20 +53,103 @@ export default function ProductDetailPage({
     wishlist, 
     toggleWishlist,
     setIsCartOpen,
-    setIsCheckoutOpen
+    setIsCheckoutOpen,
+    activeStore,
   } = useApp();
 
   const [localQty, setLocalQty] = useState(1);
   const [copied, setCopied] = useState(false);
+  const [dbProduct, setDbProduct] = useState<Product | null>(null);
+  const [isLoadingDb, setIsLoadingDb] = useState<boolean>(true);
+  const [dbRelated, setDbRelated] = useState<Product[]>([]);
 
-  // Find product from context (populated from DB)
-  const product = products.find((p) => p.id === resolvedId);
+  // Fetch product directly from Supabase database by ID
+  useEffect(() => {
+    if (!resolvedId) return;
 
-  if (isLoadingProducts && !product) {
+    let isMounted = true;
+    setIsLoadingDb(true);
+
+    // 1. If in cached context products list, show immediately with zero delay
+    const cached = products.find((p) => p.id === resolvedId);
+    if (cached) {
+      setDbProduct(cached);
+    }
+
+    // 2. Fetch fresh details directly from Supabase database
+    productService
+      .fetchProductById(resolvedId, activeStore?.id)
+      .then((fresh) => {
+        if (!isMounted) return;
+        if (fresh) {
+          setDbProduct(fresh);
+          // Fetch related items from DB
+          productService
+            .fetchRelatedProducts(fresh.categoryId, fresh.id, 4)
+            .then((rel) => {
+              if (isMounted && rel && rel.length > 0) {
+                setDbRelated(rel);
+              }
+            });
+        }
+        setIsLoadingDb(false);
+      })
+      .catch((err) => {
+        console.warn("Error fetching product details from DB:", err);
+        if (isMounted) setIsLoadingDb(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [resolvedId, activeStore?.id]);
+
+  // Use DB product, falling back to context
+  const product = dbProduct || products.find((p) => p.id === resolvedId);
+
+  const [isMainImageLoaded, setIsMainImageLoaded] = useState(false);
+
+  if ((isLoadingDb || isLoadingProducts) && !product) {
     return (
-      <div className="min-h-[70vh] bg-[#F8F9FA] flex flex-col items-center justify-center px-4 py-16 text-center">
-        <div className="w-10 h-10 border-4 border-[#E11A22] border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-sm font-bold text-gray-700">Loading product details...</p>
+      <div className="min-h-screen bg-[#F8F9FA] pb-16 animate-fadeInSmooth">
+        {/* Breadcrumb Skeleton */}
+        <div className="bg-white border-b border-gray-200/80 shadow-2xs">
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+            <div className="h-4 w-60 bg-gray-200 rounded animate-shimmer" />
+          </div>
+        </div>
+
+        {/* Main Product Container Skeleton */}
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+          <div className="bg-white rounded-2xl border border-gray-200/90 shadow-xs p-5 sm:p-8 lg:p-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+              {/* Left Column Skeleton */}
+              <div className="lg:col-span-5 flex flex-col space-y-4">
+                <div className="aspect-square w-full rounded-2xl bg-gray-100 animate-shimmer" />
+                <div className="flex gap-2">
+                  <div className="w-16 h-16 rounded-xl bg-gray-100 animate-shimmer" />
+                  <div className="w-16 h-16 rounded-xl bg-gray-100 animate-shimmer" />
+                  <div className="w-16 h-16 rounded-xl bg-gray-100 animate-shimmer" />
+                </div>
+              </div>
+
+              {/* Right Column Skeleton */}
+              <div className="lg:col-span-7 flex flex-col space-y-4">
+                <div className="h-3.5 w-32 bg-gray-200 rounded animate-shimmer" />
+                <div className="h-7 w-3/4 bg-gray-200 rounded animate-shimmer" />
+                <div className="h-4 w-40 bg-gray-100 rounded animate-shimmer" />
+                <div className="h-8 w-48 bg-gray-200 rounded animate-shimmer pt-2" />
+                <div className="h-20 w-full bg-gray-50 rounded-xl animate-shimmer" />
+                <div className="h-12 w-full sm:w-64 bg-gray-200 rounded-xl animate-shimmer mt-4" />
+                <div className="grid grid-cols-3 gap-3 pt-4">
+                  <div className="h-16 bg-gray-50 rounded-xl animate-shimmer" />
+                  <div className="h-16 bg-gray-50 rounded-xl animate-shimmer" />
+                  <div className="h-16 bg-gray-50 rounded-xl animate-shimmer" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -101,10 +186,13 @@ export default function ProductDetailPage({
   const inCartQuantity = cartItem ? cartItem.quantity : 0;
   const isWishlisted = wishlist.includes(product.id);
 
-  // Related products from the same category
-  const relatedProducts = products
-    .filter((p) => p.category === product.category && p.id !== product.id)
-    .slice(0, 4);
+  // Related products directly from database (falling back to in-memory context)
+  const relatedProducts =
+    dbRelated.length > 0
+      ? dbRelated
+      : products
+          .filter((p) => p.category === product.category && p.id !== product.id)
+          .slice(0, 4);
 
   const handleShare = () => {
     if (typeof window !== "undefined") {
@@ -193,11 +281,18 @@ export default function ProductDetailPage({
                   </button>
                 </div>
 
-                {/* Main Product Image */}
+                {/* Main Product Image with smooth blur-up */}
+                {!isMainImageLoaded && (
+                  <div className="absolute inset-0 animate-shimmer bg-gray-100 z-0" />
+                )}
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  className={`max-h-full max-w-full object-contain group-hover:scale-105 transition-all duration-500 ease-out z-1 ${
+                    isMainImageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                  }`}
+                  loading="lazy"
+                  onLoad={() => setIsMainImageLoaded(true)}
                 />
 
                 {/* Delivery Badge */}
@@ -225,10 +320,19 @@ export default function ProductDetailPage({
                   <span className="text-xs font-black uppercase tracking-wider text-[#E11A22] bg-red-50 border border-red-100 px-2.5 py-0.5 rounded-md">
                     {product.brand}
                   </span>
-                  <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    In Stock
-                  </span>
+                  {product.inStock && (product.stockCount === undefined || product.stockCount > 0) ? (
+                    <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      {product.stockCount !== undefined && product.stockCount < 10
+                        ? `Only ${product.stockCount} left in stock`
+                        : "In Stock"}
+                    </span>
+                  ) : (
+                    <span className="text-xs font-bold text-red-700 bg-red-50 border border-red-200 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                      Out of Stock
+                    </span>
+                  )}
                 </div>
 
                 {/* Product Title */}
@@ -236,11 +340,23 @@ export default function ProductDetailPage({
                   {product.name}
                 </h1>
 
-                {/* Pack size & Rating */}
-                <div className="mt-3 flex flex-wrap items-center gap-4 text-xs">
-                  <span className="text-gray-600 font-semibold bg-gray-100 px-2.5 py-1 rounded-md">
+                {/* Pack size, SKU, Barcode & Rating */}
+                <div className="mt-3 flex flex-wrap items-center gap-2.5 text-xs">
+                  <span className="text-gray-700 font-semibold bg-gray-100 px-2.5 py-1 rounded-md">
                     Net Weight: {product.weight}
                   </span>
+
+                  {product.sku && (
+                    <span className="text-gray-500 font-medium bg-gray-50 border border-gray-200 px-2 py-0.5 rounded text-[11px]">
+                      SKU: <strong className="text-gray-800 font-mono">{product.sku}</strong>
+                    </span>
+                  )}
+
+                  {product.barcode && (
+                    <span className="text-gray-500 font-medium bg-gray-50 border border-gray-200 px-2 py-0.5 rounded text-[11px]">
+                      Barcode: <strong className="text-gray-800 font-mono">{product.barcode}</strong>
+                    </span>
+                  )}
 
                   <div className="flex items-center gap-1 bg-amber-50 border border-amber-200/80 px-2.5 py-0.5 rounded-md text-amber-900 font-bold">
                     <span>{product.rating || 4.7}</span>
@@ -273,9 +389,9 @@ export default function ProductDetailPage({
                 <div className="mt-6 space-y-3">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     {inCartQuantity === 0 ? (
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 flex-1">
                         {/* Stepper for first addition */}
-                        <div className="flex items-center border border-gray-300 rounded-xl bg-white shadow-2xs overflow-hidden h-12">
+                        <div className="flex items-center border border-gray-300 rounded-xl bg-white shadow-2xs overflow-hidden h-12 shrink-0">
                           <button
                             onClick={() => setLocalQty((q) => Math.max(1, q - 1))}
                             className="w-10 h-full flex items-center justify-center hover:bg-gray-100 text-gray-600 transition-colors cursor-pointer"
@@ -299,16 +415,16 @@ export default function ProductDetailPage({
                             addToCart(product, localQty);
                             setIsCartOpen(true);
                           }}
-                          className="flex-1 h-12 bg-[#E11A22] hover:bg-[#c8141b] text-white font-bold text-sm px-6 rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                          className="flex-1 h-12 bg-[#E11A22] hover:bg-[#c8141b] text-white font-bold text-sm px-4 sm:px-6 rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all cursor-pointer"
                         >
                           <ShoppingBag className="w-4 h-4" />
                           <span>Add to Cart</span>
                         </button>
                       </div>
                     ) : (
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 flex-1">
                         {/* Already in cart controller */}
-                        <div className="flex items-center border-2 border-[#E11A22] rounded-xl bg-red-50 text-[#E11A22] overflow-hidden h-12">
+                        <div className="flex items-center border-2 border-[#E11A22] rounded-xl bg-red-50 text-[#E11A22] overflow-hidden h-12 shrink-0">
                           <button
                             onClick={() => updateQuantity(product.id, inCartQuantity - 1)}
                             className="w-11 h-full flex items-center justify-center hover:bg-red-100 transition-colors cursor-pointer"
@@ -328,7 +444,7 @@ export default function ProductDetailPage({
 
                         <Link
                           href="/cart"
-                          className="flex-1 h-12 border border-[#0A2540] text-[#0A2540] hover:bg-[#0A2540] hover:text-white font-bold text-sm px-6 rounded-xl flex items-center justify-center gap-2 transition-all"
+                          className="flex-1 h-12 border border-[#0A2540] text-[#0A2540] hover:bg-[#0A2540] hover:text-white font-bold text-sm px-4 sm:px-6 rounded-xl flex items-center justify-center gap-2 transition-all"
                         >
                           <span>View in Cart</span>
                           <ChevronRight className="w-4 h-4" />
@@ -339,7 +455,7 @@ export default function ProductDetailPage({
                     {/* Buy Now Button */}
                     <button
                       onClick={handleBuyNow}
-                      className="h-12 bg-[#0A2540] hover:bg-[#123154] text-white font-bold text-sm px-8 rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                      className="h-12 bg-[#0A2540] hover:bg-[#123154] text-white font-bold text-sm px-6 sm:px-8 rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all cursor-pointer w-full sm:w-auto"
                     >
                       <span>Buy Now</span>
                       <ChevronRight className="w-4 h-4" />
@@ -369,7 +485,7 @@ export default function ProductDetailPage({
                   <h3 className="text-sm font-black text-[#0A2540] uppercase tracking-wider mb-2">
                     Product Description
                   </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">
                     {product.description || "Fresh and authentic product delivered directly to your doorstep with guaranteed quality and timely delivery from K MART."}
                   </p>
                 </div>

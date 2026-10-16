@@ -1,21 +1,160 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, Suspense } from "react";
+import React, { useState, useEffect, useMemo, useRef, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
-import { ChevronRight, ChevronDown, Plus, Minus, X } from "lucide-react";
+import { ChevronRight, ChevronDown, Plus, Minus, X, Loader2, ArrowUp } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { Product } from "@/types";
+import { ProductCardSkeleton } from "@/components/ProductCardSkeleton";
+
+const CATEGORY_PRODUCTS_PER_SESSION = 16;
+
+function CategoryItemCard({
+  product,
+  activeCategoryName,
+  cart,
+  addToCart,
+  updateQuantity,
+}: {
+  product: Product;
+  activeCategoryName: string;
+  cart: any[];
+  addToCart: (product: Product, qty: number) => void;
+  updateQuantity: (id: string, qty: number) => void;
+}) {
+  const [imgSrc, setImgSrc] = useState(product.image);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const cartItem = cart.find((item) => item.product.id === product.id);
+  const quantity = cartItem ? cartItem.quantity : 0;
+
+  useEffect(() => {
+    setImgSrc(product.image);
+    setIsImageLoaded(false);
+  }, [product.image]);
+
+  return (
+    <div className="bg-white rounded-2xl border border-gray-200/80 hover:border-gray-300 hover:shadow-md transition-all p-3.5 flex flex-col justify-between group animate-fadeInSmooth">
+      <div>
+        {/* Product Image with smooth blur-up */}
+        <Link
+          href={`/product/${product.id}`}
+          className="w-full aspect-square relative flex items-center justify-center mb-2 bg-[#F8F9FA] rounded-xl overflow-hidden block cursor-pointer"
+        >
+          {!isImageLoaded && (
+            <div className="absolute inset-0 animate-shimmer bg-gray-100 z-0" />
+          )}
+          <img
+            src={imgSrc}
+            alt={product.name}
+            className={`w-full h-full object-cover transform group-hover:scale-105 transition-all duration-500 ease-out z-1 ${
+              isImageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+            }`}
+            loading="lazy"
+            onLoad={() => setIsImageLoaded(true)}
+            onError={() => {
+              setImgSrc('https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=600&q=80');
+              setIsImageLoaded(true);
+            }}
+          />
+        </Link>
+
+        {/* Store Tag */}
+        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block truncate">
+          {product.storeTag || `K MART | ${activeCategoryName.toUpperCase()}`}
+        </span>
+
+        {/* Product Name */}
+        <Link
+          href={`/product/${product.id}`}
+          className="font-bold text-sm text-[#0A2540] hover:text-[#E11A22] transition-colors line-clamp-1 block mt-1"
+          title={product.name}
+        >
+          {product.name}
+        </Link>
+
+        {/* Weight & Stock */}
+        <div className="flex items-center gap-1.5 text-xs text-gray-500 font-medium mt-0.5">
+          <span>{product.weight}</span>
+          <span>•</span>
+          <span className="text-emerald-600 font-semibold">In stock</span>
+        </div>
+
+        {/* Price & Discount Row */}
+        <div className="flex items-baseline gap-2 mt-2">
+          <span className="font-black text-base text-[#E11A22]">
+            ₹{product.price}
+          </span>
+          {product.originalPrice > product.price && (
+            <span className="text-xs text-gray-400 line-through font-medium">
+              ₹{product.originalPrice}
+            </span>
+          )}
+        </div>
+
+        {/* Discount Badge */}
+        {product.discountPercent > 0 && (
+          <div className="mt-1">
+            <span className="inline-block bg-emerald-50 text-emerald-600 font-bold text-[11px] px-1.5 py-0.5 rounded">
+              {product.discountPercent}% OFF
+            </span>
+          </div>
+        )}
+
+        {/* Max Purchase Units */}
+        <p className="text-[10px] text-gray-400 font-medium mt-3">
+          Maximum purchase • {product.maxPurchaseUnits || 24} units
+        </p>
+      </div>
+
+      {/* Add to Cart Button */}
+      <div className="mt-3">
+        {quantity === 0 ? (
+          <button
+            type="button"
+            onClick={() => addToCart(product, 1)}
+            className="w-full py-1.5 border border-[#E11A22] text-[#E11A22] hover:bg-red-50 font-bold text-xs rounded-lg transition-colors cursor-pointer text-center"
+          >
+            ADD +
+          </button>
+        ) : (
+          <div className="flex items-center justify-between border border-[#E11A22] bg-[#E11A22] rounded-lg text-white font-bold text-xs overflow-hidden">
+            <button
+              type="button"
+              onClick={() => updateQuantity(product.id, quantity - 1)}
+              className="px-3 py-1.5 hover:bg-[#c8141b] transition-colors cursor-pointer"
+              aria-label="Decrease quantity"
+            >
+              <Minus className="w-3.5 h-3.5" />
+            </button>
+            <span className="px-2">{quantity}</span>
+            <button
+              type="button"
+              onClick={() => updateQuantity(product.id, quantity + 1)}
+              className="px-3 py-1.5 hover:bg-[#c8141b] transition-colors cursor-pointer"
+              aria-label="Increase quantity"
+            >
+              <Plus className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 function CategoriesContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const urlCat = searchParams.get("cat") || searchParams.get("category") || "personal-care";
   
-  const { products, categories, cart, addToCart, updateQuantity } = useApp();
+  const { products, categories, isLoadingProducts, cart, addToCart, updateQuantity } = useApp();
   const [activeCategorySlug, setActiveCategorySlug] = useState<string>(urlCat);
   const [activeSubcategory, setActiveSubcategory] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("popular");
+  const [visibleCount, setVisibleCount] = useState<number>(CATEGORY_PRODUCTS_PER_SESSION);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (urlCat) {
@@ -23,6 +162,11 @@ function CategoriesContent() {
       setActiveSubcategory("all");
     }
   }, [urlCat]);
+
+  // Reset pagination when category, subcategory or sort changes
+  useEffect(() => {
+    setVisibleCount(CATEGORY_PRODUCTS_PER_SESSION);
+  }, [activeCategorySlug, activeSubcategory, sortBy]);
 
   // Current active category object
   const activeCategory = useMemo(() => {
@@ -95,6 +239,34 @@ function CategoriesContent() {
 
     return list;
   }, [products, activeCategorySlug, activeCategory, activeSubcategory, sortBy]);
+
+  const displayedProducts = filteredProducts.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredProducts.length;
+
+  // Infinite scroll observer for categories
+  useEffect(() => {
+    if (!hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsLoadingMore(true);
+          setTimeout(() => {
+            setVisibleCount((prev) => Math.min(prev + CATEGORY_PRODUCTS_PER_SESSION, filteredProducts.length));
+            setIsLoadingMore(false);
+          }, 200);
+        }
+      },
+      { rootMargin: '450px' }
+    );
+
+    const currentElem = loadMoreRef.current;
+    if (currentElem) observer.observe(currentElem);
+
+    return () => {
+      if (currentElem) observer.unobserve(currentElem);
+    };
+  }, [hasMore, filteredProducts.length]);
 
   const handleCategorySelect = (slug: string) => {
     setActiveCategorySlug(slug);
@@ -285,127 +457,69 @@ function CategoriesContent() {
             )}
 
             {/* ── 4-Column Product Grid ── */}
-            {filteredProducts.length === 0 ? (
-              <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center">
-                <p className="text-sm font-bold text-gray-700">No products available in this selection.</p>
-                <button
-                  type="button"
-                  onClick={() => setActiveSubcategory("all")}
-                  className="mt-2 text-xs font-bold text-[#E11A22] hover:underline cursor-pointer"
-                >
-                  Show all {activeCategory.name}
-                </button>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {filteredProducts.map((product) => {
-                  const cartItem = cart.find((item) => item.product.id === product.id);
-                  const quantity = cartItem ? cartItem.quantity : 0;
-
-                  return (
-                    <div
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 min-h-[300px]">
+              {isLoadingProducts && products.length === 0 ? (
+                Array.from({ length: 12 }).map((_, idx) => (
+                  <ProductCardSkeleton key={`cat-skeleton-${idx}`} />
+                ))
+              ) : filteredProducts.length === 0 ? (
+                <div className="col-span-full bg-white rounded-2xl border border-gray-100 p-12 text-center">
+                  <p className="text-sm font-bold text-gray-700">No products available in this selection.</p>
+                  <button
+                    type="button"
+                    onClick={() => setActiveSubcategory("all")}
+                    className="mt-2 text-xs font-bold text-[#E11A22] hover:underline cursor-pointer"
+                  >
+                    Show all {activeCategory.name}
+                  </button>
+                </div>
+              ) : (
+                <>
+                  {displayedProducts.map((product) => (
+                    <CategoryItemCard
                       key={product.id}
-                      className="bg-white rounded-2xl border border-gray-200/80 hover:border-gray-300 hover:shadow-md transition-all p-3.5 flex flex-col justify-between group"
-                    >
-                      <div>
-                        {/* Product Image */}
-                        <Link
-                          href={`/product/${product.id}`}
-                          className="w-full aspect-square relative flex items-center justify-center mb-2 bg-[#F8F9FA] rounded-xl overflow-hidden block cursor-pointer"
-                        >
-                          <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
-                            loading="lazy"
-                          />
-                        </Link>
+                      product={product}
+                      activeCategoryName={activeCategory.name}
+                      cart={cart}
+                      addToCart={addToCart}
+                      updateQuantity={updateQuantity}
+                    />
+                  ))}
+                  {isLoadingMore && (
+                    Array.from({ length: 4 }).map((_, idx) => (
+                      <ProductCardSkeleton key={`cat-more-skeleton-${idx}`} />
+                    ))
+                  )}
+                </>
+              )}
+            </div>
 
-                        {/* Store Tag */}
-                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block truncate">
-                          {product.storeTag || `K MART | ${activeCategory.name.toUpperCase()}`}
-                        </span>
-
-                        {/* Product Name */}
-                        <Link
-                          href={`/product/${product.id}`}
-                          className="font-bold text-sm text-[#0A2540] hover:text-[#E11A22] transition-colors line-clamp-1 block mt-1"
-                          title={product.name}
-                        >
-                          {product.name}
-                        </Link>
-
-                        {/* Weight & Stock */}
-                        <div className="flex items-center gap-1.5 text-xs text-gray-500 font-medium mt-0.5">
-                          <span>{product.weight}</span>
-                          <span>•</span>
-                          <span className="text-gray-400">In stock</span>
-                        </div>
-
-                        {/* Price & Discount Row */}
-                        <div className="flex items-baseline gap-2 mt-2">
-                          <span className="font-black text-base text-[#E11A22]">
-                            ₹{product.price}
-                          </span>
-                          {product.originalPrice > product.price && (
-                            <span className="text-xs text-gray-400 line-through font-medium">
-                              ₹{product.originalPrice}
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Discount Badge */}
-                        {product.discountPercent > 0 && (
-                          <div className="mt-1">
-                            <span className="inline-block bg-emerald-50 text-emerald-600 font-bold text-[11px] px-1.5 py-0.5 rounded">
-                              {product.discountPercent}% OFF
-                            </span>
-                          </div>
-                        )}
-
-                        {/* Max Purchase Units */}
-                        <p className="text-[10px] text-gray-400 font-medium mt-3">
-                          Maximum purchase • {product.maxPurchaseUnits || 24} units
-                        </p>
-                      </div>
-
-                      {/* Add to Cart Button */}
-                      <div className="mt-3">
-                        {quantity === 0 ? (
-                          <button
-                            type="button"
-                            onClick={() => addToCart(product, 1)}
-                            className="w-full py-1.5 border border-[#E11A22] text-[#E11A22] hover:bg-red-50 font-bold text-xs rounded-lg transition-colors cursor-pointer text-center"
-                          >
-                            ADD +
-                          </button>
-                        ) : (
-                          <div className="flex items-center justify-between border border-[#E11A22] bg-[#E11A22] rounded-lg text-white font-bold text-xs overflow-hidden">
-                            <button
-                              type="button"
-                              onClick={() => updateQuantity(product.id, quantity - 1)}
-                              className="px-3 py-1.5 hover:bg-[#c8141b] transition-colors cursor-pointer"
-                              aria-label="Decrease quantity"
-                            >
-                              <Minus className="w-3.5 h-3.5" />
-                            </button>
-                            <span className="px-2">{quantity}</span>
-                            <button
-                              type="button"
-                              onClick={() => updateQuantity(product.id, quantity + 1)}
-                              className="px-3 py-1.5 hover:bg-[#c8141b] transition-colors cursor-pointer"
-                              aria-label="Increase quantity"
-                            >
-                              <Plus className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        )}
+              {/* ── Category Automatic Infinite Scroll Indicator ── */}
+              {filteredProducts.length > CATEGORY_PRODUCTS_PER_SESSION && (
+                <div className="mt-8 flex flex-col items-center justify-center space-y-3">
+                  {hasMore ? (
+                    <div ref={loadMoreRef} className="py-6 flex flex-col items-center justify-center w-full">
+                      <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border border-gray-200/80 shadow-xs text-xs font-bold text-gray-700">
+                        <Loader2 className="w-4 h-4 animate-spin text-[#E11A22]" />
+                        <span>Loading more products...</span>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
-            )}
+                  ) : (
+                    <div className="pt-2 flex items-center gap-2 text-xs font-semibold text-gray-400">
+                      <span>✓ All {filteredProducts.length} products loaded</span>
+                      <span>•</span>
+                      <button
+                        type="button"
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        className="text-[#E11A22] hover:underline inline-flex items-center gap-0.5 cursor-pointer font-bold"
+                      >
+                        <span>Back to top</span>
+                        <ArrowUp className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
 
           </main>
         </div>

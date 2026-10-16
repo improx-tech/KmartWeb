@@ -22,7 +22,7 @@ import {
   ExternalLink,
   Loader2,
 } from "lucide-react";
-import { reverseGeocode, PUNE_POPULAR_AREAS } from "../lib/geolocation";
+import { reverseGeocode } from "../lib/geolocation";
 
 // 2 Pune K MART store hubs (5km delivery radius each)
 export const KMART_STORES = [
@@ -103,7 +103,6 @@ export interface DeliveryMapProps {
   showStorePin?: boolean;
   showRadius?: boolean;
   showRoute?: boolean;
-  showAreaChips?: boolean;
   interactive?: boolean;
   onLocationSelect?: (location: DeliveryLocationData) => void;
   className?: string;
@@ -169,7 +168,6 @@ export const DeliveryMap: React.FC<DeliveryMapProps> = ({
   showStorePin = true,
   showRadius = true,
   showRoute = true,
-  showAreaChips = true,
   interactive = true,
   onLocationSelect,
   className = "",
@@ -606,27 +604,7 @@ export const DeliveryMap: React.FC<DeliveryMapProps> = ({
         </div>
       </div>
 
-      {/* Popular Area Quick Select Chips */}
-      {showAreaChips && (
-        <div className="px-3 py-1.5 bg-slate-50 border-t border-gray-100 flex items-center gap-1.5 overflow-x-auto text-[11px] no-scrollbar">
-          <span className="text-gray-400 font-bold shrink-0 text-[10px] uppercase tracking-wider">Quick:</span>
-          {PUNE_POPULAR_AREAS.slice(0, 6).map((area) => (
-            <button
-              type="button"
-              key={area.area}
-              onClick={() => {
-                triggerLocationChange(area.latitude, area.longitude, area.area, area.pincode);
-                if (mapControlsRef.current) {
-                  mapControlsRef.current.onLocateMe();
-                }
-              }}
-              className="px-2 py-0.5 rounded-md bg-white border border-gray-200 hover:border-[#E11A22] text-gray-700 hover:text-[#E11A22] font-semibold shrink-0 transition-colors cursor-pointer text-[10px]"
-            >
-              {area.area}
-            </button>
-          ))}
-        </div>
-      )}
+
 
       {/* Bottom Summary Bar */}
       <div className="px-4 py-2.5 bg-white border-t border-gray-100 flex items-center justify-between text-xs">
@@ -641,7 +619,7 @@ export const DeliveryMap: React.FC<DeliveryMapProps> = ({
               {detectedArea}, {detectedPincode}
             </span>
             <span className="text-[10px] text-gray-500">
-              {isDeliverable ? `Serving Store: ${nearestStore.name}` : `Out of 5km radius (${nearestStore.name})`}
+              {isDeliverable ? `Serving Store: ${nearestStore.name}` : `Out of 5km radius (${nearestStore.name}) • You have to pick up your order at the store`}
             </span>
           </div>
         </div>
@@ -650,10 +628,10 @@ export const DeliveryMap: React.FC<DeliveryMapProps> = ({
             className={`text-[11px] font-bold px-2 py-0.5 rounded-full border ${
               isDeliverable
                 ? "text-emerald-700 bg-emerald-50 border-emerald-200"
-                : "text-amber-700 bg-amber-50 border-amber-200"
+                : "text-amber-800 bg-amber-50 border-amber-300 font-extrabold"
             }`}
           >
-            {distanceKm} km away
+            {isDeliverable ? `${distanceKm} km away` : `${distanceKm} km away • Store Pickup Only`}
           </span>
         </div>
       </div>

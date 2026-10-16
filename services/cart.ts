@@ -114,10 +114,10 @@ export const cartService = {
   /**
    * Upsert a cart item in DB
    */
-  async upsertCartItem(cartId: string, productId: string, quantity: number): Promise<void> {
-    if (!cartId || !productId) return;
+  async upsertCartItem(cartId: string, productId: string, quantity: number): Promise<boolean> {
+    if (!cartId || !productId) return false;
     const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(productId);
-    if (!isUuid) return;
+    if (!isUuid) return false;
 
     try {
       if (quantity <= 0) {
@@ -126,7 +126,7 @@ export const cartService = {
           .delete()
           .eq('cart_id', cartId)
           .eq('product_id', productId);
-        return;
+        return true;
       }
 
       const { error } = await supabase
@@ -141,10 +141,13 @@ export const cartService = {
         );
 
       if (error) {
-        console.warn('[cartService] upsertCartItem error:', error.message);
+        console.error('[cartService] CRITICAL: upsertCartItem failed:', error.message, error.details, error.hint);
+        return false;
       }
+      return true;
     } catch (err: any) {
-      console.warn('[cartService] upsertCartItem exception:', err?.message);
+      console.error('[cartService] upsertCartItem exception:', err?.message);
+      return false;
     }
   },
 

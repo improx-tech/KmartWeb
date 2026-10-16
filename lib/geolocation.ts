@@ -117,6 +117,36 @@ export async function geocodeAddress(query: {
   state?: string;
   pincode?: string;
 }): Promise<GeocodeResult> {
+  // 1. Try Google Maps Geocoder first if loaded in browser
+  if (typeof window !== 'undefined' && (window as any).google?.maps?.Geocoder) {
+    try {
+      const geocoder = new (window as any).google.maps.Geocoder();
+      const parts = [query.line1, query.area, query.city, query.pincode, query.state, 'India']
+        .filter(Boolean)
+        .join(', ');
+      const res = await new Promise<any>((resolve) => {
+        geocoder.geocode({ address: parts }, (results: any, status: any) => {
+          if (status === 'OK' && results && results[0]?.geometry?.location) {
+            resolve(results[0]);
+          } else {
+            resolve(null);
+          }
+        });
+      });
+      if (res && res.geometry?.location) {
+        const loc = res.geometry.location;
+        return {
+          latitude: typeof loc.lat === 'function' ? loc.lat() : loc.lat,
+          longitude: typeof loc.lng === 'function' ? loc.lng() : loc.lng,
+          displayName: res.formatted_address || parts,
+        };
+      }
+    } catch (e) {
+      console.warn('[geocodeAddress google] error:', e);
+    }
+  }
+
+  // 2. Nominatim with full query
   try {
     const parts = [query.line1, query.area, query.city, query.pincode, 'India']
       .filter(Boolean)
@@ -130,20 +160,41 @@ export async function geocodeAddress(query: {
       headers: NOMINATIM_HEADERS,
     });
 
-    if (!res.ok) {
-      return getFallbackCoords(query);
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.length > 0) {
+        return {
+          latitude: parseFloat(data[0].lat),
+          longitude: parseFloat(data[0].lon),
+          displayName: data[0].display_name,
+        };
+      }
     }
 
-    const data = await res.json();
-    if (data && data.length > 0) {
-      return {
-        latitude: parseFloat(data[0].lat),
-        longitude: parseFloat(data[0].lon),
-        displayName: data[0].display_name,
-      };
+    // 2b. If line1 had a specific flat/house number that Nominatim didn't match, search by area + city + pin
+    if (query.area || query.city) {
+      const fallbackParts = [query.area, query.city, query.pincode, 'India']
+        .filter(Boolean)
+        .join(', ');
+      if (fallbackParts !== parts) {
+        const areaUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+          fallbackParts
+        )}&limit=1`;
+        const areaRes = await fetch(areaUrl, { headers: NOMINATIM_HEADERS });
+        if (areaRes.ok) {
+          const areaData = await areaRes.json();
+          if (areaData && areaData.length > 0) {
+            return {
+              latitude: parseFloat(areaData[0].lat),
+              longitude: parseFloat(areaData[0].lon),
+              displayName: areaData[0].display_name,
+            };
+          }
+        }
+      }
     }
 
-    // Fallback: try just pincode + India
+    // 2c. Fallback: try just pincode + India
     if (query.pincode) {
       const pinUrl = `https://nominatim.openstreetmap.org/search?format=json&postalcode=${encodeURIComponent(
         query.pincode
@@ -329,6 +380,22 @@ function getFallbackCoords(query?: {
       longitude: 74.5772,
       displayName: 'Baramati, Maharashtra, India',
     };
+  }
+
+  // Check known popular areas in Pune
+  const qStr = `${query?.line1 || ''} ${query?.area || ''} ${query?.city || ''}`.toLowerCase();
+  for (const pa of PUNE_POPULAR_AREAS) {
+    if (
+      qStr.includes(pa.area.toLowerCase()) || 
+      qStr.includes(pa.name.toLowerCase()) ||
+      (query?.pincode && query.pincode === pa.pincode)
+    ) {
+      return {
+        latitude: pa.latitude,
+        longitude: pa.longitude,
+        displayName: `${pa.name}, ${pa.city}`,
+      };
+    }
   }
 
   return {

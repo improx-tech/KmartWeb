@@ -65,7 +65,7 @@ export const CartDrawer: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
       {/* Click outside backdrop to close */}
       <div 
         onClick={() => setIsCartOpen(false)}
@@ -76,7 +76,7 @@ export const CartDrawer: React.FC = () => {
       {/* Centered Modal Container */}
       <div 
         onClick={(e) => e.stopPropagation()}
-        className="relative z-10 w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 flex flex-col max-h-[90vh] text-left animate-in zoom-in-95 duration-200"
+        className="relative z-10 w-full sm:max-w-lg bg-white sm:rounded-2xl rounded-t-2xl shadow-2xl overflow-hidden border border-gray-100 flex flex-col max-h-[92vh] sm:max-h-[90vh] text-left animate-in zoom-in-95 duration-200"
       >
         
         {/* Header */}

@@ -1172,9 +1172,12 @@ export default function ProfilePage() {
                           <Package className="w-5 h-5" />
                         </div>
                         <div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex flex-wrap items-center gap-2">
                             <span className="font-black text-sm text-gray-900">
                               Order #{order.orderNumber || order.id?.slice(0, 8)}
+                            </span>
+                            <span className="text-[10px] font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded">
+                              INV-{(order.orderNumber || order.id).replace('#', '')}
                             </span>
                             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
                               {order.status || "Order Confirmed"}

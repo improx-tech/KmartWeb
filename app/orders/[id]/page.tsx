@@ -27,6 +27,7 @@ import { useApp } from "@/context/AppContext";
 import { orderService } from "@/services/orders";
 import { supabase } from "@/lib/supabase/client";
 import { Order, CartItem } from "@/types";
+import { sendDeliveryUpdateNotification } from "@/services/pushNotification";
 
 export default function OrderDetailPage({
   params,
@@ -83,9 +84,10 @@ export default function OrderDetailPage({
   const order = dbOrder || contextOrder;
 
   // Fetch directly from DB if not in AppContext
-  const fetchOrderFromDb = useCallback(async (targetId: string) => {
+  // silent=true → background refresh (no loading spinner, used by realtime subscription)
+  const fetchOrderFromDb = useCallback(async (targetId: string, silent = false) => {
     if (!targetId) return;
-    setIsLoading(true);
+    if (!silent) setIsLoading(true);
     try {
       const { data, error } = await supabase
         .from('orders')
@@ -171,7 +173,7 @@ export default function OrderDetailPage({
     } catch (err: any) {
       console.warn('[OrderDetailPage] error fetching order:', err?.message);
     } finally {
-      setIsLoading(false);
+      if (!silent) setIsLoading(false);
     }
   }, []);
 
@@ -184,12 +186,12 @@ export default function OrderDetailPage({
     }
   }, [isMounted, resolvedId, contextOrder, dbOrder, fetchOrderFromDb]);
 
-  // Subscribe to real-time status updates from Supabase
+  // Subscribe to ALL real-time changes on this order (status, address, any field)
   useEffect(() => {
     if (!resolvedId) return;
 
     const channel = supabase
-      .channel(`order-${resolvedId}`)
+      .channel(`order-detail-${resolvedId}`)
       .on(
         'postgres_changes',
         {
@@ -199,9 +201,23 @@ export default function OrderDetailPage({
           filter: `id=eq.${resolvedId}`,
         },
         (payload: any) => {
-          if (payload?.new?.status) {
-            setDbOrder((prev) => prev ? { ...prev, status: payload.new.status as any } : null);
+          const incoming = payload?.new;
+          if (!incoming) return;
+
+          // Fire notification if status changed
+          const nextStatus = incoming.status;
+          if (nextStatus) {
+            setDbOrder((prev) => {
+              if (prev && prev.status !== nextStatus) {
+                sendDeliveryUpdateNotification(prev, `Status updated to ${nextStatus}`).catch(() => {});
+              }
+              return prev;
+            });
           }
+
+          // Re-fetch the full order to pick up ALL changed fields
+          // (address snapshot, delivery slot, payment status, etc.)
+          fetchOrderFromDb(resolvedId, true);
         }
       )
       .subscribe();
@@ -209,7 +225,7 @@ export default function OrderDetailPage({
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [resolvedId]);
+  }, [resolvedId, fetchOrderFromDb]);
 
   // Handler to advance stage in DB
   const handleUpdateStatus = async (newStatus: string) => {
@@ -218,6 +234,7 @@ export default function OrderDetailPage({
     try {
       const ok = await orderService.updateOrderStatus(order.id, newStatus);
       if (ok) {
+        sendDeliveryUpdateNotification(order, `Status updated to ${newStatus}`).catch(() => {});
         setDbOrder((prev) => prev ? { ...prev, status: newStatus as any } : { ...order, status: newStatus as any });
       }
     } catch (err) {
