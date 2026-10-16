@@ -32,7 +32,11 @@ import {
   RotateCcw,
   MessageCircle,
   Tag,
-  X
+  X,
+  Lock,
+  Eye,
+  EyeOff,
+  KeyRound
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { Address } from "@/types";
@@ -484,6 +488,15 @@ export default function ProfilePage() {
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveError, setSaveError] = useState("");
 
+  // Change password state
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [passwordSuccess, setPasswordSuccess] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
+
   // Sign out confirmation modal
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
@@ -536,6 +549,44 @@ export default function ProfilePage() {
       setSaveError(err?.message || "Failed to update profile. Please try again.");
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPasswordError("");
+    setPasswordSuccess(false);
+
+    if (newPassword.length < 8) {
+      setPasswordError("Password must be at least 8 characters.");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setPasswordError("Passwords do not match.");
+      return;
+    }
+
+    setIsChangingPassword(true);
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword,
+        data: { has_password: true },
+      });
+
+      if (error) {
+        setPasswordError(error.message || "Failed to update password.");
+        return;
+      }
+
+      setPasswordSuccess(true);
+      setNewPassword("");
+      setConfirmPassword("");
+      setTimeout(() => setPasswordSuccess(false), 4000);
+    } catch (err: any) {
+      setPasswordError(err?.message || "Failed to update password.");
+    } finally {
+      setIsChangingPassword(false);
     }
   };
 
@@ -815,146 +866,225 @@ export default function ProfilePage() {
 
         {/* Tab 1: Personal Details & Edit Profile */}
         {activeTab === "details" && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xs border border-gray-100">
-            <div className="flex items-center justify-between pb-6 border-b border-gray-100 mb-6">
-              <div>
-                <h2 className="text-lg sm:text-xl font-black text-[#0A2540]">
-                  Edit Profile & Preferences
-                </h2>
-                <p className="text-xs text-gray-500 mt-0.5">
-                  Update your display name, contact info, and delivery notifications.
-                </p>
+          <div className="space-y-6">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xs border border-gray-100">
+              <div className="flex items-center justify-between pb-6 border-b border-gray-100 mb-6">
+                <div>
+                  <h2 className="text-lg sm:text-xl font-black text-[#0A2540]">
+                    Edit Profile &amp; Preferences
+                  </h2>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Update your display name, contact info, and delivery notifications.
+                  </p>
+                </div>
               </div>
+
+              {saveSuccess && (
+                <div className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span className="font-semibold">Your profile has been saved successfully!</span>
+                </div>
+              )}
+
+              {saveError && (
+                <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+                  <span>{saveError}</span>
+                </div>
+              )}
+
+              <form onSubmit={handleSaveProfile} className="space-y-6">
+                {/* Form Inputs Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {/* Full Name */}
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                      Full Name <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="e.g. Ramesh Patil"
+                        className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm text-gray-900 focus:bg-white focus:border-[#0A2540] outline-none transition-all"
+                      />
+                      <User className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    </div>
+                  </div>
+
+                  {/* Email Address */}
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                      Email Address
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="e.g. ramesh@gmail.com"
+                        className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm text-gray-900 focus:bg-white focus:border-[#0A2540] outline-none transition-all"
+                      />
+                      <Mail className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    </div>
+                  </div>
+
+                  {/* Mobile Number (Read-only / verified) */}
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                      Mobile Number (Verified)
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        readOnly
+                        disabled
+                        value={user.phone || "+91 98765 43210"}
+                        className="w-full pl-10 pr-20 py-2.5 bg-gray-100 border border-gray-200 rounded-xl text-xs sm:text-sm text-gray-600 cursor-not-allowed"
+                      />
+                      <Phone className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                        Verified
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-gray-400 mt-1 block">
+                      Mobile number is linked to your OTP authentication.
+                    </span>
+                  </div>
+
+                  {/* Date of Birth */}
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                      Date of Birth (Optional)
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="date"
+                        value={dob}
+                        onChange={(e) => setDob(e.target.value)}
+                        className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm text-gray-900 focus:bg-white focus:border-[#0A2540] outline-none transition-all"
+                      />
+                      <Calendar className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    </div>
+                    <span className="text-[10px] text-gray-400 mt-1 block">
+                      Receive surprise discounts &amp; vouchers on your birthday!
+                    </span>
+                  </div>
+                </div>
+
+                {/* Submit Button */}
+                <div className="pt-4 flex items-center justify-end gap-3">
+                  <button
+                    type="submit"
+                    disabled={isSaving}
+                    className="px-6 py-2.5 rounded-xl bg-[#E11A22] hover:bg-[#c8141b] text-white text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                  >
+                    <Save className="w-4 h-4" />
+                    <span>{isSaving ? "Saving..." : "Save Changes"}</span>
+                  </button>
+                </div>
+              </form>
             </div>
 
-            {saveSuccess && (
-              <div className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span className="font-semibold">Your profile has been saved successfully!</span>
-              </div>
-            )}
-
-            {saveError && (
-              <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
-                <span>{saveError}</span>
-              </div>
-            )}
-
-            <form onSubmit={handleSaveProfile} className="space-y-6">
-              {/* Form Inputs Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {/* Full Name */}
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
-                    Full Name <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      required
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="e.g. Ramesh Patil"
-                      className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm text-gray-900 focus:bg-white focus:border-[#0A2540] outline-none transition-all"
-                    />
-                    <User className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                  </div>
+            {/* Change Password Card */}
+            <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xs border border-gray-100">
+              <div className="flex items-center gap-3 pb-6 border-b border-gray-100 mb-6">
+                <div className="w-10 h-10 rounded-2xl bg-red-50 text-[#E11A22] flex items-center justify-center shrink-0">
+                  <KeyRound className="w-5 h-5" />
                 </div>
-
-                {/* Email Address */}
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
-                    Email Address
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="e.g. ramesh@gmail.com"
-                      className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm text-gray-900 focus:bg-white focus:border-[#0A2540] outline-none transition-all"
-                    />
-                    <Mail className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                  </div>
-                </div>
-
-                {/* Mobile Number (Read-only / verified) */}
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
-                    Mobile Number (Verified)
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      readOnly
-                      disabled
-                      value={user.phone || "+91 98765 43210"}
-                      className="w-full pl-10 pr-20 py-2.5 bg-gray-100 border border-gray-200 rounded-xl text-xs sm:text-sm text-gray-600 cursor-not-allowed"
-                    />
-                    <Phone className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                      Verified
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-gray-400 mt-1 block">
-                    Mobile number is linked to your OTP authentication.
-                  </span>
-                </div>
-
-                {/* Date of Birth */}
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
-                    Date of Birth (Optional)
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="date"
-                      value={dob}
-                      onChange={(e) => setDob(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm text-gray-900 focus:bg-white focus:border-[#0A2540] outline-none transition-all"
-                    />
-                    <Calendar className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                  </div>
-                  <span className="text-[10px] text-gray-400 mt-1 block">
-                    Receive surprise discounts & vouchers on your birthday!
-                  </span>
+                  <h2 className="text-lg sm:text-xl font-black text-[#0A2540]">
+                    Change Password
+                  </h2>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Update your account password for fast mobile + password login without waiting for an OTP.
+                  </p>
                 </div>
               </div>
 
-              {/* WhatsApp notification opt-in */}
-              <div className="pt-2">
-                <label className="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-100 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={whatsappOptIn}
-                    onChange={(e) => setWhatsappOptIn(e.target.checked)}
-                    className="w-4 h-4 mt-0.5 text-emerald-600 rounded-md border-gray-300 focus:ring-emerald-500 cursor-pointer"
-                  />
+              {passwordSuccess && (
+                <div className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span className="font-semibold">Your password has been updated successfully!</span>
+                </div>
+              )}
+
+              {passwordError && (
+                <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+                  <span>{passwordError}</span>
+                </div>
+              )}
+
+              <form onSubmit={handleChangePassword} className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {/* New Password */}
                   <div>
-                    <span className="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
-                      <MessageCircle className="w-4 h-4 text-emerald-600" />
-                      Get Live Delivery & Order Updates on WhatsApp
-                    </span>
-                    <span className="text-[11px] text-emerald-700 block mt-0.5">
-                      We send live dispatch notifications, OTP receipts, and bill copies straight to your WhatsApp. No spam, ever.
-                    </span>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                      New Password <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showNewPassword ? "text" : "password"}
+                        required
+                        minLength={8}
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        placeholder="Minimum 8 characters"
+                        className="w-full pl-10 pr-10 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm text-gray-900 focus:bg-white focus:border-[#0A2540] outline-none transition-all"
+                      />
+                      <Lock className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <button
+                        type="button"
+                        onClick={() => setShowNewPassword(!showNewPassword)}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                      >
+                        {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
+                    </div>
                   </div>
-                </label>
-              </div>
 
-              {/* Submit Button */}
-              <div className="pt-4 flex items-center justify-end gap-3">
-                <button
-                  type="submit"
-                  disabled={isSaving}
-                  className="px-6 py-2.5 rounded-xl bg-[#E11A22] hover:bg-[#c8141b] text-white text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  <Save className="w-4 h-4" />
-                  <span>{isSaving ? "Saving..." : "Save Changes"}</span>
-                </button>
-              </div>
-            </form>
+                  {/* Confirm Password */}
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                      Confirm Password <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        required
+                        minLength={8}
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder="Re-enter new password"
+                        className="w-full pl-10 pr-10 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm text-gray-900 focus:bg-white focus:border-[#0A2540] outline-none transition-all"
+                      />
+                      <Lock className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                      >
+                        {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-end pt-2">
+                  <button
+                    type="submit"
+                    disabled={isChangingPassword || newPassword.length < 8 || confirmPassword.length < 8}
+                    className="px-6 py-2.5 rounded-xl bg-[#0A2540] hover:bg-[#163a5f] text-white text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                  >
+                    <KeyRound className="w-4 h-4" />
+                    <span>{isChangingPassword ? "Updating..." : "Update Password"}</span>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         )}
 

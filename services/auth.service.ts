@@ -72,6 +72,29 @@ export const authService = {
     return supabase.auth.getUser();
   },
 
+  async signInWithPassword(phone: string, password: string) {
+    const supabase = createSupabaseBrowserClient();
+    const digits = phone.replace(/\D/g, "");
+    const normalized = digits.length === 10 ? `+91${digits}` : normalizeIndianPhone(phone);
+
+    return supabase.auth.signInWithPassword({
+      phone: normalized,
+      password,
+    });
+  },
+
+  async setPassword(password: string) {
+    const supabase = createSupabaseBrowserClient();
+    return supabase.auth.updateUser({
+      password,
+      data: { has_password: true },
+    });
+  },
+
+  hasPasswordSet(user?: any): boolean {
+    return user?.user_metadata?.has_password === true;
+  },
+
   async signOut() {
     // BUG 9 FIX: Sign out from Supabase first to clear the local browser session.
     // Then call the server route to clear server-side cookies.

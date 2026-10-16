@@ -7,7 +7,11 @@ import {
   ShieldCheck, 
   ArrowRight, 
   Edit2,
-  Loader2
+  Loader2,
+  Lock,
+  Eye,
+  EyeOff,
+  KeyRound
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { Logo } from './Logo';
@@ -16,17 +20,34 @@ import { supabase } from '../lib/supabase/client';
 export const AuthModal: React.FC = () => {
   const { isAuthOpen, setIsAuthOpen, setUser } = useApp();
   
-  const [authStep, setAuthStep] = useState<'phone' | 'otp'>('phone');
+  // Step can be 'password' | 'phone' | 'otp' | 'set-password'
+  const [authStep, setAuthStep] = useState<'password' | 'phone' | 'otp' | 'set-password'>('phone');
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
+  
+  // Password login state
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Set / Reset password state
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  // OTP state
   const [otpDigits, setOtpDigits] = useState(['', '', '', '', '', '']);
   const [timer, setTimer] = useState(30);
+
+  // Loading & error states
   const [isLoading, setIsLoading] = useState(false);
-  const [isVerifying, setIsVerifying] = useState(false);
   const [error, setError] = useState('');
 
   const phoneInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
   const digitRefs = useRef<(HTMLInputElement | null)[]>([]);
 
+  // Timer for OTP
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
     if (authStep === 'otp' && timer > 0) {
@@ -35,18 +56,103 @@ export const AuthModal: React.FC = () => {
     return () => clearInterval(interval);
   }, [authStep, timer]);
 
-  // Focus phone input when modal opens
+  // Determine initial screen when modal opens
   useEffect(() => {
-    if (isAuthOpen && authStep === 'phone') {
-      setTimeout(() => phoneInputRef.current?.focus(), 100);
+    if (isAuthOpen) {
+      const hasUsedBefore = typeof window !== 'undefined' && localStorage.getItem('kmart_has_logged_in_before') === 'true';
+      setAuthStep(hasUsedBefore ? 'password' : 'phone');
+      setError('');
+      setPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      setIsForgotPassword(false);
+      setShowPassword(false);
+      setShowNewPassword(false);
+      setShowConfirmPassword(false);
+      setOtpDigits(['', '', '', '', '', '']);
+
+      setTimeout(() => {
+        if (hasUsedBefore) {
+          phoneInputRef.current?.focus();
+        } else {
+          phoneInputRef.current?.focus();
+        }
+      }, 100);
     }
-  }, [isAuthOpen, authStep]);
+  }, [isAuthOpen]);
 
   if (!isAuthOpen) return null;
 
+  // ─── 1. Password Login Handler ───────────────────────────────────────────────
+  const handlePasswordLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+
+    const digits = phoneNumber.replace(/\D/g, '');
+    if (digits.length !== 10) {
+      setError('Please enter a valid 10-digit mobile number.');
+      return;
+    }
+
+    if (!password) {
+      setError('Please enter your password.');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const normalized = `+91${digits}`;
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        phone: normalized,
+        password,
+      });
+
+      if (signInError) {
+        const msg = signInError.message.toLowerCase();
+        if (
+          msg.includes('invalid') || 
+          msg.includes('credentials') || 
+          msg.includes('grant') || 
+          msg.includes('user not found') ||
+          msg.includes('wrong')
+        ) {
+          setError('Wrong mobile number or password.');
+        } else {
+          setError(signInError.message || 'Wrong mobile number or password.');
+        }
+        setIsLoading(false);
+        return;
+      }
+
+      // Mark that this user has used the site before
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('kmart_has_logged_in_before', 'true');
+      }
+
+      if (data?.user) {
+        document.cookie = "kmart_guest=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        setUser(prev => ({
+          ...prev,
+          phone: normalized,
+          isVerified: true,
+        }));
+      }
+
+      setIsAuthOpen(false);
+      setPassword('');
+    } catch {
+      setError('Wrong mobile number or password.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // ─── 2. Send OTP Handler ────────────────────────────────────────────────────
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
     const digits = phoneNumber.replace(/\D/g, '');
     if (digits.length !== 10) {
       setError('Please enter a valid 10-digit mobile number.');
@@ -59,6 +165,12 @@ export const AuthModal: React.FC = () => {
       const { error: sendError } = await supabase.auth.signInWithOtp({ phone: normalized });
       if (sendError) {
         console.warn('[AuthModal] sendOtp:', sendError.message);
+        const msg = sendError.message.toLowerCase();
+        if (msg.includes('rate') || msg.includes('too many')) {
+          setError('Too many OTP attempts. Please wait a few minutes.');
+          setIsLoading(false);
+          return;
+        }
       }
     } catch (err: any) {
       console.warn('[AuthModal] sendOtp exception:', err?.message);
@@ -72,6 +184,7 @@ export const AuthModal: React.FC = () => {
     setTimeout(() => digitRefs.current[0]?.focus(), 100);
   };
 
+  // ─── 3. OTP Change & KeyDown ────────────────────────────────────────────────
   const handleOtpChange = (index: number, val: string) => {
     const numeric = val.replace(/\D/g, '');
     if (!numeric && val !== '') return;
@@ -100,6 +213,7 @@ export const AuthModal: React.FC = () => {
     }
   };
 
+  // ─── 4. Verify OTP Handler ──────────────────────────────────────────────────
   const handleVerifyOtp = async () => {
     const enteredOtp = otpDigits.join('');
     if (enteredOtp.length !== 6) {
@@ -107,7 +221,7 @@ export const AuthModal: React.FC = () => {
       return;
     }
 
-    setIsVerifying(true);
+    setIsLoading(true);
     setError('');
 
     try {
@@ -126,30 +240,50 @@ export const AuthModal: React.FC = () => {
             ? 'Incorrect OTP. Please try again.'
             : `Verification failed: ${verifyError.message}`
         );
-        setIsVerifying(false);
+        setIsLoading(false);
         return;
       }
 
-      // Success — AppContext's onAuthStateChange fires syncCustomerProfile automatically
+      // Mark logged in before
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('kmart_has_logged_in_before', 'true');
+      }
+
       if (data?.user) {
+        document.cookie = "kmart_guest=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
         setUser(prev => ({
           ...prev,
-          phone: `+91${phoneNumber.replace(/\D/g, '')}`,
+          phone: normalized,
           isVerified: true,
         }));
       }
 
-      setIsVerifying(false);
-      setIsAuthOpen(false);
-      setAuthStep('phone');
-      setPhoneNumber('');
-      setOtpDigits(['', '', '', '', '', '']);
-    } catch (err: any) {
+      // Per Goal 1: Check if user already has a password
+      const { data: userData } = await supabase.auth.getUser();
+      const hasPassword = userData?.user?.user_metadata?.has_password === true;
+
+      setIsLoading(false);
+
+      if (!hasPassword || isForgotPassword) {
+        // Move straight to "Set a password" screen
+        setAuthStep('set-password');
+        setError('');
+        setNewPassword('');
+        setConfirmPassword('');
+      } else {
+        // Already has password set, and not a forgot-password flow: complete login
+        setIsAuthOpen(false);
+        setAuthStep('phone');
+        setPhoneNumber('');
+        setOtpDigits(['', '', '', '', '', '']);
+      }
+    } catch {
       setError('Something went wrong. Please try again.');
-      setIsVerifying(false);
+      setIsLoading(false);
     }
   };
 
+  // ─── 5. Resend OTP Handler ──────────────────────────────────────────────────
   const handleResendOtp = async () => {
     setError('');
     try {
@@ -159,6 +293,68 @@ export const AuthModal: React.FC = () => {
     setOtpDigits(['', '', '', '', '', '']);
     setTimer(30);
     setTimeout(() => digitRefs.current[0]?.focus(), 100);
+  };
+
+  // ─── 6. Set / Reset Password Handler ────────────────────────────────────────
+  const handleSetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+
+    if (newPassword.length < 8) {
+      setError('Password must be at least 8 characters.');
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: newPassword,
+        data: { has_password: true }, // remembers that this account has a password
+      });
+
+      if (updateError) {
+        setError(updateError.message || 'Unable to set password. Please try again.');
+        setIsLoading(false);
+        return;
+      }
+
+      // Mark customer has logged in before
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('kmart_has_logged_in_before', 'true');
+      }
+
+      setIsLoading(false);
+      setIsAuthOpen(false);
+      setAuthStep('phone');
+      setPhoneNumber('');
+      setPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      setIsForgotPassword(false);
+    } catch (err: any) {
+      setError(err?.message || 'Something went wrong while setting password.');
+      setIsLoading(false);
+    }
+  };
+
+  // ─── 7. Skip Set Password Handler ("Maybe later") ───────────────────────────
+  const handleSkipSetPassword = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('kmart_has_logged_in_before', 'true');
+    }
+    setIsAuthOpen(false);
+    setAuthStep('phone');
+    setPhoneNumber('');
+    setPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+    setIsForgotPassword(false);
   };
 
   return (
@@ -174,6 +370,18 @@ export const AuthModal: React.FC = () => {
             >
               <ChevronLeft className="w-4 h-4" />
               <span>Back</span>
+            </button>
+          ) : authStep === 'phone' && isForgotPassword ? (
+            <button
+              onClick={() => {
+                setIsForgotPassword(false);
+                setAuthStep('password');
+                setError('');
+              }}
+              className="flex items-center gap-1 text-xs font-bold text-gray-700 hover:text-[#0A2540] cursor-pointer"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span>Back to Password</span>
             </button>
           ) : (
             <div />
@@ -193,31 +401,165 @@ export const AuthModal: React.FC = () => {
             <Logo size="lg" className="mx-auto" />
           </div>
 
-          {authStep === 'phone' ? (
+          {/* ════════════════════════════════════════════════════════════════════
+              SCREEN 1: PASSWORD LOGIN (Default for returning customers)
+          ════════════════════════════════════════════════════════════════════ */}
+          {authStep === 'password' && (
             <div className="space-y-5">
               <div className="text-center">
                 <h2 className="text-xl sm:text-2xl font-black text-[#0A2540] tracking-tight">
-                  Welcome to <span className="text-[#E11A22]">K MART</span>
+                  Welcome Back to <span className="text-[#E11A22]">K MART</span>
                 </h2>
                 <p className="text-xs text-gray-500 mt-1">
-                  Daily groceries. Branded essentials. Happier homes.
+                  Sign in with your mobile number and password
                 </p>
               </div>
 
-              <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-gray-600 bg-gray-50 p-2.5 rounded-xl border border-gray-100">
+              <form onSubmit={handlePasswordLogin} className="space-y-4">
+                {/* Mobile Number Field */}
                 <div>
-                  <span className="text-lg block">🛒</span>
-                  <span className="font-semibold">Top Brands</span>
+                  <label className="block text-xs font-bold text-gray-800 mb-1">
+                    Mobile Number
+                  </label>
+                  <div className="flex rounded-xl border border-gray-300 focus-within:border-[#E11A22] focus-within:ring-2 focus-within:ring-red-100 overflow-hidden bg-white shadow-2xs">
+                    <div className="bg-gray-50 px-3.5 flex items-center gap-1 border-r border-gray-200 text-xs font-bold text-gray-700">
+                      <span>+91</span>
+                    </div>
+                    <input
+                      ref={phoneInputRef}
+                      type="tel"
+                      required
+                      maxLength={10}
+                      placeholder="Enter 10-digit mobile number"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
+                      className="flex-1 px-3 py-3 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none"
+                    />
+                  </div>
                 </div>
+
+                {/* Password Field */}
                 <div>
-                  <span className="text-lg block">🏷️</span>
-                  <span className="font-semibold">Great Deals</span>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-bold text-gray-800">
+                      Password
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsForgotPassword(true);
+                        setAuthStep('phone');
+                        setError('');
+                      }}
+                      className="text-[11px] font-bold text-[#E11A22] hover:underline cursor-pointer"
+                    >
+                      Forgot password?
+                    </button>
+                  </div>
+                  <div className="flex rounded-xl border border-gray-300 focus-within:border-[#E11A22] focus-within:ring-2 focus-within:ring-red-100 overflow-hidden bg-white shadow-2xs relative">
+                    <div className="bg-gray-50 px-3.5 flex items-center justify-center border-r border-gray-200 text-gray-400">
+                      <Lock className="w-4 h-4" />
+                    </div>
+                    <input
+                      ref={passwordInputRef}
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      placeholder="Enter your password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="flex-1 px-3 py-3 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                    >
+                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-lg block">🚚</span>
-                  <span className="font-semibold">Delivery on time</span>
+
+                {error && (
+                  <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-xs font-bold text-[#E11A22] flex items-center gap-2 text-left">
+                    <span>⚠️</span>
+                    <span>{error}</span>
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isLoading || phoneNumber.replace(/\D/g, '').length < 10 || !password}
+                  className="w-full bg-[#E11A22] hover:bg-[#c8141b] text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer text-sm disabled:opacity-50"
+                >
+                  {isLoading ? (
+                    <div className="flex items-center gap-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Signing in...</span>
+                    </div>
+                  ) : (
+                    <>
+                      <span>Sign In</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </>
+                  )}
+                </button>
+
+                <div className="text-center pt-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsForgotPassword(false);
+                      setAuthStep('phone');
+                      setError('');
+                    }}
+                    className="text-xs font-bold text-gray-600 hover:text-[#0A2540] hover:underline cursor-pointer"
+                  >
+                    Login with OTP instead
+                  </button>
                 </div>
+              </form>
+
+              <div className="p-3 bg-blue-50/80 border border-blue-100 rounded-xl flex items-center gap-2.5 text-xs text-blue-950">
+                <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
+                <span>Your information is safe and encrypted.</span>
               </div>
+            </div>
+          )}
+
+          {/* ════════════════════════════════════════════════════════════════════
+              SCREEN 2: ENTER MOBILE NUMBER (For OTP Login or Forgot Password)
+          ════════════════════════════════════════════════════════════════════ */}
+          {authStep === 'phone' && (
+            <div className="space-y-5">
+              <div className="text-center">
+                <h2 className="text-xl sm:text-2xl font-black text-[#0A2540] tracking-tight">
+                  {isForgotPassword ? 'Reset Password' : (
+                    <>Welcome to <span className="text-[#E11A22]">K MART</span></>
+                  )}
+                </h2>
+                <p className="text-xs text-gray-500 mt-1">
+                  {isForgotPassword
+                    ? 'Enter your registered mobile number to receive an OTP'
+                    : 'Daily groceries. Branded essentials. Happier homes.'}
+                </p>
+              </div>
+
+              {!isForgotPassword && (
+                <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-gray-600 bg-gray-50 p-2.5 rounded-xl border border-gray-100">
+                  <div>
+                    <span className="text-lg block">🛒</span>
+                    <span className="font-semibold">Top Brands</span>
+                  </div>
+                  <div>
+                    <span className="text-lg block">🏷️</span>
+                    <span className="font-semibold">Great Deals</span>
+                  </div>
+                  <div>
+                    <span className="text-lg block">🚚</span>
+                    <span className="font-semibold">Fast Delivery</span>
+                  </div>
+                </div>
+              )}
 
               <form onSubmit={handleSendOtp} className="space-y-4">
                 <div>
@@ -264,14 +606,34 @@ export const AuthModal: React.FC = () => {
                     </div>
                   ) : (
                     <>
-                      <span>Continue</span>
+                      <span>Get OTP</span>
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}
                 </button>
+
+                {!isForgotPassword && (
+                  <div className="text-center pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAuthStep('password');
+                        setError('');
+                      }}
+                      className="text-xs font-bold text-gray-600 hover:text-[#0A2540] hover:underline cursor-pointer"
+                    >
+                      Login with password instead
+                    </button>
+                  </div>
+                )}
               </form>
             </div>
-          ) : (
+          )}
+
+          {/* ════════════════════════════════════════════════════════════════════
+              SCREEN 3: VERIFY OTP
+          ════════════════════════════════════════════════════════════════════ */}
+          {authStep === 'otp' && (
             <div className="space-y-5">
               <div className="text-center">
                 <h2 className="text-xl sm:text-2xl font-black text-[#0A2540] tracking-tight">
@@ -334,11 +696,11 @@ export const AuthModal: React.FC = () => {
               </div>
 
               <button
-                disabled={isVerifying || otpDigits.join('').length < 6}
+                disabled={isLoading || otpDigits.join('').length < 6}
                 onClick={handleVerifyOtp}
                 className="w-full bg-[#E11A22] hover:bg-[#c8141b] text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer text-sm disabled:opacity-50"
               >
-                {isVerifying ? (
+                {isLoading ? (
                   <div className="flex items-center gap-2">
                     <Loader2 className="w-4 h-4 animate-spin" />
                     <span>Verifying OTP...</span>
@@ -355,6 +717,123 @@ export const AuthModal: React.FC = () => {
                 <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
                 <span>Your information is safe and encrypted.</span>
               </div>
+            </div>
+          )}
+
+          {/* ════════════════════════════════════════════════════════════════════
+              SCREEN 4: SET / RESET PASSWORD (Prompted after OTP login)
+          ════════════════════════════════════════════════════════════════════ */}
+          {authStep === 'set-password' && (
+            <div className="space-y-5">
+              <div className="text-center">
+                <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-2 text-[#E11A22]">
+                  <KeyRound className="w-6 h-6" />
+                </div>
+                <h2 className="text-xl sm:text-2xl font-black text-[#0A2540] tracking-tight">
+                  {isForgotPassword ? 'Set New Password' : 'Set a Password for Faster Login'}
+                </h2>
+                <p className="text-xs text-gray-500 mt-1 max-w-xs mx-auto">
+                  {isForgotPassword
+                    ? 'Please choose a new password with at least 8 characters.'
+                    : 'Next time, sign in instantly with your phone number and password without waiting for an OTP.'}
+                </p>
+              </div>
+
+              <form onSubmit={handleSetPassword} className="space-y-4">
+                {/* New Password */}
+                <div>
+                  <label className="block text-xs font-bold text-gray-800 mb-1">
+                    {isForgotPassword ? 'New Password' : 'Create Password'}
+                  </label>
+                  <div className="flex rounded-xl border border-gray-300 focus-within:border-[#E11A22] focus-within:ring-2 focus-within:ring-red-100 overflow-hidden bg-white shadow-2xs relative">
+                    <div className="bg-gray-50 px-3.5 flex items-center justify-center border-r border-gray-200 text-gray-400">
+                      <Lock className="w-4 h-4" />
+                    </div>
+                    <input
+                      type={showNewPassword ? 'text' : 'password'}
+                      required
+                      minLength={8}
+                      placeholder="Minimum 8 characters"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      className="flex-1 px-3 py-3 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                    >
+                      {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Confirm Password */}
+                <div>
+                  <label className="block text-xs font-bold text-gray-800 mb-1">
+                    Confirm Password
+                  </label>
+                  <div className="flex rounded-xl border border-gray-300 focus-within:border-[#E11A22] focus-within:ring-2 focus-within:ring-red-100 overflow-hidden bg-white shadow-2xs relative">
+                    <div className="bg-gray-50 px-3.5 flex items-center justify-center border-r border-gray-200 text-gray-400">
+                      <Lock className="w-4 h-4" />
+                    </div>
+                    <input
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      required
+                      minLength={8}
+                      placeholder="Re-enter your password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className="flex-1 px-3 py-3 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                    >
+                      {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                {error && (
+                  <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-xs font-bold text-[#E11A22] flex items-center gap-2 text-left">
+                    <span>⚠️</span>
+                    <span>{error}</span>
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isLoading || newPassword.length < 8 || confirmPassword.length < 8}
+                  className="w-full bg-[#E11A22] hover:bg-[#c8141b] text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer text-sm disabled:opacity-50"
+                >
+                  {isLoading ? (
+                    <div className="flex items-center gap-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Saving password...</span>
+                    </div>
+                  ) : (
+                    <>
+                      <span>Save Password & Continue</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </>
+                  )}
+                </button>
+
+                {/* "Maybe later" button - only show when NOT in forgot-password flow */}
+                {!isForgotPassword && (
+                  <div className="text-center pt-1">
+                    <button
+                      type="button"
+                      onClick={handleSkipSetPassword}
+                      className="text-xs font-bold text-gray-500 hover:text-gray-800 cursor-pointer"
+                    >
+                      Maybe later
+                    </button>
+                  </div>
+                )}
+              </form>
             </div>
           )}
 
