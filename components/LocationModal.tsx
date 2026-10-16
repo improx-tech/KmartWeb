@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   X, 
   MapPin, 
@@ -14,14 +14,15 @@ import {
   Loader2
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { DeliveryMap, DeliveryLocationData } from './DeliveryMap';
-import { getCurrentDeviceLocation } from '../lib/geolocation';
+import { DeliveryMap, DeliveryLocationData, getNearestKMartStore } from './DeliveryMap';
+import { getCurrentDeviceLocation, geocodeAddress } from '../lib/geolocation';
 
 export const LocationModal: React.FC = () => {
   const { 
     isLocationOpen, 
     setIsLocationOpen, 
     addAddress, 
+    deleteAddress,
     selectedAddress, 
     setSelectedAddress, 
     addresses,
@@ -36,16 +37,77 @@ export const LocationModal: React.FC = () => {
   const [pincode, setPincode] = useState('413102');
   const [city, setCity] = useState('Baramati');
   const [state, setState] = useState('Maharashtra');
-  const [latitude, setLatitude] = useState<number>(18.1433);
-  const [longitude, setLongitude] = useState<number>(74.5658);
+  const [latitude, setLatitude] = useState<number>(
+    selectedAddress?.latitude || 18.1433
+  );
+  const [longitude, setLongitude] = useState<number>(
+    selectedAddress?.longitude || 74.5658
+  );
   const [isDefault, setIsDefault] = useState(true);
   const [isDetecting, setIsDetecting] = useState(false);
   const [detectionError, setDetectionError] = useState<string | null>(null);
   const [detectionSuccess, setDetectionSuccess] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [mapDistanceKm, setMapDistanceKm] = useState<number | null>(null);
+  const [mapIsDeliverable, setMapIsDeliverable] = useState<boolean>(true);
+  const [isGeocoding, setIsGeocoding] = useState<boolean>(false);
+  const isMapSelectingRef = useRef<boolean>(false);
+
+  // Debounced forward geocoding: when user types address manually, locate it on the map
+  useEffect(() => {
+    if (!isLocationOpen) return;
+    if (isMapSelectingRef.current) return;
+
+    const cleanLine1 = line1.trim();
+    const cleanLine2 = line2.trim();
+    const cleanCity = city.trim();
+    const cleanPin = pincode.trim();
+
+    // Only geocode if at least 3 characters in address line or area, or a valid 6-digit pincode
+    const hasEnoughQuery =
+      cleanLine1.length >= 3 || cleanLine2.length >= 3 || cleanPin.length === 6;
+
+    if (!hasEnoughQuery) return;
+
+    const timer = setTimeout(async () => {
+      if (isMapSelectingRef.current) return;
+      setIsGeocoding(true);
+      try {
+        const result = await geocodeAddress({
+          line1: cleanLine1,
+          area: cleanLine2,
+          city: cleanCity,
+          state: state.trim(),
+          pincode: cleanPin,
+        });
+
+        if (
+          result &&
+          typeof result.latitude === 'number' &&
+          typeof result.longitude === 'number' &&
+          !isNaN(result.latitude) &&
+          !isNaN(result.longitude)
+        ) {
+          setLatitude(result.latitude);
+          setLongitude(result.longitude);
+          const nearest = getNearestKMartStore(result.latitude, result.longitude);
+          setMapDistanceKm(nearest.distanceKm);
+          setMapIsDeliverable(nearest.isDeliverable);
+        }
+      } catch (err) {
+        console.warn('Manual address geocoding failed:', err);
+      } finally {
+        setIsGeocoding(false);
+      }
+    }, 700);
+
+    return () => clearTimeout(timer);
+  }, [line1, line2, city, pincode, state, isLocationOpen]);
 
   if (!isLocationOpen) return null;
 
   const handleUseCurrentLocation = async () => {
+    isMapSelectingRef.current = true;
     setIsDetecting(true);
     setDetectionError(null);
     setDetectionSuccess(null);
@@ -62,20 +124,34 @@ export const LocationModal: React.FC = () => {
       setPincode(d.pincode || '411001');
       setLatitude(d.latitude);
       setLongitude(d.longitude);
+      const nearest = getNearestKMartStore(d.latitude, d.longitude);
+      setMapDistanceKm(nearest.distanceKm);
+      setMapIsDeliverable(nearest.isDeliverable);
       setDetectionSuccess(`Detected: ${d.line1}, ${d.city} (${d.pincode})`);
     } else {
       setDetectionError(
         result.error || 'Could not retrieve GPS coordinates. Please enter your address or select on the map.'
       );
     }
+    setTimeout(() => {
+      isMapSelectingRef.current = false;
+    }, 1000);
   };
 
   const handleMapLocationSelect = (loc: DeliveryLocationData) => {
+    isMapSelectingRef.current = true;
+    // area → line2 (neighbourhood/colony), also pre-fill line1 if empty
+    if (!line1) setLine1(loc.area);
     setLine2(loc.area);
     setPincode(loc.pincode);
     setCity(loc.city);
     setLatitude(loc.lat);
     setLongitude(loc.lng);
+    setMapDistanceKm(loc.distanceKm);
+    setMapIsDeliverable(loc.isDeliverable);
+    setTimeout(() => {
+      isMapSelectingRef.current = false;
+    }, 1000);
   };
 
   const handleSave = async (e: React.FormEvent) => {
@@ -173,18 +249,41 @@ export const LocationModal: React.FC = () => {
                   return (
                     <div
                       key={addr.id}
-                      onClick={() => {
-                        setSelectedAddress(addr);
-                        setIsLocationOpen(false);
-                      }}
-                      className={`p-3.5 rounded-xl border-2 transition-all cursor-pointer flex items-start justify-between gap-3 ${
+                      className={`p-3.5 rounded-xl border-2 transition-all flex items-start justify-between gap-3 ${
                         isSelected
                           ? 'border-[#E11A22] bg-red-50/20 shadow-xs'
                           : 'border-gray-200 hover:border-gray-300 bg-white'
                       }`}
                     >
-                      <div className="flex items-start gap-2.5">
-                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center mt-0.5 ${
+                      {/* Clickable area — select + center map */}
+                      <div
+                        className="flex items-start gap-2.5 flex-1 cursor-pointer"
+                        onClick={() => {
+                          isMapSelectingRef.current = true;
+                          setSelectedAddress(addr);
+                          // Center map on this address
+                          if (addr.latitude && addr.longitude) {
+                            setLatitude(addr.latitude);
+                            setLongitude(addr.longitude);
+                            const nearest = getNearestKMartStore(addr.latitude, addr.longitude);
+                            setMapDistanceKm(nearest.distanceKm);
+                            setMapIsDeliverable(nearest.isDeliverable);
+                          }
+                          // Pre-fill form fields with this address
+                          setAddressType((addr.label as any) || 'Home');
+                          setFullName(addr.fullName || addr.name || user.name || '');
+                          setPhone(addr.phone || user.phone || '');
+                          setLine1(addr.line1 || '');
+                          setLine2(addr.line2 || '');
+                          setCity(addr.city || '');
+                          setState(addr.state || 'Maharashtra');
+                          setPincode(addr.pincode || '');
+                          setTimeout(() => {
+                            isMapSelectingRef.current = false;
+                          }, 1000);
+                        }}
+                      >
+                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center mt-0.5 shrink-0 ${
                           isSelected ? 'border-[#E11A22]' : 'border-gray-300'
                         }`}>
                           {isSelected && <div className="w-2 h-2 rounded-full bg-[#E11A22]" />}
@@ -208,16 +307,52 @@ export const LocationModal: React.FC = () => {
                         </div>
                       </div>
 
-                      {isSelected && (
-                        <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded flex items-center gap-1">
-                          <Check className="w-3 h-3" />
-                          Selected
-                        </span>
-                      )}
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        {isSelected && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setSelectedAddress(addr);
+                              setIsLocationOpen(false);
+                            }}
+                            className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded flex items-center gap-1 cursor-pointer"
+                          >
+                            <Check className="w-3 h-3" />
+                            Deliver Here
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          disabled={deletingId === addr.id}
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            if (!confirm(`Remove "${addr.label}" address?`)) return;
+                            setDeletingId(addr.id);
+                            await deleteAddress(addr.id);
+                            setDeletingId(null);
+                          }}
+                          className="w-7 h-7 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors cursor-pointer disabled:opacity-40"
+                          title="Delete address"
+                        >
+                          {deletingId === addr.id ? (
+                            <span className="w-3 h-3 border border-gray-400 border-t-transparent rounded-full animate-spin block" />
+                          ) : (
+                            <X className="w-3.5 h-3.5" />
+                          )}
+                        </button>
+                      </div>
                     </div>
                   );
                 })}
               </div>
+            </div>
+          )}
+
+          {/* Map Loading / Geocoding Indicator */}
+          {isGeocoding && (
+            <div className="flex items-center gap-1.5 text-xs font-bold text-[#0A2540] bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-lg animate-pulse">
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-600 shrink-0" />
+              <span>Finding typed address on map...</span>
             </div>
           )}
 
@@ -228,6 +363,21 @@ export const LocationModal: React.FC = () => {
             initialLng={longitude}
             onLocationSelect={handleMapLocationSelect}
           />
+
+          {/* Out of 5km radius notice */}
+          {!mapIsDeliverable && mapDistanceKm !== null && mapDistanceKm > 5 && (
+            <div className="p-3 rounded-xl bg-orange-50 border border-orange-200 text-xs text-orange-950 flex items-start gap-2.5">
+              <AlertCircle className="w-4 h-4 text-orange-600 shrink-0 mt-0.5" />
+              <div>
+                <p className="font-extrabold text-orange-900">
+                  Out of 5km radius ({mapDistanceKm} km away)
+                </p>
+                <p className="text-orange-800 text-[11px] mt-0.5">
+                  You can still save this address! For orders to this location, <strong>you have to pick up your order</strong> at the store counter (Store Pickup • ₹0 delivery fee).
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Add New Address Form */}
           <form onSubmit={handleSave} className="space-y-3.5 pt-3 border-t border-gray-100">

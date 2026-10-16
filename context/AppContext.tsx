@@ -13,6 +13,7 @@ import { cartService } from '../services/cart';
 import { supabase } from '../lib/supabase/client';
 import { DbStore, DbCustomer, DbDeliverySettings } from '../types/database';
 import { fetchRelatedProducts, toProduct } from '../lib/cart';
+import { sendOrderConfirmedNotification } from '../services/pushNotification';
 
 interface AppContextType {
   products: Product[];
@@ -288,12 +289,51 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // ----------------------------------------------------
   useEffect(() => {
     async function loadInitialData() {
-      setIsLoadingProducts(true);
+      // ── Step 0: Synchronously resolve initial store & check instant cache (0ms) ──
+      let savedAddr: Address | null = null;
       try {
-        const [dbStores, settings, dbCategories] = await Promise.all([
+        const raw = localStorage.getItem('kmart_selected_address');
+        if (raw) savedAddr = JSON.parse(raw);
+      } catch {}
+
+      let initialStore: DbStore = DEFAULT_STORES[0];
+      let dist = 2.4;
+      let deliverable = true;
+
+      if (savedAddr?.latitude && savedAddr?.longitude) {
+        const nearest = findNearestStore(DEFAULT_STORES, savedAddr.latitude, savedAddr.longitude);
+        if (nearest) {
+          initialStore = nearest.store;
+          dist = nearest.distanceKm;
+          deliverable = nearest.isWithinRadius;
+        }
+      }
+
+      setActiveStore(initialStore);
+      setStoreDistanceKm(dist);
+      setIsDeliverable(deliverable);
+
+      // Check client-side cache for instant display
+      const cached = productService.getCachedProducts(initialStore.id);
+      if (cached && cached.length > 0) {
+        setProducts(cached);
+        setIsLoadingProducts(false);
+      } else {
+        setIsLoadingProducts(true);
+      }
+
+      try {
+        // ── Step 1: Fire all data dependencies in parallel (no waterfall!) ──
+        const [dbStores, settings, dbCategories, dbProducts, slots] = await Promise.all([
           storeService.getStores(),
           deliveryService.getDeliverySettings(),
           categoryService.fetchDbCategories(),
+          productService.fetchDbProducts(initialStore.id, supabase, (initialBatch) => {
+            // Stage 1 callback: Immediately render the first batch (~250ms)
+            setProducts(initialBatch);
+            setIsLoadingProducts(false);
+          }),
+          deliveryService.getAvailableSlots(initialStore.id),
         ]);
 
         if (settings) {
@@ -303,37 +343,30 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const validStores = (dbStores && dbStores.length > 0) ? dbStores : DEFAULT_STORES;
         setStores(validStores);
 
-        // Check if there is an existing saved address in localStorage
-        let savedAddr: Address | null = null;
-        try {
-          const raw = localStorage.getItem('kmart_selected_address');
-          if (raw) savedAddr = JSON.parse(raw);
-        } catch {}
-
-        let store: DbStore = validStores[0];
-        let dist = 2.4;
-        let deliverable = true;
+        // Re-verify nearest store with freshly loaded stores list
+        let finalStore: DbStore = validStores[0];
+        let finalDist = 2.4;
+        let finalDeliverable = true;
 
         if (savedAddr?.latitude && savedAddr?.longitude) {
           const nearest = findNearestStore(validStores, savedAddr.latitude, savedAddr.longitude);
           if (nearest) {
-            store = nearest.store;
-            dist = nearest.distanceKm;
-            deliverable = nearest.isWithinRadius;
+            finalStore = nearest.store;
+            finalDist = nearest.distanceKm;
+            finalDeliverable = nearest.isWithinRadius;
           }
         }
 
-        setActiveStore(store);
-        setStoreDistanceKm(dist);
-        setIsDeliverable(deliverable);
+        setActiveStore(finalStore);
+        setStoreDistanceKm(finalDist);
+        setIsDeliverable(finalDeliverable);
 
-        const [dbProducts, slots] = await Promise.all([
-          productService.fetchDbProducts(store?.id),
-          deliveryService.getAvailableSlots(store?.id),
-        ]);
-
-        setProducts(dbProducts ?? []);
+        // Update full products list and categories
+        if (dbProducts && dbProducts.length > 0) {
+          setProducts(dbProducts);
+        }
         setCategories(dbCategories ?? []);
+
         if (slots && slots.length > 0) {
           setDeliverySlots(slots);
           const firstAvailable = slots.find((s) => s.isAvailable) || slots[0];
@@ -697,6 +730,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             setActiveStore(nearest.store);
             setStoreDistanceKm(nearest.distanceKm);
             setIsDeliverable(nearest.isWithinRadius);
+
+            // If more than 5km from nearest store, automatically switch orderType to PICKUP
+            if (!nearest.isWithinRadius || nearest.distanceKm > 5) {
+              setOrderType('PICKUP');
+            }
+
             deliveryService.getAvailableSlots(nearest.store.id).then((slots) => {
               if (slots && slots.length > 0) {
                 setDeliverySlots(slots);
@@ -952,6 +991,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
 
     setActiveConfirmedOrder(newOrder);
+    sendOrderConfirmedNotification(newOrder).catch(() => {});
     clearCart();
     setIsCheckoutOpen(false);
     return newOrder;

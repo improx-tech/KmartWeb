@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
@@ -15,11 +15,12 @@ import {
   Home as HomeIcon,
   Briefcase,
   AlertCircle,
-  Loader2
+  Loader2,
+  Trash2
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { Address } from "@/types";
-import { getCurrentDeviceLocation } from "@/lib/geolocation";
+import { getCurrentDeviceLocation, geocodeAddress } from "@/lib/geolocation";
 import { DeliveryMap } from "@/components/DeliveryMap";
 
 export default function LocationPage() {
@@ -29,6 +30,7 @@ export default function LocationPage() {
     selectedAddress,
     setSelectedAddress,
     addAddress,
+    deleteAddress,
     user
   } = useApp();
 
@@ -46,8 +48,58 @@ export default function LocationPage() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [detectionError, setDetectionError] = useState<string | null>(null);
   const [detectionSuccess, setDetectionSuccess] = useState<string | null>(null);
+  const [isGeocoding, setIsGeocoding] = useState(false);
+  const isMapSelectingRef = useRef(false);
+
+  // Debounced geocoding when user manually types address fields
+  useEffect(() => {
+    if (!showAddForm) return;
+    if (isMapSelectingRef.current) return;
+
+    const cleanLine1 = line1.trim();
+    const cleanLine2 = line2.trim();
+    const cleanCity = city.trim();
+    const cleanPin = pincode.trim();
+
+    const hasEnoughQuery =
+      cleanLine1.length >= 3 || cleanLine2.length >= 3 || cleanPin.length === 6;
+
+    if (!hasEnoughQuery) return;
+
+    const timer = setTimeout(async () => {
+      if (isMapSelectingRef.current) return;
+      setIsGeocoding(true);
+      try {
+        const res = await geocodeAddress({
+          line1: cleanLine1,
+          area: cleanLine2,
+          city: cleanCity,
+          state: state.trim(),
+          pincode: cleanPin,
+        });
+
+        if (
+          res &&
+          typeof res.latitude === "number" &&
+          typeof res.longitude === "number" &&
+          !isNaN(res.latitude) &&
+          !isNaN(res.longitude)
+        ) {
+          setLatitude(res.latitude);
+          setLongitude(res.longitude);
+        }
+      } catch (e) {
+        console.warn("Manual address geocoding failed:", e);
+      } finally {
+        setIsGeocoding(false);
+      }
+    }, 700);
+
+    return () => clearTimeout(timer);
+  }, [line1, line2, city, pincode, state, showAddForm]);
 
   const handleUseCurrentLocation = async () => {
+    isMapSelectingRef.current = true;
     setIsDetecting(true);
     setDetectionError(null);
     setDetectionSuccess(null);
@@ -72,6 +124,9 @@ export default function LocationPage() {
       );
       setShowAddForm(true);
     }
+    setTimeout(() => {
+      isMapSelectingRef.current = false;
+    }, 1000);
   };
 
   const handleSave = async (e: React.FormEvent) => {
@@ -187,12 +242,27 @@ export default function LocationPage() {
                         <span>{addr.label}</span>
                       </span>
 
-                      {isSelected && (
-                        <span className="text-xs font-bold text-[#E11A22] flex items-center gap-1">
-                          <Check className="w-4 h-4" />
-                          <span>Active</span>
-                        </span>
-                      )}
+                      <div className="flex items-center gap-2">
+                        {isSelected && (
+                          <span className="text-xs font-bold text-[#E11A22] flex items-center gap-1">
+                            <Check className="w-4 h-4" />
+                            <span>Active</span>
+                          </span>
+                        )}
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (confirm(`Remove "${addr.label}" address?`)) {
+                              deleteAddress(addr.id);
+                            }
+                          }}
+                          className="p-1 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+                          title="Delete address"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
 
                     <p className="font-bold text-sm text-gray-900">{addr.fullName} • {addr.phone}</p>
@@ -225,17 +295,28 @@ export default function LocationPage() {
               <h2 className="text-base font-black text-[#0A2540] mb-4">Add New Delivery Address</h2>
               
               {/* Interactive Google Delivery Map */}
+              {isGeocoding && (
+                <div className="flex items-center gap-1.5 text-xs font-bold text-[#0A2540] bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-lg mb-2 animate-pulse">
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-600 shrink-0" />
+                  <span>Finding typed address on map...</span>
+                </div>
+              )}
               <div className="mb-4">
                 <DeliveryMap
                   height="260px"
                   initialLat={latitude}
                   initialLng={longitude}
                   onLocationSelect={(loc) => {
+                    isMapSelectingRef.current = true;
+                    if (!line1) setLine1(loc.area);
                     setLine2(loc.area);
                     setPincode(loc.pincode);
                     setCity(loc.city);
                     setLatitude(loc.lat);
                     setLongitude(loc.lng);
+                    setTimeout(() => {
+                      isMapSelectingRef.current = false;
+                    }, 1000);
                   }}
                 />
               </div>

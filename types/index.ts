@@ -22,6 +22,9 @@ export interface Product {
   deliveryTime?: string;
   storeTag?: string;
   maxPurchaseUnits?: number;
+  sku?: string;
+  barcode?: string;
+  categoryId?: string;
 }
 
 export interface CartItem {

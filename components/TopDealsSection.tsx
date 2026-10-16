@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRight, Plus, Minus } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { DealCardSkeleton } from './ProductCardSkeleton';
 
 interface DealCardProps {
   product: any;
@@ -16,15 +17,17 @@ interface DealCardProps {
 const DealCard: React.FC<DealCardProps> = ({ product, cartItem, addToCart, updateQuantity }) => {
   const qty = cartItem?.quantity ?? 0;
   const [imgSrc, setImgSrc] = React.useState(product.image);
+  const [isImageLoaded, setIsImageLoaded] = React.useState(false);
 
   React.useEffect(() => {
     setImgSrc(product.image);
+    setIsImageLoaded(false);
   }, [product.image]);
 
   return (
     <div
       key={product.id}
-      className="shrink-0 w-44 sm:w-48 bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between p-3 relative group"
+      className="shrink-0 w-44 sm:w-48 bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between p-3 relative group animate-fadeInSmooth"
     >
       {/* Discount Badge */}
       <span className="absolute top-2 left-2 z-10 bg-[#E11A22] text-white text-[10px] font-black px-2 py-0.5 rounded-sm">
@@ -36,14 +39,23 @@ const DealCard: React.FC<DealCardProps> = ({ product, cartItem, addToCart, updat
         href={`/product/${product.id}`}
         className="w-full aspect-square relative flex items-center justify-center my-1 bg-[#F8F9FA] rounded-xl overflow-hidden group cursor-pointer"
       >
+        {!isImageLoaded && (
+          <div className="absolute inset-0 animate-shimmer bg-gray-100 z-0" />
+        )}
         <Image
           src={imgSrc}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 176px, 192px"
-          className="object-cover transform group-hover:scale-105 transition-transform duration-300"
+          className={`object-cover transform group-hover:scale-105 transition-all duration-500 ease-out z-1 ${
+            isImageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          }`}
           loading="lazy"
-          onError={() => setImgSrc('https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=600&q=80')}
+          onLoad={() => setIsImageLoaded(true)}
+          onError={() => {
+            setImgSrc('https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=600&q=80');
+            setIsImageLoaded(true);
+          }}
         />
       </Link>
 
@@ -113,7 +125,7 @@ const DealCard: React.FC<DealCardProps> = ({ product, cartItem, addToCart, updat
 };
 
 export const TopDealsSection: React.FC = () => {
-  const { products, cart, addToCart, updateQuantity } = useApp();
+  const { products, isLoadingProducts, cart, addToCart, updateQuantity } = useApp();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Top discounted products matching screenshot deals
@@ -122,7 +134,7 @@ export const TopDealsSection: React.FC = () => {
     .sort((a, b) => b.discountPercent - a.discountPercent)
     .slice(0, 10);
 
-  if (dealProducts.length === 0) return null;
+  if (dealProducts.length === 0 && !isLoadingProducts) return null;
 
   return (
     <section>
@@ -151,16 +163,23 @@ export const TopDealsSection: React.FC = () => {
         ref={scrollRef}
         className="flex gap-3 sm:gap-4 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pb-2"
       >
-        {dealProducts.map((product) => (
-          <DealCard
-            key={product.id}
-            product={product}
-            cartItem={cart.find(i => i.product.id === product.id)}
-            addToCart={addToCart}
-            updateQuantity={updateQuantity}
-          />
-        ))}
+        {dealProducts.length > 0 ? (
+          dealProducts.map((product) => (
+            <DealCard
+              key={product.id}
+              product={product}
+              cartItem={cart.find(i => i.product.id === product.id)}
+              addToCart={addToCart}
+              updateQuantity={updateQuantity}
+            />
+          ))
+        ) : (
+          Array.from({ length: 5 }).map((_, i) => (
+            <DealCardSkeleton key={`deal-skeleton-${i}`} />
+          ))
+        )}
       </div>
     </section>
   );
 };
+

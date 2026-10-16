@@ -25,13 +25,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const isWishlisted = wishlist.includes(product.id);
 
   const [imgSrc, setImgSrc] = React.useState(product.image);
+  const [isImageLoaded, setIsImageLoaded] = React.useState(false);
 
   React.useEffect(() => {
     setImgSrc(product.image);
+    setIsImageLoaded(false);
   }, [product.image]);
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 hover:border-gray-300 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between p-3 relative group">
+    <div className="bg-white rounded-xl border border-gray-200 hover:border-gray-300 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between p-3 relative group animate-fadeInSmooth">
       
       {/* Top right: Wishlist heart */}
       <div className="flex items-center justify-end mb-1">
@@ -51,19 +53,28 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </button>
       </div>
 
-      {/* Product Image Clickable Link with strict uniform aspect ratio */}
+      {/* Product Image Clickable Link with smooth blur-up transition */}
       <Link
         href={`/product/${product.id}`}
         className="w-full aspect-square relative flex items-center justify-center mb-2 cursor-pointer bg-[#F8F9FA] rounded-xl overflow-hidden group"
       >
+        {!isImageLoaded && (
+          <div className="absolute inset-0 animate-shimmer bg-gray-100 z-0" />
+        )}
         <Image
           src={imgSrc}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
-          className="object-cover transform group-hover:scale-105 transition-transform duration-300"
+          className={`object-cover transform group-hover:scale-105 transition-all duration-500 ease-out z-1 ${
+            isImageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          }`}
           loading="lazy"
-          onError={() => setImgSrc('https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=600&q=80')}
+          onLoad={() => setIsImageLoaded(true)}
+          onError={() => {
+            setImgSrc('https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=600&q=80');
+            setIsImageLoaded(true);
+          }}
         />
       </Link>
 

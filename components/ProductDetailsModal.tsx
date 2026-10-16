@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, 
   Star, 
@@ -13,6 +13,8 @@ import {
   Check
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { productService } from '../services/products';
+import { Product } from '../types';
 
 export const ProductDetailsModal: React.FC = () => {
   const { 
@@ -23,15 +25,41 @@ export const ProductDetailsModal: React.FC = () => {
     toggleWishlist, 
     products, 
     setIsCheckoutOpen, 
-    setCheckoutStep 
+    setCheckoutStep,
+    activeStore
   } = useApp();
 
   const [selectedQty, setSelectedQty] = useState(1);
   const [activeImgIdx, setActiveImgIdx] = useState(0);
+  const [freshProduct, setFreshProduct] = useState<Product | null>(null);
+
+  // Fetch live product details from DB whenever modal opens
+  useEffect(() => {
+    if (!activeProductModal?.id) {
+      setFreshProduct(null);
+      return;
+    }
+    setFreshProduct(activeProductModal);
+    let isMounted = true;
+    productService
+      .fetchProductById(activeProductModal.id, activeStore?.id)
+      .then((fresh) => {
+        if (isMounted && fresh) {
+          setFreshProduct(fresh);
+        }
+      })
+      .catch((err) => {
+        console.warn('Error fetching fresh product in modal:', err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [activeProductModal?.id, activeStore?.id]);
 
   if (!activeProductModal) return null;
 
-  const product = activeProductModal;
+  const product = freshProduct || activeProductModal;
   const isWishlisted = wishlist.includes(product.id);
   const gallery = product.gallery && product.gallery.length > 0 ? product.gallery : [product.image];
   const relatedProducts = products.filter(p => p.id !== product.id).slice(0, 3);
@@ -118,15 +146,34 @@ export const ProductDetailsModal: React.FC = () => {
           {/* Right: Info, Price & Actions */}
           <div className="space-y-4">
             <div>
-              <span className="text-xs font-extrabold text-[#E11A22] tracking-wider uppercase">
-                {product.brand}
-              </span>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-xs font-extrabold text-[#E11A22] tracking-wider uppercase">
+                  {product.brand}
+                </span>
+                {product.inStock && (product.stockCount === undefined || product.stockCount > 0) ? (
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    {product.stockCount !== undefined && product.stockCount < 10
+                      ? `Only ${product.stockCount} left`
+                      : 'In Stock'}
+                  </span>
+                ) : (
+                  <span className="text-[10px] font-bold text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-full">
+                    Out of Stock
+                  </span>
+                )}
+              </div>
               <h2 className="text-xl sm:text-2xl font-black text-[#0A2540] tracking-tight mt-0.5">
                 {product.name}
               </h2>
-              <p className="text-xs text-gray-500 font-medium mt-1">
-                Net Weight: <strong className="text-gray-800">{product.weight}</strong>
-              </p>
+              <div className="flex items-center gap-3 text-xs text-gray-500 font-medium mt-1">
+                <span>Net Weight: <strong className="text-gray-800">{product.weight}</strong></span>
+                {product.sku && (
+                  <span className="text-[11px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded font-mono">
+                    SKU: {product.sku}
+                  </span>
+                )}
+              </div>
             </div>
 
             {/* Rating */}
@@ -180,7 +227,7 @@ export const ProductDetailsModal: React.FC = () => {
             {/* Description */}
             <div className="space-y-1 text-xs text-gray-600 leading-relaxed border-t border-gray-100 pt-3">
               <h4 className="font-bold text-xs text-gray-900 uppercase tracking-wider">Product Overview</h4>
-              <p>{product.description}</p>
+              <p className="whitespace-pre-line">{product.description}</p>
             </div>
 
             {/* Quantity Selector & Add to Cart */}

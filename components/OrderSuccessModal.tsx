@@ -144,7 +144,7 @@ export const OrderSuccessModal: React.FC = () => {
           {/* Security Banner */}
           <div className="p-3 bg-blue-50/80 border border-blue-100 rounded-xl flex items-center gap-2.5 text-xs text-blue-950">
             <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
-            <span>We have sent your order invoice and live delivery updates to your registered mobile.</span>
+            <span>We have sent your order invoice (<strong>INV-{(order.orderNumber || order.id).replace('#', '')}</strong>) and live delivery updates to your registered mobile.</span>
           </div>
 
           {/* Buttons */}

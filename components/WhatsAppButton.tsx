@@ -9,7 +9,7 @@ export const WhatsAppButton: React.FC = () => {
       href="https://wa.me/919975040003?text=Hi%20K%20MART%20Support,%20I%20have%20a%20query%20about%20my%20order."
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-4 right-4 z-40 bg-[#0b6e61] hover:bg-[#075e54] text-white px-4 py-2.5 rounded-full shadow-lg hover:shadow-xl flex items-center gap-2.5 transition-all transform hover:scale-105 group"
+      className="fixed bottom-4 right-4 z-40 bg-[#0b6e61] hover:bg-[#075e54] text-white px-2.5 sm:px-4 py-2.5 rounded-full shadow-lg hover:shadow-xl flex items-center gap-2 sm:gap-2.5 transition-all transform hover:scale-105 group"
       aria-label="Chat on WhatsApp K MART Support"
     >
       {/* WhatsApp circular icon */}
@@ -17,8 +17,8 @@ export const WhatsAppButton: React.FC = () => {
         <MessageCircle className="w-4 h-4 text-[#0b6e61] fill-[#0b6e61]" />
       </div>
 
-      {/* Text label */}
-      <div className="text-left leading-tight pr-1">
+      {/* Text label — hidden on mobile, visible sm+ */}
+      <div className="hidden sm:block text-left leading-tight pr-1">
         <p className="text-xs font-bold text-white tracking-wide">
           Chat on WhatsApp
         </p>

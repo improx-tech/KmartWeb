@@ -78,16 +78,184 @@ export function categoryNameToSlug(name: string): string {
     .replace(/^-|-$/g, '');
 }
 
-export const productService = {
-  async fetchDbProducts(storeId?: string, client = supabase): Promise<Product[]> {
-    try {
-      const pageSize = 1000;
-      let allInventoryRows: any[] = [];
-      let offset = 0;
-      let hasMore = true;
+const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes cache
+const memoryCache: { [storeId: string]: { timestamp: number; data: Product[] } } = {};
 
-      while (hasMore) {
-        let invQuery = client
+export function getCachedProducts(storeId?: string): Product[] | null {
+  const key = storeId || 'default';
+  if (memoryCache[key] && Date.now() - memoryCache[key].timestamp < CACHE_TTL_MS) {
+    return memoryCache[key].data;
+  }
+  if (typeof window !== 'undefined') {
+    try {
+      const raw = sessionStorage.getItem(`kmart_cached_prods_${key}`);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Date.now() - parsed.timestamp < CACHE_TTL_MS && Array.isArray(parsed.data)) {
+          memoryCache[key] = parsed;
+          return parsed.data;
+        }
+      }
+    } catch {}
+  }
+  return null;
+}
+
+export function setCachedProducts(storeId: string | undefined, data: Product[]) {
+  const key = storeId || 'default';
+  const entry = { timestamp: Date.now(), data };
+  memoryCache[key] = entry;
+  if (typeof window !== 'undefined') {
+    try {
+      sessionStorage.setItem(`kmart_cached_prods_${key}`, JSON.stringify(entry));
+    } catch {}
+  }
+}
+
+export function clearProductCache(storeId?: string) {
+  if (storeId) {
+    delete memoryCache[storeId];
+    if (typeof window !== 'undefined') {
+      try {
+        sessionStorage.removeItem(`kmart_cached_prods_${storeId}`);
+      } catch {}
+    }
+  } else {
+    Object.keys(memoryCache).forEach((k) => delete memoryCache[k]);
+    if (typeof window !== 'undefined') {
+      try {
+        Object.keys(sessionStorage).forEach((k) => {
+          if (k.startsWith('kmart_cached_prods_')) {
+            sessionStorage.removeItem(k);
+          }
+        });
+      } catch {}
+    }
+  }
+}
+
+export function extractWeightFromName(name: string): string | null {
+  if (!name) return null;
+  const match = name.match(/(\d+(?:\.\d+)?\s*(?:kg|g|gm|gms|gram|grams|l|ltr|litre|litres|ml|pcs|pc|pack|units|tabs|tablets|wash))\b/i);
+  return match ? match[1].toUpperCase() : null;
+}
+
+export function extractBrandFromName(name: string): string {
+  if (!name) return 'K MART';
+  const clean = name.replace(/^[\s.•·]+/, '').trim();
+  const firstWord = clean.split(' ')[0];
+  if (firstWord && firstWord.length > 2 && !/^\d+$/.test(firstWord)) {
+    return firstWord.charAt(0).toUpperCase() + firstWord.slice(1).toLowerCase();
+  }
+  return 'K MART';
+}
+
+export function mapDbProductToProduct(p: any, stockQty = 50): Product {
+  const cleanName = (p.name as string || '').replace(/^[\s.•·]+/, '').trim();
+  const mrp = Number(p.mrp || 0);
+  const sellingPrice = Number(p.selling_price || 0);
+  const discountPercent =
+    mrp > sellingPrice
+      ? Math.round(((mrp - sellingPrice) / mrp) * 100)
+      : 0;
+
+  const dbCategoryName: string = p.categories?.name || '';
+  const categorySlug = dbCategoryName
+    ? categoryNameToSlug(dbCategoryName)
+    : 'groceries';
+
+  const resolvedImg = resolveImage(cleanName, p.image_url);
+  const extractedWeight = extractWeightFromName(cleanName);
+  const weight = p.weight_unit || extractedWeight || '1 unit';
+  
+  const rawBrand = (p.brand || '').trim();
+  const brand = (rawBrand && rawBrand.toLowerCase() !== 'my store' && rawBrand.toLowerCase() !== 'generic')
+    ? rawBrand
+    : extractBrandFromName(cleanName);
+
+  return {
+    id: p.id,
+    sku: p.sku || undefined,
+    barcode: p.barcode || undefined,
+    categoryId: p.category_id || p.categories?.id || undefined,
+    name: cleanName,
+    category: categorySlug,
+    storeTag: `K MART | ${dbCategoryName ? dbCategoryName.toUpperCase() : 'GROCERIES'}`,
+    weight,
+    price: sellingPrice,
+    originalPrice: mrp,
+    discountPercent,
+    rating: 4.6,
+    reviewCount: 78,
+    image: resolvedImg,
+    inStock: stockQty > 0,
+    stockCount: stockQty,
+    maxPurchaseUnits: 24,
+    badge: discountPercent > 0 ? `${discountPercent}% OFF` : undefined,
+    brand,
+    deliveryTime: 'Delivery on time',
+    highlights: [
+      '100% Genuine Branded Pack',
+      'Quality Guaranteed & Freshness Checked',
+      'Best Market Price',
+      'Hygienically Packed & Delivered',
+    ],
+    description:
+      p.description ||
+      `${cleanName} — authentic, quality-checked daily grocery essential directly sourced and available for guaranteed on-time doorstep delivery from K MART.`,
+  };
+}
+
+function mapInventoryRowsToProducts(allInventoryRows: any[]): Product[] {
+  const productMap = new Map<string, { p: any; stockQty: number }>();
+
+  for (const row of allInventoryRows) {
+    const p = row.products;
+    if (!p || !p.id) continue;
+
+    const existing = productMap.get(p.id);
+    const currentQty = Number(row.stock_quantity || 0);
+
+    if (!existing) {
+      productMap.set(p.id, { p, stockQty: currentQty });
+    } else {
+      existing.stockQty = Math.max(existing.stockQty, currentQty);
+    }
+  }
+
+  const mapped: Product[] = [];
+
+  productMap.forEach(({ p, stockQty }) => {
+    if (stockQty < 5) return;
+    mapped.push(mapDbProductToProduct(p, stockQty));
+  });
+
+  mapped.sort((a, b) => a.name.localeCompare(b.name));
+  return mapped;
+}
+
+export const productService = {
+  getCachedProducts,
+  setCachedProducts,
+  clearProductCache,
+
+  async fetchDbProducts(
+    storeId?: string,
+    client = supabase,
+    onInitialBatch?: (batch: Product[]) => void
+  ): Promise<Product[]> {
+    try {
+      const cacheKey = storeId || 'default';
+      const cached = getCachedProducts(cacheKey);
+      if (cached && cached.length > 0) {
+        if (onInitialBatch) {
+          onInitialBatch(cached);
+        }
+        return cached;
+      }
+
+      const buildInventoryQuery = (offset: number, limit: number) => {
+        let q = client
           .from('inventory')
           .select(`
             product_id,
@@ -95,110 +263,59 @@ export const productService = {
             products!inner (
               id,
               name,
+              description,
+              sku,
+              barcode,
               mrp,
               selling_price,
               weight_unit,
               image_url,
               brand,
-              description,
               active,
               category_id,
               categories ( id, name )
             )
           `)
-          .gt('stock_quantity', 5)
-          .eq('products.active', true);
+          .gte('stock_quantity', 5)
+          .eq('products.active', true)
+          .range(offset, offset + limit - 1);
 
         if (storeId) {
-          invQuery = invQuery.eq('store_id', storeId);
+          q = q.eq('store_id', storeId);
+        }
+        return q;
+      };
+
+      // ── Step 1: Blazing fast initial batch (1000 items in ~250ms) ──
+      const { data: firstBatch, error: firstErr } = await buildInventoryQuery(0, 1000);
+
+      let allRows: any[] = [];
+      if (!firstErr && firstBatch && firstBatch.length > 0) {
+        allRows.push(...firstBatch);
+        const initialMapped = mapInventoryRowsToProducts(allRows);
+
+        // Immediately notify UI so products render instantly
+        if (onInitialBatch && initialMapped.length > 0) {
+          onInitialBatch(initialMapped);
         }
 
-        const { data: batch, error } = await invQuery.range(offset, offset + pageSize - 1);
+        // ── Step 2: Fetch remaining chunks concurrently via Promise.all ──
+        if (firstBatch.length === 1000) {
+          const remainingOffsets = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000];
+          const remainingResults = await Promise.all(
+            remainingOffsets.map((offset) => buildInventoryQuery(offset, 1000))
+          );
 
-        if (error || !batch || batch.length === 0) {
-          break;
-        }
-
-        allInventoryRows.push(...batch);
-
-        if (batch.length < pageSize) {
-          hasMore = false;
-        } else {
-          offset += pageSize;
-        }
-      }
-
-      // If inventory query returned rows, map them
-      if (allInventoryRows.length > 0) {
-        // Group by product id to prevent duplicates if multiple inventory rows exist
-        const productMap = new Map<string, { p: any; stockQty: number }>();
-
-        for (const row of allInventoryRows) {
-          const p = row.products;
-          if (!p || !p.id) continue;
-
-          const existing = productMap.get(p.id);
-          const currentQty = Number(row.stock_quantity || 0);
-
-          if (!existing) {
-            productMap.set(p.id, { p, stockQty: currentQty });
-          } else {
-            // Aggregate or take max stock
-            existing.stockQty = Math.max(existing.stockQty, currentQty);
+          for (const res of remainingResults) {
+            if (res.data && res.data.length > 0) {
+              allRows.push(...res.data);
+            }
           }
         }
 
-        const mapped: Product[] = [];
-
-        productMap.forEach(({ p, stockQty }) => {
-          if (stockQty <= 5) return;
-
-          const mrp = Number(p.mrp || 0);
-          const sellingPrice = Number(p.selling_price || 0);
-          const discountPercent =
-            mrp > sellingPrice
-              ? Math.round(((mrp - sellingPrice) / mrp) * 100)
-              : 0;
-
-          const dbCategoryName: string = p.categories?.name || '';
-          const categorySlug = dbCategoryName
-            ? categoryNameToSlug(dbCategoryName)
-            : 'groceries';
-
-          const resolvedImg = resolveImage(p.name, p.image_url);
-          const cleanName = (p.name as string).replace(/^[\s.•·]+/, '').trim();
-
-          mapped.push({
-            id: p.id,
-            name: cleanName,
-            category: categorySlug,
-            storeTag: `K MART | ${dbCategoryName ? dbCategoryName.toUpperCase() : 'GROCERIES'}`,
-            weight: p.weight_unit || '1 unit',
-            price: sellingPrice,
-            originalPrice: mrp,
-            discountPercent,
-            rating: 4.5,
-            reviewCount: 45,
-            image: resolvedImg,
-            inStock: true,
-            stockCount: stockQty,
-            maxPurchaseUnits: 24,
-            badge: discountPercent > 0 ? `${discountPercent}% OFF` : undefined,
-            brand: p.brand || 'K MART',
-            deliveryTime: 'Delivery on time',
-            highlights: [
-              '100% Genuine Branded Pack',
-              'Quality Guaranteed',
-              'Best Market Price',
-            ],
-            description:
-              p.description ||
-              `${p.name} — fresh daily essential available for guaranteed on-time doorstep delivery from K MART.`,
-          });
-        });
-
-        mapped.sort((a, b) => a.name.localeCompare(b.name));
-        return mapped;
+        const fullMapped = mapInventoryRowsToProducts(allRows);
+        setCachedProducts(cacheKey, fullMapped);
+        return fullMapped;
       }
 
       // Fallback query if no inventory rows found
@@ -245,42 +362,105 @@ export const productService = {
             stockQty = p.inventory.stock_quantity;
           }
 
-          const resolvedImg = resolveImage(p.name, p.image_url);
-          const cleanName = (p.name as string).replace(/^[\s.•·]+/, '').trim();
-
-          return {
-            id: p.id,
-            name: cleanName,
-            category: categorySlug,
-            storeTag: `K MART | ${dbCategoryName ? dbCategoryName.toUpperCase() : 'GROCERIES'}`,
-            weight: p.weight_unit || '1 unit',
-            price: Number(p.selling_price),
-            originalPrice: Number(p.mrp),
-            discountPercent,
-            rating: 4.5,
-            reviewCount: 45,
-            image: resolvedImg,
-            inStock: stockQty > 0,
-            stockCount: stockQty,
-            maxPurchaseUnits: 24,
-            badge: discountPercent > 0 ? `${discountPercent}% OFF` : undefined,
-            brand: p.brand || 'K MART',
-            deliveryTime: 'Delivery on time',
-            highlights: [
-              '100% Genuine Branded Pack',
-              'Quality Guaranteed',
-              'Best Market Price',
-            ],
-            description:
-              p.description ||
-              `${p.name} — fresh daily essential available for guaranteed on-time doorstep delivery from K MART.`,
-          };
+          return mapDbProductToProduct(p, stockQty);
         })
-        .filter((p) => (p.stockCount ?? 0) > 5);
+        .filter((p) => (p.stockCount ?? 0) >= 5);
 
       return mappedDb;
     } catch (err: any) {
       console.warn('[productService] exception:', err?.message);
+      return [];
+    }
+  },
+
+  async fetchProductById(id: string, storeId?: string): Promise<Product | null> {
+    try {
+      if (!id) return null;
+
+      const { data, error } = await supabase
+        .from('products')
+        .select(`
+          *,
+          categories ( id, name ),
+          inventory ( id, store_id, stock_quantity )
+        `)
+        .eq('id', id)
+        .maybeSingle();
+
+      if (error || !data) {
+        console.warn('[fetchProductById] Not found or error:', error?.message);
+        return null;
+      }
+
+      let stockQty = 50;
+      if (Array.isArray(data.inventory) && data.inventory.length > 0) {
+        if (storeId) {
+          const storeInv = data.inventory.find((inv: any) => inv.store_id === storeId);
+          stockQty = storeInv?.stock_quantity ?? 0;
+        } else {
+          stockQty = data.inventory.reduce(
+            (sum: number, inv: any) => sum + (inv.stock_quantity || 0),
+            0
+          );
+        }
+      } else if (data.inventory?.stock_quantity != null) {
+        stockQty = Number(data.inventory.stock_quantity);
+      }
+
+      return mapDbProductToProduct(data, stockQty);
+    } catch (err: any) {
+      console.warn('[fetchProductById] Exception:', err?.message);
+      return null;
+    }
+  },
+
+  async fetchRelatedProducts(
+    categoryId?: string,
+    currentProductId?: string,
+    limit = 4
+  ): Promise<Product[]> {
+    try {
+      let query = supabase
+        .from('products')
+        .select(`
+          *,
+          categories ( id, name ),
+          inventory ( id, store_id, stock_quantity )
+        `)
+        .eq('active', true);
+
+      if (currentProductId) {
+        query = query.neq('id', currentProductId);
+      }
+
+      if (categoryId) {
+        query = query.eq('category_id', categoryId);
+      }
+
+      const { data, error } = await query.limit(limit);
+      if (error || !data || data.length === 0) {
+        // Fallback without category filter if category had 0 other products
+        if (categoryId) {
+          const { data: fallbackData } = await supabase
+            .from('products')
+            .select(`
+              *,
+              categories ( id, name ),
+              inventory ( id, store_id, stock_quantity )
+            `)
+            .eq('active', true)
+            .neq('id', currentProductId || '')
+            .limit(limit);
+          if (fallbackData) {
+            return fallbackData.map((row: any) => mapDbProductToProduct(row, 50));
+          }
+        }
+        return [];
+      }
+
+      return data.map((row: any) => mapDbProductToProduct(row, 50));
+    } catch (err: any) {
+      console.warn('[fetchRelatedProducts] Exception:', err?.message);
       return [];
     }
   },
