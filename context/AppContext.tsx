@@ -730,6 +730,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             setActiveStore(nearest.store);
             setStoreDistanceKm(nearest.distanceKm);
             setIsDeliverable(nearest.isWithinRadius);
+
+            // If more than 5km from nearest store, automatically switch orderType to PICKUP
+            if (!nearest.isWithinRadius || nearest.distanceKm > 5) {
+              setOrderType('PICKUP');
+            }
+
             deliveryService.getAvailableSlots(nearest.store.id).then((slots) => {
               if (slots && slots.length > 0) {
                 setDeliverySlots(slots);

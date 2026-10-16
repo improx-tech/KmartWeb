@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   X, 
   MapPin, 
@@ -14,8 +14,8 @@ import {
   Loader2
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { DeliveryMap, DeliveryLocationData } from './DeliveryMap';
-import { getCurrentDeviceLocation } from '../lib/geolocation';
+import { DeliveryMap, DeliveryLocationData, getNearestKMartStore } from './DeliveryMap';
+import { getCurrentDeviceLocation, geocodeAddress } from '../lib/geolocation';
 
 export const LocationModal: React.FC = () => {
   const { 
@@ -48,10 +48,66 @@ export const LocationModal: React.FC = () => {
   const [detectionError, setDetectionError] = useState<string | null>(null);
   const [detectionSuccess, setDetectionSuccess] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [mapDistanceKm, setMapDistanceKm] = useState<number | null>(null);
+  const [mapIsDeliverable, setMapIsDeliverable] = useState<boolean>(true);
+  const [isGeocoding, setIsGeocoding] = useState<boolean>(false);
+  const isMapSelectingRef = useRef<boolean>(false);
+
+  // Debounced forward geocoding: when user types address manually, locate it on the map
+  useEffect(() => {
+    if (!isLocationOpen) return;
+    if (isMapSelectingRef.current) return;
+
+    const cleanLine1 = line1.trim();
+    const cleanLine2 = line2.trim();
+    const cleanCity = city.trim();
+    const cleanPin = pincode.trim();
+
+    // Only geocode if at least 3 characters in address line or area, or a valid 6-digit pincode
+    const hasEnoughQuery =
+      cleanLine1.length >= 3 || cleanLine2.length >= 3 || cleanPin.length === 6;
+
+    if (!hasEnoughQuery) return;
+
+    const timer = setTimeout(async () => {
+      if (isMapSelectingRef.current) return;
+      setIsGeocoding(true);
+      try {
+        const result = await geocodeAddress({
+          line1: cleanLine1,
+          area: cleanLine2,
+          city: cleanCity,
+          state: state.trim(),
+          pincode: cleanPin,
+        });
+
+        if (
+          result &&
+          typeof result.latitude === 'number' &&
+          typeof result.longitude === 'number' &&
+          !isNaN(result.latitude) &&
+          !isNaN(result.longitude)
+        ) {
+          setLatitude(result.latitude);
+          setLongitude(result.longitude);
+          const nearest = getNearestKMartStore(result.latitude, result.longitude);
+          setMapDistanceKm(nearest.distanceKm);
+          setMapIsDeliverable(nearest.isDeliverable);
+        }
+      } catch (err) {
+        console.warn('Manual address geocoding failed:', err);
+      } finally {
+        setIsGeocoding(false);
+      }
+    }, 700);
+
+    return () => clearTimeout(timer);
+  }, [line1, line2, city, pincode, state, isLocationOpen]);
 
   if (!isLocationOpen) return null;
 
   const handleUseCurrentLocation = async () => {
+    isMapSelectingRef.current = true;
     setIsDetecting(true);
     setDetectionError(null);
     setDetectionSuccess(null);
@@ -68,15 +124,22 @@ export const LocationModal: React.FC = () => {
       setPincode(d.pincode || '411001');
       setLatitude(d.latitude);
       setLongitude(d.longitude);
+      const nearest = getNearestKMartStore(d.latitude, d.longitude);
+      setMapDistanceKm(nearest.distanceKm);
+      setMapIsDeliverable(nearest.isDeliverable);
       setDetectionSuccess(`Detected: ${d.line1}, ${d.city} (${d.pincode})`);
     } else {
       setDetectionError(
         result.error || 'Could not retrieve GPS coordinates. Please enter your address or select on the map.'
       );
     }
+    setTimeout(() => {
+      isMapSelectingRef.current = false;
+    }, 1000);
   };
 
   const handleMapLocationSelect = (loc: DeliveryLocationData) => {
+    isMapSelectingRef.current = true;
     // area → line2 (neighbourhood/colony), also pre-fill line1 if empty
     if (!line1) setLine1(loc.area);
     setLine2(loc.area);
@@ -84,6 +147,11 @@ export const LocationModal: React.FC = () => {
     setCity(loc.city);
     setLatitude(loc.lat);
     setLongitude(loc.lng);
+    setMapDistanceKm(loc.distanceKm);
+    setMapIsDeliverable(loc.isDeliverable);
+    setTimeout(() => {
+      isMapSelectingRef.current = false;
+    }, 1000);
   };
 
   const handleSave = async (e: React.FormEvent) => {
@@ -191,11 +259,15 @@ export const LocationModal: React.FC = () => {
                       <div
                         className="flex items-start gap-2.5 flex-1 cursor-pointer"
                         onClick={() => {
+                          isMapSelectingRef.current = true;
                           setSelectedAddress(addr);
                           // Center map on this address
                           if (addr.latitude && addr.longitude) {
                             setLatitude(addr.latitude);
                             setLongitude(addr.longitude);
+                            const nearest = getNearestKMartStore(addr.latitude, addr.longitude);
+                            setMapDistanceKm(nearest.distanceKm);
+                            setMapIsDeliverable(nearest.isDeliverable);
                           }
                           // Pre-fill form fields with this address
                           setAddressType((addr.label as any) || 'Home');
@@ -206,6 +278,9 @@ export const LocationModal: React.FC = () => {
                           setCity(addr.city || '');
                           setState(addr.state || 'Maharashtra');
                           setPincode(addr.pincode || '');
+                          setTimeout(() => {
+                            isMapSelectingRef.current = false;
+                          }, 1000);
                         }}
                       >
                         <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center mt-0.5 shrink-0 ${
@@ -273,6 +348,14 @@ export const LocationModal: React.FC = () => {
             </div>
           )}
 
+          {/* Map Loading / Geocoding Indicator */}
+          {isGeocoding && (
+            <div className="flex items-center gap-1.5 text-xs font-bold text-[#0A2540] bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-lg animate-pulse">
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-600 shrink-0" />
+              <span>Finding typed address on map...</span>
+            </div>
+          )}
+
           {/* Interactive Delivery Map */}
           <DeliveryMap
             height="240px"
@@ -280,6 +363,21 @@ export const LocationModal: React.FC = () => {
             initialLng={longitude}
             onLocationSelect={handleMapLocationSelect}
           />
+
+          {/* Out of 5km radius notice */}
+          {!mapIsDeliverable && mapDistanceKm !== null && mapDistanceKm > 5 && (
+            <div className="p-3 rounded-xl bg-orange-50 border border-orange-200 text-xs text-orange-950 flex items-start gap-2.5">
+              <AlertCircle className="w-4 h-4 text-orange-600 shrink-0 mt-0.5" />
+              <div>
+                <p className="font-extrabold text-orange-900">
+                  Out of 5km radius ({mapDistanceKm} km away)
+                </p>
+                <p className="text-orange-800 text-[11px] mt-0.5">
+                  You can still save this address! For orders to this location, <strong>you have to pick up your order</strong> at the store counter (Store Pickup • ₹0 delivery fee).
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Add New Address Form */}
           <form onSubmit={handleSave} className="space-y-3.5 pt-3 border-t border-gray-100">

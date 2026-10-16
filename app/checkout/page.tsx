@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
@@ -21,7 +21,9 @@ import {
   ShoppingBag,
   Store,
   Calendar,
-  Sparkles
+  Sparkles,
+  Crosshair,
+  Loader2
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { Address, DeliverySlotItem } from "@/types";
@@ -29,7 +31,7 @@ import { supabase } from "@/lib/supabase/client";
 import { deliveryService } from "@/services/delivery";
 import { cartService } from "@/services/cart";
 import { DeliveryMap, DeliveryLocationData } from "@/components/DeliveryMap";
-import { getCurrentDeviceLocation } from "@/lib/geolocation";
+import { getCurrentDeviceLocation, geocodeAddress } from "@/lib/geolocation";
 import confetti from "canvas-confetti";
 import { sendOrderConfirmedNotification } from "@/services/pushNotification";
 
@@ -99,11 +101,109 @@ export default function CheckoutPage() {
   const [newCity, setNewCity] = useState("Baramati");
   const [newState, setNewState] = useState("Maharashtra");
   const [newPincode, setNewPincode] = useState("413102");
+  const [newLat, setNewLat] = useState<number>(18.1433);
+  const [newLng, setNewLng] = useState<number>(74.5658);
+  const [isGpsDetecting, setIsGpsDetecting] = useState(false);
+  const [isNewAddressGeocoding, setIsNewAddressGeocoding] = useState(false);
+  const isNewAddressMapSelectingRef = useRef(false);
 
   useEffect(() => {
     if (user.name && !newName) setNewName(user.name);
     if (user.phone && !newPhone) setNewPhone(user.phone);
   }, [user.name, user.phone]);
+
+  // Pre-center map on selected address when form opens
+  useEffect(() => {
+    if (selectedAddress?.latitude && selectedAddress?.longitude) {
+      setNewLat(selectedAddress.latitude);
+      setNewLng(selectedAddress.longitude);
+    }
+  }, [showNewAddressForm, selectedAddress]);
+
+  // Debounced geocoding when user manually types address fields in checkout
+  useEffect(() => {
+    if (!showNewAddressForm) return;
+    if (isNewAddressMapSelectingRef.current) return;
+
+    const cleanLine1 = newLine1.trim();
+    const cleanLine2 = newLine2.trim();
+    const cleanCity = newCity.trim();
+    const cleanPin = newPincode.trim();
+
+    const hasEnoughQuery =
+      cleanLine1.length >= 3 || cleanLine2.length >= 3 || cleanPin.length === 6;
+
+    if (!hasEnoughQuery) return;
+
+    const timer = setTimeout(async () => {
+      if (isNewAddressMapSelectingRef.current) return;
+      setIsNewAddressGeocoding(true);
+      try {
+        const res = await geocodeAddress({
+          line1: cleanLine1,
+          area: cleanLine2,
+          city: cleanCity,
+          state: newState.trim(),
+          pincode: cleanPin,
+        });
+
+        if (
+          res &&
+          typeof res.latitude === "number" &&
+          typeof res.longitude === "number" &&
+          !isNaN(res.latitude) &&
+          !isNaN(res.longitude)
+        ) {
+          setNewLat(res.latitude);
+          setNewLng(res.longitude);
+        }
+      } catch (err) {
+        console.warn("Manual address geocoding failed:", err);
+      } finally {
+        setIsNewAddressGeocoding(false);
+      }
+    }, 700);
+
+    return () => clearTimeout(timer);
+  }, [newLine1, newLine2, newCity, newPincode, newState, showNewAddressForm]);
+
+  const handleNewAddressGps = async () => {
+    isNewAddressMapSelectingRef.current = true;
+    setIsGpsDetecting(true);
+    try {
+      const result = await getCurrentDeviceLocation();
+      if (result.success && result.data) {
+        const d = result.data;
+        if (!newLine1) setNewLine1(d.line1);
+        setNewLine2(d.line2 || "");
+        setNewCity(d.city || "Baramati");
+        setNewState(d.state || "Maharashtra");
+        setNewPincode(d.pincode || "413102");
+        setNewLat(d.latitude);
+        setNewLng(d.longitude);
+      }
+    } catch (e) {
+      console.warn("GPS detection error:", e);
+    } finally {
+      setIsGpsDetecting(false);
+      setTimeout(() => {
+        isNewAddressMapSelectingRef.current = false;
+      }, 1000);
+    }
+  };
+
+  const handleNewAddressMapSelect = (loc: DeliveryLocationData) => {
+    isNewAddressMapSelectingRef.current = true;
+    if (!newLine1) setNewLine1(loc.area);
+    setNewLine2(loc.area);
+    setNewCity(loc.city);
+    setNewPincode(loc.pincode);
+    setNewLat(loc.lat);
+    setNewLng(loc.lng);
+    setTimeout(() => {
+      isNewAddressMapSelectingRef.current = false;
+    }, 1000);
+  };
 
   const isBelowMinOrder = itemTotal < deliverySettings.min_order_value;
 
@@ -120,8 +220,8 @@ export default function CheckoutPage() {
       city: newCity,
       state: newState,
       pincode: newPincode,
-      latitude: 0,
-      longitude: 0,
+      latitude: newLat,
+      longitude: newLng,
       isDefault: addresses.length === 0,
     });
 
@@ -390,6 +490,30 @@ export default function CheckoutPage() {
               </div>
             )}
 
+            {/* Outside 5km radius warning banner with direct switch to Store Pickup */}
+            {orderType === 'DELIVERY' && (!isDeliverable || storeDistanceKm > 5) && (
+              <div className="p-4 bg-orange-50 border-2 border-orange-200 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-orange-950 text-xs">
+                <div className="flex items-start gap-2.5">
+                  <AlertCircle className="w-5 h-5 text-orange-600 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-extrabold text-sm text-orange-900">
+                      Out of 5km Delivery Radius ({storeDistanceKm} km away)
+                    </p>
+                    <p className="text-orange-800 mt-0.5 font-medium">
+                      Doorstep delivery is only available within 5 km. <strong>You have to pick up your order</strong> at the store counter.
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setOrderType('PICKUP')}
+                  className="bg-[#0A2540] hover:bg-[#123154] text-white font-extrabold px-4 py-2.5 rounded-xl text-xs transition-all cursor-pointer whitespace-nowrap shrink-0 shadow-xs"
+                >
+                  Switch to Store Pickup (₹0)
+                </button>
+              </div>
+            )}
+
             {/* Account / Login Required Card */}
             {!user.isVerified ? (
               <div className="bg-gradient-to-r from-red-50/90 to-orange-50/90 rounded-2xl border-2 border-[#E11A22]/20 p-5 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -437,53 +561,77 @@ export default function CheckoutPage() {
 
             {/* Order Fulfillment Mode: Home Delivery vs Store Pickup (Takeaway) */}
             <div className="bg-white rounded-2xl border border-gray-200/90 p-2 sm:p-2.5 shadow-2xs">
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setOrderType('DELIVERY')}
-                  className={`flex items-center justify-center gap-2.5 py-3 px-3 sm:px-4 rounded-xl font-black text-xs sm:text-sm transition-all cursor-pointer ${
-                    orderType === 'DELIVERY'
-                      ? 'bg-[#E11A22] text-white shadow-md'
-                      : 'bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                  }`}
-                >
-                  <Truck className="w-4 h-4" />
-                  <span>Home Delivery</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setOrderType('PICKUP')}
-                  className={`flex items-center justify-center gap-2 py-3 px-3 sm:px-4 rounded-xl font-black text-xs sm:text-sm transition-all cursor-pointer ${
-                    orderType === 'PICKUP'
-                      ? 'bg-[#E11A22] text-white shadow-md'
-                      : 'bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                  }`}
-                >
-                  <ShoppingBag className="w-4 h-4" />
-                  <span>Store Pickup (Takeaway)</span>
-                  <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${
-                    orderType === 'PICKUP' ? 'bg-white text-[#E11A22]' : 'bg-emerald-100 text-emerald-800'
-                  }`}>
-                    FREE
-                  </span>
-                </button>
-              </div>
-
-              {orderType === 'PICKUP' ? (
-                <div className="mt-2.5 px-3 py-2 bg-emerald-50/80 border border-emerald-100 rounded-xl flex items-center justify-between text-xs text-emerald-900">
-                  <div className="flex items-center gap-2">
-                    <span className="text-base">🛍️</span>
-                    <span>Self-pickup directly from store counter. <strong>Zero delivery charges</strong> &amp; no distance limits.</span>
+              {(!isDeliverable || storeDistanceKm > 5) ? (
+                /* Only Store Pickup is available when address is > 5km away */
+                <div>
+                  <div className="w-full py-3 px-4 rounded-xl font-black text-xs sm:text-sm bg-[#E11A22] text-white shadow-md flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <ShoppingBag className="w-4 h-4" />
+                      <span>Store Pickup (Takeaway)</span>
+                    </div>
+                    <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-white text-[#E11A22]">
+                      Only Option (&gt;5km)
+                    </span>
+                  </div>
+                  <div className="mt-2.5 px-3 py-2.5 bg-orange-50 border border-orange-200 rounded-xl flex items-center justify-between text-xs text-orange-950">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base">📍</span>
+                      <span>Your location is <strong>{storeDistanceKm} km</strong> away (outside 5km delivery radius). <strong>Home delivery is unavailable</strong> — you have to pick up your order at the store.</span>
+                    </div>
                   </div>
                 </div>
               ) : (
-                <div className="mt-2.5 px-3 py-2 bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-between text-xs text-gray-600">
-                  <div className="flex items-center gap-2">
-                    <Truck className="w-3.5 h-3.5 text-gray-500" />
-                    <span>Delivered safely to your doorstep within your selected delivery slot.</span>
+                /* Both options available within 5km */
+                <>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setOrderType('DELIVERY')}
+                      className={`flex items-center justify-center gap-2.5 py-3 px-3 sm:px-4 rounded-xl font-black text-xs sm:text-sm transition-all cursor-pointer ${
+                        orderType === 'DELIVERY'
+                          ? 'bg-[#E11A22] text-white shadow-md'
+                          : 'bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                      }`}
+                    >
+                      <Truck className="w-4 h-4" />
+                      <span>Home Delivery</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setOrderType('PICKUP')}
+                      className={`flex items-center justify-center gap-2 py-3 px-3 sm:px-4 rounded-xl font-black text-xs sm:text-sm transition-all cursor-pointer ${
+                        orderType === 'PICKUP'
+                          ? 'bg-[#E11A22] text-white shadow-md'
+                          : 'bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                      }`}
+                    >
+                      <ShoppingBag className="w-4 h-4" />
+                      <span>Store Pickup (Takeaway)</span>
+                      <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${
+                        orderType === 'PICKUP' ? 'bg-white text-[#E11A22]' : 'bg-emerald-100 text-emerald-800'
+                      }`}>
+                        FREE
+                      </span>
+                    </button>
                   </div>
-                </div>
+
+                  {orderType === 'PICKUP' ? (
+                    <div className="mt-2.5 px-3 py-2 bg-emerald-50/80 border border-emerald-100 rounded-xl flex items-center justify-between text-xs text-emerald-900">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">🛍️</span>
+                        <span>Self-pickup directly from store counter. <strong>Zero delivery charges</strong> &amp; no distance limits.</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mt-2.5 px-3 py-2 bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-between text-xs text-gray-600">
+                      <div className="flex items-center gap-2">
+                        <Truck className="w-3.5 h-3.5 text-gray-500" />
+                        <span>Delivered safely to your doorstep within your selected delivery slot.</span>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
@@ -585,6 +733,44 @@ export default function CheckoutPage() {
                       ))}
                     </div>
 
+                    {/* GPS Location Button */}
+                    <button
+                      type="button"
+                      onClick={handleNewAddressGps}
+                      disabled={isGpsDetecting}
+                      className="w-full p-2.5 rounded-xl border border-dashed border-[#E11A22]/50 hover:border-[#E11A22] bg-red-50/50 hover:bg-red-50 flex items-center justify-center gap-2 text-xs font-bold text-[#E11A22] transition-all cursor-pointer disabled:opacity-60"
+                    >
+                      {isGpsDetecting ? (
+                        <>
+                          <Loader2 className="w-3.5 h-3.5 animate-spin text-[#E11A22]" />
+                          <span>Detecting GPS Location...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Crosshair className="w-3.5 h-3.5 text-[#E11A22]" />
+                          <span>Use Current Location (GPS)</span>
+                        </>
+                      )}
+                    </button>
+
+                    {/* Map Loading / Geocoding Indicator */}
+                    {isNewAddressGeocoding && (
+                      <div className="flex items-center gap-1.5 text-xs font-bold text-[#0A2540] bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-lg animate-pulse">
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-600 shrink-0" />
+                        <span>Finding typed address on map...</span>
+                      </div>
+                    )}
+
+                    {/* Delivery Map */}
+                    <div className="rounded-xl overflow-hidden border border-gray-200">
+                      <DeliveryMap
+                        height="200px"
+                        initialLat={newLat}
+                        initialLng={newLng}
+                        onLocationSelect={handleNewAddressMapSelect}
+                      />
+                    </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <input
                         type="text"
@@ -637,7 +823,7 @@ export default function CheckoutPage() {
 
                     <button
                       type="submit"
-                      className="bg-[#0A2540] hover:bg-[#123154] text-white text-xs font-bold px-5 py-2.5 rounded-lg transition-colors cursor-pointer"
+                      className="w-full bg-[#E11A22] hover:bg-[#c8141b] text-white text-xs font-bold py-2.5 rounded-lg transition-colors cursor-pointer"
                     >
                       Save &amp; Deliver Here
                     </button>
@@ -1007,10 +1193,10 @@ export default function CheckoutPage() {
                     <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     {paymentMethod === "Razorpay" ? "Opening Razorpay Gateway..." : "Placing Your Order..."}
                   </span>
-                ) : orderType === 'DELIVERY' && !isDeliverable && storeDistanceKm > 5 ? (
+                ) : orderType === 'DELIVERY' && (!isDeliverable || storeDistanceKm > 5) ? (
                   <>
-                    <AlertCircle className="w-4 h-4" />
-                    <span>Outside 5km Delivery Radius ({storeDistanceKm} km)</span>
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>Out of 5km ({storeDistanceKm} km) • Switch to Store Pickup</span>
                   </>
                 ) : !user.isVerified ? (
                   <>

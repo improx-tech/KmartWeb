@@ -20,6 +20,8 @@ import {
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { ProductCard } from "@/components/ProductCard";
+import { productService } from "@/services/products";
+import { Product } from "@/types";
 
 export default function ProductDetailPage({
   params,
@@ -51,18 +53,63 @@ export default function ProductDetailPage({
     wishlist, 
     toggleWishlist,
     setIsCartOpen,
-    setIsCheckoutOpen
+    setIsCheckoutOpen,
+    activeStore,
   } = useApp();
 
   const [localQty, setLocalQty] = useState(1);
   const [copied, setCopied] = useState(false);
+  const [dbProduct, setDbProduct] = useState<Product | null>(null);
+  const [isLoadingDb, setIsLoadingDb] = useState<boolean>(true);
+  const [dbRelated, setDbRelated] = useState<Product[]>([]);
 
-  // Find product from context (populated from DB)
-  const product = products.find((p) => p.id === resolvedId);
+  // Fetch product directly from Supabase database by ID
+  useEffect(() => {
+    if (!resolvedId) return;
+
+    let isMounted = true;
+    setIsLoadingDb(true);
+
+    // 1. If in cached context products list, show immediately with zero delay
+    const cached = products.find((p) => p.id === resolvedId);
+    if (cached) {
+      setDbProduct(cached);
+    }
+
+    // 2. Fetch fresh details directly from Supabase database
+    productService
+      .fetchProductById(resolvedId, activeStore?.id)
+      .then((fresh) => {
+        if (!isMounted) return;
+        if (fresh) {
+          setDbProduct(fresh);
+          // Fetch related items from DB
+          productService
+            .fetchRelatedProducts(fresh.categoryId, fresh.id, 4)
+            .then((rel) => {
+              if (isMounted && rel && rel.length > 0) {
+                setDbRelated(rel);
+              }
+            });
+        }
+        setIsLoadingDb(false);
+      })
+      .catch((err) => {
+        console.warn("Error fetching product details from DB:", err);
+        if (isMounted) setIsLoadingDb(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [resolvedId, activeStore?.id]);
+
+  // Use DB product, falling back to context
+  const product = dbProduct || products.find((p) => p.id === resolvedId);
 
   const [isMainImageLoaded, setIsMainImageLoaded] = useState(false);
 
-  if (isLoadingProducts && !product) {
+  if ((isLoadingDb || isLoadingProducts) && !product) {
     return (
       <div className="min-h-screen bg-[#F8F9FA] pb-16 animate-fadeInSmooth">
         {/* Breadcrumb Skeleton */}
@@ -139,10 +186,13 @@ export default function ProductDetailPage({
   const inCartQuantity = cartItem ? cartItem.quantity : 0;
   const isWishlisted = wishlist.includes(product.id);
 
-  // Related products from the same category
-  const relatedProducts = products
-    .filter((p) => p.category === product.category && p.id !== product.id)
-    .slice(0, 4);
+  // Related products directly from database (falling back to in-memory context)
+  const relatedProducts =
+    dbRelated.length > 0
+      ? dbRelated
+      : products
+          .filter((p) => p.category === product.category && p.id !== product.id)
+          .slice(0, 4);
 
   const handleShare = () => {
     if (typeof window !== "undefined") {
@@ -270,10 +320,19 @@ export default function ProductDetailPage({
                   <span className="text-xs font-black uppercase tracking-wider text-[#E11A22] bg-red-50 border border-red-100 px-2.5 py-0.5 rounded-md">
                     {product.brand}
                   </span>
-                  <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    In Stock
-                  </span>
+                  {product.inStock && (product.stockCount === undefined || product.stockCount > 0) ? (
+                    <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      {product.stockCount !== undefined && product.stockCount < 10
+                        ? `Only ${product.stockCount} left in stock`
+                        : "In Stock"}
+                    </span>
+                  ) : (
+                    <span className="text-xs font-bold text-red-700 bg-red-50 border border-red-200 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                      Out of Stock
+                    </span>
+                  )}
                 </div>
 
                 {/* Product Title */}
@@ -281,11 +340,23 @@ export default function ProductDetailPage({
                   {product.name}
                 </h1>
 
-                {/* Pack size & Rating */}
-                <div className="mt-3 flex flex-wrap items-center gap-4 text-xs">
-                  <span className="text-gray-600 font-semibold bg-gray-100 px-2.5 py-1 rounded-md">
+                {/* Pack size, SKU, Barcode & Rating */}
+                <div className="mt-3 flex flex-wrap items-center gap-2.5 text-xs">
+                  <span className="text-gray-700 font-semibold bg-gray-100 px-2.5 py-1 rounded-md">
                     Net Weight: {product.weight}
                   </span>
+
+                  {product.sku && (
+                    <span className="text-gray-500 font-medium bg-gray-50 border border-gray-200 px-2 py-0.5 rounded text-[11px]">
+                      SKU: <strong className="text-gray-800 font-mono">{product.sku}</strong>
+                    </span>
+                  )}
+
+                  {product.barcode && (
+                    <span className="text-gray-500 font-medium bg-gray-50 border border-gray-200 px-2 py-0.5 rounded text-[11px]">
+                      Barcode: <strong className="text-gray-800 font-mono">{product.barcode}</strong>
+                    </span>
+                  )}
 
                   <div className="flex items-center gap-1 bg-amber-50 border border-amber-200/80 px-2.5 py-0.5 rounded-md text-amber-900 font-bold">
                     <span>{product.rating || 4.7}</span>
@@ -414,7 +485,7 @@ export default function ProductDetailPage({
                   <h3 className="text-sm font-black text-[#0A2540] uppercase tracking-wider mb-2">
                     Product Description
                   </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">
                     {product.description || "Fresh and authentic product delivered directly to your doorstep with guaranteed quality and timely delivery from K MART."}
                   </p>
                 </div>

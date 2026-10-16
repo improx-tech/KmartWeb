@@ -438,32 +438,49 @@ export const CheckoutModal: React.FC = () => {
           {/* ── Order Type Toggle ── */}
           <div>
             <label className="text-xs font-bold text-gray-900 mb-1.5 block">Fulfillment Method</label>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => setOrderType('DELIVERY')}
-                className={`flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-xs font-bold transition-all cursor-pointer ${
-                  orderType === 'DELIVERY'
-                    ? 'bg-[#E11A22] text-white shadow-sm'
-                    : 'bg-gray-50 border border-gray-200 text-gray-600 hover:border-gray-300'
-                }`}
-              >
-                <Truck className="w-4 h-4" />
-                Home Delivery
-              </button>
-              <button
-                type="button"
-                onClick={() => setOrderType('PICKUP')}
-                className={`flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-xs font-bold transition-all cursor-pointer ${
-                  orderType === 'PICKUP'
-                    ? 'bg-[#E11A22] text-white shadow-sm'
-                    : 'bg-gray-50 border border-gray-200 text-gray-600 hover:border-gray-300'
-                }`}
-              >
-                <Store className="w-4 h-4" />
-                Store Pickup
-              </button>
-            </div>
+            {(!isDeliverable || storeDistanceKm > 5) ? (
+              <div className="space-y-2">
+                <div className="w-full py-2.5 px-3.5 rounded-xl font-bold text-xs bg-[#E11A22] text-white shadow-sm flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Store className="w-4 h-4" />
+                    <span>Store Pickup (Takeaway)</span>
+                  </div>
+                  <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-white text-[#E11A22]">
+                    Only Option (&gt;5km)
+                  </span>
+                </div>
+                <p className="text-[11px] text-orange-800 bg-orange-50 border border-orange-200 rounded-lg p-2 font-medium">
+                  Your address is ~{storeDistanceKm} km away. <strong>Home delivery is not available</strong> — you have to pick up your order at the store.
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setOrderType('DELIVERY')}
+                  className={`flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-xs font-bold transition-all cursor-pointer ${
+                    orderType === 'DELIVERY'
+                      ? 'bg-[#E11A22] text-white shadow-sm'
+                      : 'bg-gray-50 border border-gray-200 text-gray-600 hover:border-gray-300'
+                  }`}
+                >
+                  <Truck className="w-4 h-4" />
+                  Home Delivery
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setOrderType('PICKUP')}
+                  className={`flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-xs font-bold transition-all cursor-pointer ${
+                    orderType === 'PICKUP'
+                      ? 'bg-[#E11A22] text-white shadow-sm'
+                      : 'bg-gray-50 border border-gray-200 text-gray-600 hover:border-gray-300'
+                  }`}
+                >
+                  <Store className="w-4 h-4" />
+                  Store Pickup
+                </button>
+              </div>
+            )}
           </div>
 
 

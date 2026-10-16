@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 export const HeroCarousel: React.FC = () => {
@@ -10,62 +10,85 @@ export const HeroCarousel: React.FC = () => {
   const [isPaused, setIsPaused] = useState(false);
   const { setSelectedCategory } = useApp();
 
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
   const slides = [
     {
       id: 1,
-      tag: 'STAPLES & PANTRY OFFERS',
-      title: 'Save More on Atta, Rice & Dal',
-      description: 'Trusted staples at special prices for your everyday kitchen.',
-      btnText: 'Shop Offers',
+      tag: '🔥 MEGA FESTIVE SALE • UP TO 50% OFF',
+      tagBg: 'bg-[#FDE047] text-[#7F1D1D]',
+      title: 'HAPPY DUSSEHRA',
+      subtitle: 'Pure Ghee, Basmati Rice, Atta & Kitchen Staples at Unbeatable Wholesale Prices!',
+      btnText: 'Shop Festival Essentials',
       ctaCategory: 'groceries',
-      badge: 'Up to 25% Off',
-      image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=800&q=80',
-      bgColor: 'bg-[#FBF6EE]',
+      image: '/banner-dussehra.webp',
+      alt: 'Happy Dussehra Kitchen Essentials and Groceries',
+      bgGradient: 'bg-gradient-to-r from-[#991B1B] via-[#C2410C] to-[#D97706]',
+      titleColor: 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]',
+      subtitleColor: 'text-amber-100/95',
+      btnBg: 'bg-[#FDE047] hover:bg-[#FACC15] text-[#7F1D1D] shadow-lg shadow-black/25',
     },
     {
       id: 2,
-      tag: 'SNACKS & BEVERAGES',
-      title: 'Crunchy Munchies & Refreshing Drinks',
-      description: 'Biscuits, namkeens, cold drinks, tea & coffee at up to 30% off.',
-      btnText: 'Shop Snacks',
+      tag: '🪔 DIWALI DHAMAKA • FLAT 40% OFF',
+      tagBg: 'bg-gradient-to-r from-[#FDE047] to-[#FBBF24] text-[#3B0764]',
+      title: 'CELEBRATE DIWALI',
+      subtitle: 'Grand Gift Boxes, Dry Fruits, Traditional Diyas & Glowing Festive Decor!',
+      btnText: 'Explore Diwali Deals',
       ctaCategory: 'snacks-and-beverages',
-      badge: 'Up to 30% Off',
-      image: 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?auto=format&fit=crop&w=800&q=80',
-      bgColor: 'bg-[#F4FAF6]',
+      image: '/banner-diwali.webp',
+      alt: 'Celebrate Diwali Traditional Diyas and Lights',
+      bgGradient: 'bg-gradient-to-r from-[#1E0638] via-[#3B0764] to-[#6B21A8]',
+      titleColor: 'text-[#FDE047] drop-shadow-[0_2px_10px_rgba(250,204,21,0.45)]',
+      subtitleColor: 'text-purple-100/95',
+      btnBg: 'bg-gradient-to-r from-[#FDE047] to-[#FBBF24] hover:from-[#FACC15] hover:to-[#F59E0B] text-[#3B0764] shadow-lg shadow-black/35',
     },
     {
       id: 3,
-      tag: 'HOUSEHOLD & CLEANING',
-      title: 'Keep Your Home Fresh & Sparkling',
-      description: 'Top brand detergents, dishwash bars, cleaners & hygiene essentials.',
-      btnText: 'Shop Household',
-      ctaCategory: 'household',
-      badge: 'Sparkling Deals',
-      image: 'https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=800&q=80',
-      bgColor: 'bg-[#F2F7FC]',
+      tag: '🍬 PURE GHEE SWEETS • MIN. 30% OFF',
+      tagBg: 'bg-[#FEF08A] text-[#831843]',
+      title: 'FESTIVAL SWEETS & SNACKS',
+      subtitle: 'Melt-in-mouth Kaju Katli, Motichoor Laddus, Bhujia & Savoury Namkeen!',
+      btnText: 'Order Sweets & Snacks',
+      ctaCategory: 'snacks-and-beverages',
+      image: '/banner-sweets.webp',
+      alt: 'Traditional Festival Sweets Kaju Katli',
+      bgGradient: 'bg-gradient-to-r from-[#831843] via-[#9F1239] to-[#C2410C]',
+      titleColor: 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]',
+      subtitleColor: 'text-pink-100/95',
+      btnBg: 'bg-white hover:bg-amber-50 text-[#9F1239] shadow-lg shadow-black/25',
     },
     {
       id: 4,
-      tag: 'DAILY ESSENTIALS',
-      title: 'Everyday Grocery & Quality Essentials',
-      description: 'Handpicked daily essentials delivered daily at unbeatable prices.',
-      btnText: 'Shop Essentials',
-      ctaCategory: 'groceries',
-      badge: 'Best Value',
-      image: 'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=800&q=80',
-      bgColor: 'bg-[#FFF8F0]',
-    }
+      tag: '🪔 POOJA & HOME SPECIAL • UP TO 50% OFF',
+      tagBg: 'bg-[#FDE047] text-[#0B1536]',
+      title: 'GET HOME FESTIVAL READY',
+      subtitle: 'Pure Camphor, Brass Diyas, Fragrant Agarbatti & Complete Festive Home Care!',
+      btnText: 'Shop Pooja & Home Deals',
+      ctaCategory: 'household',
+      image: '/banner-pooja-thali.webp',
+      alt: 'Festive Pooja Thali and Home Essentials',
+      bgGradient: 'bg-gradient-to-r from-[#0B1536] via-[#1E3A8A] to-[#2563EB]',
+      titleColor: 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]',
+      subtitleColor: 'text-blue-100/95',
+      btnBg: 'bg-[#FDE047] hover:bg-[#FACC15] text-[#0B1536] shadow-lg shadow-black/25',
+    },
   ];
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   }, [slides.length]);
 
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  }, [slides.length]);
+
   useEffect(() => {
     if (isPaused) return;
     const timer = setInterval(() => {
       nextSlide();
-    }, 4000);
+    }, 4500);
     return () => clearInterval(timer);
   }, [isPaused, nextSlide]);
 
@@ -79,97 +102,151 @@ export const HeroCarousel: React.FC = () => {
     }
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 50) {
+      nextSlide();
+    } else if (diff < -50) {
+      prevSlide();
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
   return (
     <div
-      className="relative rounded-2xl overflow-hidden shadow-2xs border border-gray-200/70 min-h-[220px] xs:min-h-[240px] sm:h-[320px] md:h-[360px] lg:h-[380px] w-full"
+      className="relative rounded-2xl overflow-hidden shadow-lg border border-gray-200/80 w-full min-h-[190px] xs:min-h-[205px] sm:h-[235px] md:h-[265px] lg:h-[285px] group select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       {/* Sliding Track */}
       <div
-        className="flex h-full w-full min-w-full transition-transform duration-500 ease-in-out"
+        className="flex h-full w-full min-w-full transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
         {slides.map((slide, i) => (
           <div
             key={slide.id}
-            className={`w-full min-w-full basis-full shrink-0 h-full ${slide.bgColor} px-4 py-4 sm:px-8 sm:py-6 md:px-10 md:py-6 lg:px-12 lg:py-8 flex items-center justify-between gap-4 sm:gap-8 relative box-border overflow-hidden`}
+            onClick={() => handleCta(slide.ctaCategory)}
+            className={`w-full min-w-full basis-full shrink-0 h-full ${slide.bgGradient} px-4 py-3 sm:px-8 sm:py-5 md:px-10 md:py-6 lg:px-12 lg:py-6 flex items-center justify-between gap-3 sm:gap-6 md:gap-8 relative box-border overflow-hidden cursor-pointer`}
           >
-            {/* Left Column Content */}
-            <div className="flex-1 min-w-0 max-w-lg text-left z-10 pb-6 sm:pb-8 flex flex-col justify-center">
-              <span className="text-[10px] sm:text-xs font-bold text-[#0A2540] uppercase tracking-wider block mb-1 sm:mb-1.5">
-                {slide.tag}
-              </span>
+            {/* Ambient Background Glow Effect */}
+            <div className="absolute -left-12 -top-12 w-48 h-48 sm:w-72 sm:h-72 rounded-full bg-white/10 blur-2xl pointer-events-none" />
+            <div className="absolute right-1/4 -bottom-12 w-48 h-48 sm:w-64 sm:h-64 rounded-full bg-yellow-400/15 blur-2xl pointer-events-none" />
 
-              <h1 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[34px] font-black text-[#E11A22] tracking-tight leading-[1.15] mb-1.5 sm:mb-2 line-clamp-2 sm:line-clamp-none">
+            {/* Left Column Content - High-Impact Loud Festival Typography */}
+            <div className="flex-1 min-w-0 pr-2 sm:pr-4 text-left z-10 flex flex-col justify-center py-1">
+              {/* Loud Offer Badge Tag */}
+              <div className="mb-1 sm:mb-2">
+                <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-sm ${slide.tagBg}`}>
+                  {slide.tag}
+                </span>
+              </div>
+
+              {/* Punchy Title */}
+              <h1 className={`text-base xs:text-lg sm:text-2xl md:text-3xl lg:text-[34px] font-black tracking-tight leading-[1.1] mb-1 sm:mb-2 line-clamp-1 sm:line-clamp-none ${slide.titleColor}`}>
                 {slide.title}
               </h1>
 
-              <p className="hidden sm:block text-xs sm:text-sm text-gray-600 font-medium max-w-md line-clamp-2 leading-relaxed mb-3 sm:mb-4">
-                {slide.description}
+              {/* Subtitle / Value Prop */}
+              <p className={`text-[11px] xs:text-xs sm:text-sm md:text-base font-semibold max-w-lg line-clamp-2 leading-snug sm:leading-relaxed mb-2.5 sm:mb-3.5 ${slide.subtitleColor}`}>
+                {slide.subtitle}
               </p>
 
+              {/* CTA Button */}
               <div>
                 <button
                   type="button"
-                  onClick={() => handleCta(slide.ctaCategory)}
-                  className="bg-[#E11A22] hover:bg-[#c8141b] text-white px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm inline-flex items-center gap-1.5 sm:gap-2 shadow-xs transition-colors cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCta(slide.ctaCategory);
+                  }}
+                  className={`${slide.btnBg} px-3.5 sm:px-6 py-1.5 sm:py-2.5 rounded-xl font-black text-xs sm:text-sm inline-flex items-center gap-1.5 sm:gap-2 uppercase tracking-wide transition-all transform hover:scale-[1.03] active:scale-[0.97] cursor-pointer`}
                 >
                   <span>{slide.btnText}</span>
-                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 </button>
               </div>
             </div>
 
-            {/* Right Column Banner Image — hidden on mobile */}
-            <div
-              onClick={() => handleCta(slide.ctaCategory)}
-              className="hidden sm:flex relative shrink-0 w-52 sm:w-60 md:w-72 lg:w-[380px] xl:w-[420px] h-[180px] sm:h-[210px] md:h-[250px] lg:h-[270px] items-center justify-center pr-1 sm:pr-2 cursor-pointer"
-            >
-              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-lg border-2 border-white/80 bg-white group">
+            {/* Right Column Festive Art — 100% Real High-Resolution Photography */}
+            <div className="relative shrink-0 w-[44%] xs:w-[46%] sm:w-[48%] md:w-[48%] lg:w-[48%] max-w-[500px] h-[155px] xs:h-[170px] sm:h-[200px] md:h-[230px] lg:h-[250px] flex items-center justify-center pr-1 sm:pr-2">
+              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-xl border-2 border-white/80 bg-white/20 backdrop-blur-xs group/img">
                 <Image
                   src={slide.image}
-                  alt={slide.title}
+                  alt={slide.alt}
                   fill
-                  sizes="(max-width: 640px) 0px, (max-width: 768px) 256px, (max-width: 1024px) 320px, 420px"
-                  className="object-cover transform group-hover:scale-105 transition-transform duration-700"
-                  priority={true}
+                  unoptimized
+                  sizes="(max-width: 640px) 45vw, (max-width: 1024px) 50vw, 500px"
+                  className="object-cover object-center transform group-hover/img:scale-105 transition-transform duration-700"
+                  priority={i === 0}
                 />
 
                 {/* Subtle soft gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent pointer-events-none" />
-
-                {/* Floating Badge */}
-                {slide.badge && (
-                  <div className="absolute bottom-3 right-3 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-md border border-gray-100/80 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#E11A22] animate-pulse" />
-                    <span className="text-xs font-black text-[#0A2540] tracking-wide uppercase">
-                      {slide.badge}
-                    </span>
-                  </div>
-                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
               </div>
             </div>
-
           </div>
         ))}
       </div>
 
-      {/* Slide indicators at absolute bottom-left */}
-      <div className="absolute bottom-3 sm:bottom-4 left-4 sm:left-8 md:left-10 lg:left-12 z-20 flex items-center gap-1.5">
+      {/* Prev Navigation Arrow */}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          prevSlide();
+        }}
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 hover:bg-white text-gray-800 shadow-md backdrop-blur-xs flex items-center justify-center transition-all opacity-80 sm:opacity-0 group-hover:opacity-100 hover:scale-105 cursor-pointer"
+        aria-label="Previous banner"
+      >
+        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+      </button>
+
+      {/* Next Navigation Arrow */}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          nextSlide();
+        }}
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 hover:bg-white text-gray-800 shadow-md backdrop-blur-xs flex items-center justify-center transition-all opacity-80 sm:opacity-0 group-hover:opacity-100 hover:scale-105 cursor-pointer"
+        aria-label="Next banner"
+      >
+        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+      </button>
+
+      {/* Slide Indicators / Dots */}
+      <div className="absolute bottom-2.5 sm:bottom-3.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2 bg-black/25 backdrop-blur-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full">
         {slides.map((_, idx) => (
           <button
             key={idx}
             type="button"
-            onClick={() => setCurrentSlide(idx)}
-            className={`h-1.5 rounded-full transition-all cursor-pointer ${
-              idx === currentSlide ? 'w-5 bg-[#E11A22]' : 'w-1.5 bg-gray-300 hover:bg-gray-400'
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentSlide(idx);
+            }}
+            className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 cursor-pointer ${
+              idx === currentSlide
+                ? 'w-5 sm:w-7 bg-white shadow-xs'
+                : 'w-1.5 sm:w-2 bg-white/50 hover:bg-white/80'
             }`}
             aria-label={`Go to slide ${idx + 1}`}
           />
         ))}
       </div>
-
     </div>
   );
 };
