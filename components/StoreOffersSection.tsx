@@ -1,103 +1,140 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 interface StoreOffer {
-  id: number;
+  id: string | number;
   storeLabel: string;
   discountBadge: string;
   title: string;
   subtitle: string;
-  description: string;
   ctaText: string;
   ctaCategory: string;
   image: string;
 }
+
+const CATEGORY_DEFAULTS = [
+  {
+    slug: 'personal-care',
+    name: 'Personal Care',
+    subtitle: 'Daily Hygiene Deals',
+    ctaText: 'Shop Personal Care',
+    fallbackDiscount: 74,
+    image:
+      'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80',
+  },
+  {
+    slug: 'groceries',
+    name: 'Groceries & Staples',
+    subtitle: 'Save More Today',
+    ctaText: 'Shop Staples',
+    fallbackDiscount: 60,
+    image:
+      'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80',
+  },
+  {
+    slug: 'snacks-and-beverages',
+    name: 'Snacks & Beverages',
+    subtitle: 'Special Offers',
+    ctaText: 'Shop Snacks Deals',
+    fallbackDiscount: 57,
+    image:
+      'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=400&q=80',
+  },
+];
+
+const OfferCardImage: React.FC<{
+  src: string;
+  alt: string;
+  discountBadge: string;
+}> = ({ src, alt, discountBadge }) => {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  React.useEffect(() => {
+    setImgSrc(src);
+  }, [src]);
+
+  return (
+    <div className="relative shrink-0 w-28 sm:w-32 h-28 sm:h-32 flex items-center justify-center">
+      {/* Circular Discount Badge */}
+      <span className="absolute top-0 right-0 z-20 bg-[#E11A22] text-white text-[11px] font-black px-2 py-1 rounded-full shadow-sm">
+        {discountBadge}
+      </span>
+
+      {/* Product Image */}
+      <div className="w-full h-full rounded-xl overflow-hidden flex items-center justify-center bg-white relative">
+        <Image
+          src={imgSrc}
+          alt={alt}
+          fill
+          sizes="(max-width: 640px) 112px, 128px"
+          className="object-cover transform group-hover:scale-105 transition-transform duration-300"
+          loading="lazy"
+          onError={() => {
+            setImgSrc(
+              'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=400&q=80'
+            );
+          }}
+        />
+      </div>
+    </div>
+  );
+};
 
 export const StoreOffersSection: React.FC = () => {
   const { products, activeStore, setSelectedCategory } = useApp();
 
   const storeName = useMemo(() => {
     if (activeStore?.name) {
-      return activeStore.name.replace(/\(.*?\)/g, '').trim().toUpperCase();
+      return activeStore.name.replace(/\(.*?\)/g, '').trim();
     }
     return 'K MART BARAMATI';
   }, [activeStore]);
 
-  // Dynamically compute the maximum discount for each category from real products
-  const personalCareDiscount = useMemo(() => {
-    const items = products.filter(
-      (p) => p.category === 'personal-care' && p.discountPercent > 0
-    );
-    if (items.length > 0) {
-      return Math.max(...items.map((p) => p.discountPercent));
-    }
-    return 74;
-  }, [products]);
+  // Compute category-wise offers dynamically according to product discounts
+  const storeOffers: StoreOffer[] = useMemo(() => {
+    return CATEGORY_DEFAULTS.map((cat) => {
+      const catProducts = (products || []).filter(
+        (p) => (p.category || '').toLowerCase() === cat.slug.toLowerCase()
+      );
 
-  const groceriesDiscount = useMemo(() => {
-    const items = products.filter(
-      (p) => (p.category === 'groceries' || !p.category) && p.discountPercent > 0
-    );
-    if (items.length > 0) {
-      return Math.max(...items.map((p) => p.discountPercent));
-    }
-    return 60;
-  }, [products]);
+      const discounts = catProducts
+        .filter((p) => p.discountPercent > 0 && p.originalPrice > p.price)
+        .map((p) => p.discountPercent);
 
-  const snacksDiscount = useMemo(() => {
-    const items = products.filter(
-      (p) => p.category === 'snacks-and-beverages' && p.discountPercent > 0
-    );
-    if (items.length > 0) {
-      return Math.max(...items.map((p) => p.discountPercent));
-    }
-    return 57;
-  }, [products]);
+      const maxDiscount =
+        discounts.length > 0 ? Math.max(...discounts) : cat.fallbackDiscount;
 
-  const storeOffers: StoreOffer[] = useMemo(() => [
-    {
-      id: 1,
-      storeLabel: `${storeName} • PERSONAL CARE`,
-      discountBadge: `${personalCareDiscount}% OFF*`,
-      title: 'Daily Essentials',
-      subtitle: 'Personal Care Deals',
-      description: 'Oral care, soaps, shampoos and daily hygiene essentials at special prices.',
-      ctaText: 'Shop Offers',
-      ctaCategory: 'personal-care',
-      image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80',
-    },
-    {
-      id: 2,
-      storeLabel: `${storeName} • STORE 1`,
-      discountBadge: `${groceriesDiscount}% OFF*`,
-      title: 'Staples Sale',
-      subtitle: 'Save More Today',
-      description: 'Atta, rice, dal, premium dates and pantry essentials at special prices.',
-      ctaText: 'Shop Staples',
-      ctaCategory: 'groceries',
-      image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80',
-    },
-    {
-      id: 3,
-      storeLabel: 'GROCERY SAVINGS',
-      discountBadge: `${snacksDiscount}% OFF*`,
-      title: 'Daily Pantry',
-      subtitle: 'Special Offers',
-      description: 'Pasta, noodles, biscuits and daily packaged foods with great savings.',
-      ctaText: 'Shop Grocery Deals',
-      ctaCategory: 'snacks-and-beverages',
-      image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=400&q=80',
-    },
-  ], [storeName, personalCareDiscount, groceriesDiscount, snacksDiscount]);
+      const topProduct = catProducts
+        .filter((p) => p.discountPercent > 0 && p.image)
+        .sort((a, b) => b.discountPercent - a.discountPercent)[0];
+
+      const image = topProduct?.image || cat.image;
+
+      return {
+        id: cat.slug,
+        storeLabel: `${storeName.toUpperCase()} • ${cat.name.toUpperCase()}`,
+        discountBadge: `${maxDiscount}% OFF*`,
+        title: cat.name,
+        subtitle: cat.subtitle,
+        ctaText: cat.ctaText,
+        ctaCategory: cat.slug,
+        image,
+      };
+    });
+  }, [products, storeName]);
 
   const handleCta = (category: string) => {
     setSelectedCategory(category);
     const el = document.getElementById('products-section');
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (el) {
+      const navOffset = -110;
+      const y = el.getBoundingClientRect().top + window.pageYOffset + navOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -123,7 +160,7 @@ export const StoreOffersSection: React.FC = () => {
           >
             {/* Left Content */}
             <div className="flex-1 min-w-0 space-y-2 text-left z-10">
-              <span className="text-[11px] font-bold text-[#E11A22] uppercase tracking-wider block">
+              <span className="text-[11px] font-bold text-[#E11A22] uppercase tracking-wider block truncate">
                 {offer.storeLabel}
               </span>
 
@@ -135,10 +172,6 @@ export const StoreOffersSection: React.FC = () => {
                   {offer.subtitle}
                 </h4>
               </div>
-
-              <p className="text-xs text-gray-500 line-clamp-2 max-w-[200px]">
-                {offer.description}
-              </p>
 
               <div className="pt-1">
                 <button
@@ -153,24 +186,11 @@ export const StoreOffersSection: React.FC = () => {
             </div>
 
             {/* Right Product Image with circular discount badge */}
-            <div className="relative shrink-0 w-28 sm:w-32 h-28 sm:h-32 flex items-center justify-center">
-              {/* Circular Discount Badge */}
-              <span className="absolute top-0 right-0 z-20 bg-[#E11A22] text-white text-[11px] font-black px-2 py-1 rounded-full shadow-sm">
-                {offer.discountBadge}
-              </span>
-
-              {/* Product Pack Image */}
-              <div className="w-full h-full rounded-xl overflow-hidden flex items-center justify-center bg-white relative">
-                <Image
-                  src={offer.image}
-                  alt={offer.title}
-                  fill
-                  sizes="(max-width: 640px) 112px, 128px"
-                  className="object-cover transform group-hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
-                />
-              </div>
-            </div>
+            <OfferCardImage
+              src={offer.image}
+              alt={offer.title}
+              discountBadge={offer.discountBadge}
+            />
           </div>
         ))}
       </div>
