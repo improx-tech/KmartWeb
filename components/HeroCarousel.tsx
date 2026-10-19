@@ -136,16 +136,13 @@ export const HeroCarousel: React.FC = () => {
 
   return (
     <div
-      className="relative rounded-2xl overflow-hidden shadow-xl border border-amber-500/20 w-full min-h-[200px] xs:min-h-[215px] sm:h-[245px] md:h-[275px] lg:h-[295px] group select-none bg-neutral-950"
+      className="relative rounded-2xl overflow-hidden shadow-xl border border-gray-900 w-full min-h-[200px] xs:min-h-[215px] sm:h-[245px] md:h-[275px] lg:h-[295px] group select-none bg-neutral-950"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Top subtle golden shimmer line */}
-      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400/70 to-transparent z-20 pointer-events-none" />
-
       {/* Sliding Track */}
       <div
         className="flex h-full w-full min-w-full transition-transform duration-500 ease-out"
@@ -158,14 +155,14 @@ export const HeroCarousel: React.FC = () => {
             className={`w-full min-w-full basis-full shrink-0 h-full ${slide.bgColor} relative overflow-hidden cursor-pointer flex items-center`}
           >
             {/* Seamless Full-Bleed Photograph on the Right */}
-            <div className="absolute inset-y-0 right-0 w-full sm:w-[58%] md:w-[54%] lg:w-[52%] h-full z-0">
+            <div className="absolute inset-y-0 right-0 w-full sm:w-[58%] md:w-[54%] lg:w-[52%] h-full z-0 overflow-hidden">
               <Image
                 src={slide.image}
                 alt={slide.alt}
                 fill
                 unoptimized
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 58vw, 650px"
-                className="object-cover object-center transform group-hover:scale-105 transition-transform duration-700"
+                className="object-cover object-center"
                 priority={i === 0}
               />
 
