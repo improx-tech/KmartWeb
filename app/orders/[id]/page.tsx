@@ -2,11 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-<<<<<<< HEAD
 import { useParams, useRouter } from "next/navigation";
-=======
-import { useRouter } from "next/navigation";
->>>>>>> origin/main
 import { 
   CheckCircle2, 
   Clock, 
@@ -25,12 +21,8 @@ import {
   Printer,
   X,
   ShoppingBag,
-<<<<<<< HEAD
   Store,
   RefreshCw
-=======
-  Store
->>>>>>> origin/main
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { orderService } from "@/services/orders";
@@ -44,7 +36,6 @@ export default function OrderDetailPage({
   params: { id: string } | Promise<{ id: string }>;
 }) {
   const router = useRouter();
-<<<<<<< HEAD
   const routeParams = useParams();
   const paramId = (routeParams?.id as string) || (typeof params === 'object' && 'id' in params && typeof (params as any).id === 'string' ? (params as any).id : '');
   const [resolvedId, setResolvedId] = useState<string>(paramId);
@@ -53,22 +44,10 @@ export default function OrderDetailPage({
     if (paramId && paramId !== resolvedId) {
       setResolvedId(paramId);
     } else if (!resolvedId && params) {
-=======
-  const [resolvedId, setResolvedId] = useState<string>(() => {
-    if (params && typeof params === "object" && "id" in params && typeof (params as any).id === "string") {
-      return (params as any).id;
-    }
-    return "";
-  });
-
-  useEffect(() => {
-    if (!resolvedId) {
->>>>>>> origin/main
       Promise.resolve(params).then((p) => {
         if (p?.id) setResolvedId(p.id);
       });
     }
-<<<<<<< HEAD
   }, [paramId, params, resolvedId]);
 
   const { orders, addToCart, stores, activeStore, user, refreshOrders } = useApp();
@@ -76,14 +55,6 @@ export default function OrderDetailPage({
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
-=======
-  }, [params, resolvedId]);
-
-  const { orders, addToCart, stores, activeStore, user } = useApp();
-  const [dbOrder, setDbOrder] = useState<Order | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
->>>>>>> origin/main
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
 
@@ -91,15 +62,9 @@ export default function OrderDetailPage({
     setIsMounted(true);
   }, []);
 
-<<<<<<< HEAD
   // Find order in AppContext or state or localStorage
   let contextOrder: Order | undefined = undefined;
   if (resolvedId) {
-=======
-  // Find order in AppContext or state or localStorage (only after mount to avoid hydration mismatch)
-  let contextOrder: Order | undefined = undefined;
-  if (isMounted) {
->>>>>>> origin/main
     contextOrder = orders.find(
       (o) => o.id === resolvedId || o.orderNumber === resolvedId
     );
@@ -119,7 +84,6 @@ export default function OrderDetailPage({
   }
   const order = dbOrder || contextOrder;
 
-<<<<<<< HEAD
   // Timeout safety fallback: never let the screen hang on loading
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -139,15 +103,6 @@ export default function OrderDetailPage({
     try {
       const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(targetId);
       let query = supabase
-=======
-  // Fetch directly from DB if not in AppContext
-  // silent=true → background refresh (no loading spinner, used by realtime subscription)
-  const fetchOrderFromDb = useCallback(async (targetId: string, silent = false) => {
-    if (!targetId) return;
-    if (!silent) setIsLoading(true);
-    try {
-      const { data, error } = await supabase
->>>>>>> origin/main
         .from('orders')
         .select(`
           *,
@@ -158,7 +113,6 @@ export default function OrderDetailPage({
               categories ( name )
             )
           )
-<<<<<<< HEAD
         `);
 
       if (isUuid) {
@@ -168,11 +122,6 @@ export default function OrderDetailPage({
       }
 
       const { data, error } = await query.maybeSingle();
-=======
-        `)
-        .or(`id.eq.${targetId},order_number.eq.${targetId}`)
-        .maybeSingle();
->>>>>>> origin/main
 
       if (data && !error) {
         const items: CartItem[] = (data.order_items || []).map((it: any) => {
@@ -243,7 +192,6 @@ export default function OrderDetailPage({
     } catch (err: any) {
       console.warn('[OrderDetailPage] error fetching order:', err?.message);
     } finally {
-<<<<<<< HEAD
       setIsLoading(false);
     }
   }, [contextOrder]);
@@ -267,40 +215,11 @@ export default function OrderDetailPage({
           event: '*',
           schema: 'public',
           table: 'orders',
-=======
-      if (!silent) setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!isMounted) return;
-    if (resolvedId && !contextOrder && !dbOrder) {
-      fetchOrderFromDb(resolvedId);
-    } else if (contextOrder || dbOrder) {
-      setIsLoading(false);
-    }
-  }, [isMounted, resolvedId, contextOrder, dbOrder, fetchOrderFromDb]);
-
-  // Subscribe to ALL real-time changes on this order (status, address, any field)
-  useEffect(() => {
-    if (!resolvedId) return;
-
-    const channel = supabase
-      .channel(`order-detail-${resolvedId}`)
-      .on(
-        'postgres_changes',
-        {
-          event: 'UPDATE',
-          schema: 'public',
-          table: 'orders',
-          filter: `id=eq.${resolvedId}`,
->>>>>>> origin/main
         },
         (payload: any) => {
           const incoming = payload?.new;
           if (!incoming) return;
 
-<<<<<<< HEAD
           // Check if this incoming update belongs to our order
           const matches =
             incoming.id === resolvedId ||
@@ -309,9 +228,6 @@ export default function OrderDetailPage({
 
           if (!matches) return;
 
-=======
-          // Fire notification if status changed
->>>>>>> origin/main
           const nextStatus = incoming.status;
           if (nextStatus) {
             setDbOrder((prev) => {
@@ -322,18 +238,12 @@ export default function OrderDetailPage({
             });
           }
 
-<<<<<<< HEAD
           // Fetch full data in background to refresh all fields
-=======
-          // Re-fetch the full order to pick up ALL changed fields
-          // (address snapshot, delivery slot, payment status, etc.)
->>>>>>> origin/main
           fetchOrderFromDb(resolvedId, true);
         }
       )
       .subscribe();
 
-<<<<<<< HEAD
     // 2. Active Short-Polling fallback (every 2.5 seconds for active orders)
     // Guarantees real-time updates even if WebSockets drop or replication is paused
     const pollInterval = setInterval(() => {
@@ -360,14 +270,6 @@ export default function OrderDetailPage({
   };
 
   // Handler to advance stage in DB & propagate in real-time
-=======
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, [resolvedId, fetchOrderFromDb]);
-
-  // Handler to advance stage in DB
->>>>>>> origin/main
   const handleUpdateStatus = async (newStatus: string) => {
     if (!order) return;
     setIsUpdatingStatus(true);
@@ -376,11 +278,8 @@ export default function OrderDetailPage({
       if (ok) {
         sendDeliveryUpdateNotification(order, `Status updated to ${newStatus}`).catch(() => {});
         setDbOrder((prev) => prev ? { ...prev, status: newStatus as any } : { ...order, status: newStatus as any });
-<<<<<<< HEAD
         // Also refresh global orders in AppContext
         await refreshOrders();
-=======
->>>>>>> origin/main
       }
     } catch (err) {
       console.error(err);
@@ -397,11 +296,7 @@ export default function OrderDetailPage({
     router.push("/cart");
   };
 
-<<<<<<< HEAD
   if (!isMounted || (isLoading && !order)) {
-=======
-  if (!isMounted || isLoading) {
->>>>>>> origin/main
     return (
       <div className="min-h-[75vh] bg-[#F8F9FA] flex flex-col items-center justify-center px-4 py-16 text-center">
         <Loader2 className="w-10 h-10 text-[#E11A22] animate-spin mb-4" />
@@ -608,7 +503,6 @@ export default function OrderDetailPage({
 
         {/* 4-Step Tracking Flow: Preparing → Packed → Out for Delivery → Delivered */}
         <div className="bg-white rounded-2xl border border-gray-200/90 p-6 shadow-2xs mb-6">
-<<<<<<< HEAD
           <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-gray-100">
             <div>
               <div className="flex items-center gap-2">
@@ -631,19 +525,6 @@ export default function OrderDetailPage({
               <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin text-[#E11A22]" : "text-gray-500"}`} />
               <span>{isRefreshing ? "Checking..." : "Sync Status"}</span>
             </button>
-=======
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="font-black text-sm text-[#0A2540] uppercase tracking-wider">
-                Live Order Tracking
-              </h2>
-              <p className="text-xs text-gray-500 mt-0.5">
-                {isPickup
-                  ? "Real-time fulfillment stages for your store pickup order"
-                  : "Real-time fulfillment stages from K MART fulfillment center"}
-              </p>
-            </div>
->>>>>>> origin/main
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 relative">
@@ -678,7 +559,6 @@ export default function OrderDetailPage({
               );
             })}
           </div>
-<<<<<<< HEAD
 
           {/* Live Order Stage Controller / Simulator */}
           <div className="mt-6 pt-4 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gray-50/80 p-3.5 rounded-xl border border-gray-100">
@@ -706,8 +586,6 @@ export default function OrderDetailPage({
               ))}
             </div>
           </div>
-=======
->>>>>>> origin/main
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
