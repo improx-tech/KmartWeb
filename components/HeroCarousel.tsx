@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
-import { ArrowRight, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 export const HeroCarousel: React.FC = () => {
@@ -16,67 +16,75 @@ export const HeroCarousel: React.FC = () => {
   const slides = [
     {
       id: 1,
-      tag: '🔥 DUSSEHRA UTSAV • UP TO 50% OFF',
-      tagBg: 'bg-gradient-to-r from-amber-400 to-yellow-300 text-red-950 font-black shadow-md border border-yellow-200/50',
-      title: 'SHUBH DUSSEHRA',
-      subtitle: 'Fresh Marigold Flowers, Pure Desi Ghee, Sharbati Atta & Festive Essentials at Wholesale Rates!',
+      kicker: 'DUSSEHRA UTSAV',
+      kickerBg: 'bg-amber-400/20 text-amber-300 border border-amber-400/30',
+      offer: 'UP TO 50% OFF',
+      offerColor: 'text-amber-400',
+      headline: 'Dussehra Puja & Festive Feast',
+      subtext: 'Fresh Marigold Flowers, Pure Cow Ghee, Sharbati Atta & Kitchen Staples',
+      trustText: '✓ Direct from nearest local store',
       btnText: 'Shop Dussehra Specials',
       ctaCategory: 'groceries',
       image: '/real-dussehra-marigold.webp',
       alt: 'Shubh Dussehra Fresh Marigold Flowers and Festive Essentials',
-      bgGradient: 'bg-gradient-to-r from-[#7B1113] via-[#991B1B] to-[#C2410C]',
-      titleColor: 'text-amber-100 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]',
-      subtitleColor: 'text-orange-100/90',
-      badgeOverlay: '🌼 Fresh Marigold Toran & Pooja',
-      btnBg: 'bg-gradient-to-r from-amber-400 to-yellow-300 hover:from-amber-300 hover:to-yellow-200 text-red-950 shadow-lg shadow-black/25',
+      bgColor: 'bg-[#180306]',
+      overlayGradient: 'from-[#180306] via-[#180306]/75 to-transparent',
+      mobileOverlayGradient: 'from-[#180306] via-[#180306]/85 to-transparent',
+      btnBg: 'bg-amber-400 hover:bg-amber-300 text-neutral-950',
     },
     {
       id: 2,
-      tag: '🪔 DIWALI DHAMAKA • UP TO 60% OFF',
-      tagBg: 'bg-gradient-to-r from-yellow-300 via-amber-300 to-yellow-400 text-purple-950 font-black shadow-md border border-yellow-200/50',
-      title: 'FESTIVAL OF LIGHTS',
-      subtitle: 'Handcrafted Clay Diyas, Premium Dry Fruit Gift Boxes, Pure Mithai & Festive Home Lights in 10 Mins!',
+      kicker: 'DIWALI DHAMAKA',
+      kickerBg: 'bg-yellow-400/20 text-yellow-300 border border-yellow-400/30',
+      offer: 'FLAT 40% - 60% OFF',
+      offerColor: 'text-yellow-300',
+      headline: 'Festival of Lights & Celebrations',
+      subtext: 'Handcrafted Clay Diyas, Brass Deepaks, Dry Fruit Hampers & Pure Ghee Sweets',
+      trustText: '✓ 100% Traditional Handcrafted Diyas',
       btnText: 'Explore Diwali Deals',
       ctaCategory: 'snacks-and-beverages',
       image: '/real-diwali-diya.webp',
       alt: 'Happy Diwali Traditional Clay Diyas with Real Golden Flames',
-      bgGradient: 'bg-gradient-to-r from-[#140026] via-[#2A0845] to-[#4C1D95]',
-      titleColor: 'text-yellow-300 drop-shadow-[0_2px_12px_rgba(253,224,71,0.5)]',
-      subtitleColor: 'text-purple-100/90',
-      badgeOverlay: '🪔 Earthen Diyas & Brass Pooja',
-      btnBg: 'bg-gradient-to-r from-yellow-400 to-amber-300 hover:from-yellow-300 hover:to-amber-200 text-purple-950 shadow-lg shadow-black/35',
+      bgColor: 'bg-[#0B0416]',
+      overlayGradient: 'from-[#0B0416] via-[#0B0416]/75 to-transparent',
+      mobileOverlayGradient: 'from-[#0B0416] via-[#0B0416]/85 to-transparent',
+      btnBg: 'bg-yellow-400 hover:bg-yellow-300 text-purple-950',
     },
     {
       id: 3,
-      tag: '🍬 MITHAI BAZAAR • MIN. 30% OFF',
-      tagBg: 'bg-gradient-to-r from-pink-300 to-rose-200 text-rose-950 font-black shadow-md border border-pink-200/50',
-      title: 'FESTIVAL MITHAI & SNACKS',
-      subtitle: 'Melt-in-mouth Kaju Katli, Besan Laddus, Gulab Jamun & Crisp Festive Namkeen Hampers!',
+      kicker: 'MITHAI BAZAAR',
+      kickerBg: 'bg-rose-400/20 text-rose-300 border border-rose-400/30',
+      offer: 'MIN. 30% OFF',
+      offerColor: 'text-rose-300',
+      headline: 'Fresh Pure Ghee Sweets & Snacks',
+      subtext: 'Silver-foil Kaju Katli, Besan Laddus, Gulab Jamun & Savoury Namkeen Hampers',
+      trustText: '✓ Prepared fresh daily with pure cow ghee',
       btnText: 'Order Fresh Mithai',
       ctaCategory: 'snacks-and-beverages',
       image: '/banner-sweets.webp',
       alt: 'Real Traditional Silver Foil Kaju Katli in Festive Basket',
-      bgGradient: 'bg-gradient-to-r from-[#5B0E2D] via-[#881337] to-[#BE123C]',
-      titleColor: 'text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]',
-      subtitleColor: 'text-rose-100/90',
-      badgeOverlay: '✨ Pure Ghee & Kaju Katli',
-      btnBg: 'bg-gradient-to-r from-amber-300 to-yellow-200 hover:from-amber-200 hover:to-yellow-100 text-rose-950 shadow-lg shadow-black/25',
+      bgColor: 'bg-[#1A0412]',
+      overlayGradient: 'from-[#1A0412] via-[#1A0412]/75 to-transparent',
+      mobileOverlayGradient: 'from-[#1A0412] via-[#1A0412]/85 to-transparent',
+      btnBg: 'bg-rose-400 hover:bg-rose-300 text-neutral-950',
     },
     {
       id: 4,
-      tag: '🙏 POOJA SAMAGRI • UP TO 50% OFF',
-      tagBg: 'bg-gradient-to-r from-amber-300 to-yellow-200 text-blue-950 font-black shadow-md border border-amber-200/50',
-      title: 'AUSPICIOUS POOJA THALI',
-      subtitle: 'Pure Bhimseni Camphor, Brass Diyas, Fragrant Agarbatti & Premium Festive Home Care!',
+      kicker: 'PUJA SAMAGRI',
+      kickerBg: 'bg-sky-400/20 text-sky-300 border border-sky-400/30',
+      offer: 'UP TO 45% OFF',
+      offerColor: 'text-amber-300',
+      headline: 'Auspicious Sacred Pooja Thali',
+      subtext: 'Bhimseni Camphor, Brass Diyas, Fragrant Agarbatti, Dhoop & Complete Puja Kits',
+      trustText: '✓ 100% Pure Camphor & Organic Agarbatti',
       btnText: 'Shop Pooja Samagri',
       ctaCategory: 'household',
       image: '/banner-pooja-thali.webp',
       alt: 'Real Traditional Festive Pooja Thali with Diya and Flowers',
-      bgGradient: 'bg-gradient-to-r from-[#06152B] via-[#0F2B5C] to-[#1E40AF]',
-      titleColor: 'text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]',
-      subtitleColor: 'text-sky-100/90',
-      badgeOverlay: '🙏 100% Pure Camphor & Puja Kit',
-      btnBg: 'bg-gradient-to-r from-amber-400 to-yellow-300 hover:from-amber-300 hover:to-yellow-200 text-blue-950 shadow-lg shadow-black/25',
+      bgColor: 'bg-[#040C1A]',
+      overlayGradient: 'from-[#040C1A] via-[#040C1A]/75 to-transparent',
+      mobileOverlayGradient: 'from-[#040C1A] via-[#040C1A]/85 to-transparent',
+      btnBg: 'bg-amber-400 hover:bg-amber-300 text-neutral-950',
     },
   ];
 
@@ -128,13 +136,16 @@ export const HeroCarousel: React.FC = () => {
 
   return (
     <div
-      className="relative rounded-2xl overflow-hidden shadow-xl border border-white/20 w-full min-h-[190px] xs:min-h-[205px] sm:h-[235px] md:h-[265px] lg:h-[285px] group select-none"
+      className="relative rounded-2xl overflow-hidden shadow-xl border border-amber-500/20 w-full min-h-[200px] xs:min-h-[215px] sm:h-[245px] md:h-[275px] lg:h-[295px] group select-none bg-neutral-950"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
+      {/* Top subtle golden shimmer line */}
+      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400/70 to-transparent z-20 pointer-events-none" />
+
       {/* Sliding Track */}
       <div
         className="flex h-full w-full min-w-full transition-transform duration-500 ease-out"
@@ -144,72 +155,72 @@ export const HeroCarousel: React.FC = () => {
           <div
             key={slide.id}
             onClick={() => handleCta(slide.ctaCategory)}
-            className={`w-full min-w-full basis-full shrink-0 h-full ${slide.bgGradient} px-4 py-3 sm:px-8 sm:py-5 md:px-10 md:py-6 lg:px-12 lg:py-6 flex items-center justify-between gap-3 sm:gap-6 md:gap-8 relative box-border overflow-hidden cursor-pointer`}
+            className={`w-full min-w-full basis-full shrink-0 h-full ${slide.bgColor} relative overflow-hidden cursor-pointer flex items-center`}
           >
-            {/* Ambient Background Glow Effect */}
-            <div className="absolute -left-12 -top-12 w-48 h-48 sm:w-72 sm:h-72 rounded-full bg-white/10 blur-2xl pointer-events-none" />
-            <div className="absolute right-1/4 -bottom-12 w-48 h-48 sm:w-64 sm:h-64 rounded-full bg-yellow-400/20 blur-2xl pointer-events-none" />
+            {/* Seamless Full-Bleed Photograph on the Right */}
+            <div className="absolute inset-y-0 right-0 w-full sm:w-[58%] md:w-[54%] lg:w-[52%] h-full z-0">
+              <Image
+                src={slide.image}
+                alt={slide.alt}
+                fill
+                unoptimized
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 58vw, 650px"
+                className="object-cover object-center transform group-hover:scale-105 transition-transform duration-700"
+                priority={i === 0}
+              />
 
-            {/* Left Column Content - High-Impact Loud Festival Typography */}
-            <div className="flex-1 min-w-0 pr-2 sm:pr-4 text-left z-10 flex flex-col justify-center py-1">
-              {/* Loud Offer Badge Tag */}
-              <div className="mb-1 sm:mb-2">
-                <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider ${slide.tagBg}`}>
-                  <Sparkles className="w-3 h-3 shrink-0" />
-                  <span>{slide.tag}</span>
+              {/* Desktop horizontal fade: smoothly dissolves photo left edge into solid theme background */}
+              <div className={`absolute inset-0 bg-gradient-to-r ${slide.overlayGradient} hidden sm:block pointer-events-none`} />
+
+              {/* Mobile vertical fade: ensures text remains 100% readable while showing photo at top */}
+              <div className={`absolute inset-0 bg-gradient-to-t ${slide.mobileOverlayGradient} sm:hidden pointer-events-none`} />
+            </div>
+
+            {/* Content Column: Clean, Authentic Human Editorial Design */}
+            <div className="relative z-10 w-full sm:w-[55%] md:w-[52%] px-5 py-4 sm:px-8 sm:py-6 md:px-10 flex flex-col justify-center items-start text-left">
+              {/* Quick-Commerce Pill Badges */}
+              <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  <span>⚡ 10 MINS</span>
+                </span>
+                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider ${slide.kickerBg}`}>
+                  {slide.kicker}
                 </span>
               </div>
 
-              {/* Punchy Title */}
-              <h1 className={`text-base xs:text-lg sm:text-2xl md:text-3xl lg:text-[34px] font-black tracking-tight leading-[1.1] mb-1 sm:mb-2 line-clamp-1 sm:line-clamp-none ${slide.titleColor}`}>
-                {slide.title}
-              </h1>
+              {/* Large Impactful Retail Discount Headline */}
+              <div className="mb-0.5 sm:mb-1">
+                <span className={`text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-none ${slide.offerColor}`}>
+                  {slide.offer}
+                </span>
+              </div>
 
-              {/* Subtitle / Value Prop */}
-              <p className={`text-[11px] xs:text-xs sm:text-sm md:text-base font-semibold max-w-lg line-clamp-2 leading-snug sm:leading-relaxed mb-2.5 sm:mb-3.5 ${slide.subtitleColor}`}>
-                {slide.subtitle}
+              {/* Campaign Headline */}
+              <h2 className="text-sm xs:text-base sm:text-lg md:text-xl font-bold text-white tracking-tight mb-1 sm:mb-1.5 line-clamp-1">
+                {slide.headline}
+              </h2>
+
+              {/* Real Product Subtitle */}
+              <p className="text-[11px] xs:text-xs sm:text-sm text-gray-300 font-medium max-w-sm sm:max-w-md line-clamp-2 leading-snug sm:leading-relaxed mb-3 sm:mb-4">
+                {slide.subtext}
               </p>
 
-              {/* CTA Button */}
-              <div>
+              {/* Action Button & Trust Note */}
+              <div className="flex items-center gap-3 flex-wrap">
                 <button
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleCta(slide.ctaCategory);
                   }}
-                  className={`${slide.btnBg} px-3.5 sm:px-6 py-1.5 sm:py-2.5 rounded-xl font-black text-xs sm:text-sm inline-flex items-center gap-1.5 sm:gap-2 uppercase tracking-wide transition-all transform hover:scale-[1.03] active:scale-[0.97] cursor-pointer`}
+                  className={`${slide.btnBg} px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl font-black text-xs sm:text-sm inline-flex items-center gap-2 shadow-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer`}
                 >
                   <span>{slide.btnText}</span>
                   <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 </button>
-              </div>
-            </div>
-
-            {/* Right Column Festive Art — 100% Real High-Resolution Photography */}
-            <div className="relative shrink-0 w-[44%] xs:w-[46%] sm:w-[48%] md:w-[48%] lg:w-[48%] max-w-[500px] h-[155px] xs:h-[170px] sm:h-[200px] md:h-[230px] lg:h-[250px] flex items-center justify-center pr-1 sm:pr-2">
-              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl border-2 border-white/70 bg-white/10 backdrop-blur-xs group/img">
-                <Image
-                  src={slide.image}
-                  alt={slide.alt}
-                  fill
-                  unoptimized
-                  sizes="(max-width: 640px) 45vw, (max-width: 1024px) 50vw, 500px"
-                  className="object-cover object-center transform group-hover/img:scale-105 transition-transform duration-700"
-                  priority={i === 0}
-                />
-
-                {/* Subtle soft gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
-
-                {/* Floating Real-Asset Pill Tag */}
-                {slide.badgeOverlay && (
-                  <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 flex items-center justify-center pointer-events-none">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-black/60 backdrop-blur-md text-[9px] sm:text-xs font-semibold text-white/95 border border-white/20 shadow-md truncate max-w-full">
-                      {slide.badgeOverlay}
-                    </span>
-                  </div>
-                )}
+                <span className="text-[10px] sm:text-xs text-amber-200/80 font-medium hidden xs:inline-block">
+                  {slide.trustText}
+                </span>
               </div>
             </div>
           </div>
@@ -223,7 +234,7 @@ export const HeroCarousel: React.FC = () => {
           e.stopPropagation();
           prevSlide();
         }}
-        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/40 hover:bg-black/70 text-white shadow-md backdrop-blur-md border border-white/20 flex items-center justify-center transition-all opacity-80 sm:opacity-0 group-hover:opacity-100 hover:scale-105 cursor-pointer"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/50 hover:bg-black/80 text-white shadow-md backdrop-blur-md border border-white/20 flex items-center justify-center transition-all opacity-80 sm:opacity-0 group-hover:opacity-100 hover:scale-105 cursor-pointer"
         aria-label="Previous banner"
       >
         <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -236,14 +247,14 @@ export const HeroCarousel: React.FC = () => {
           e.stopPropagation();
           nextSlide();
         }}
-        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/40 hover:bg-black/70 text-white shadow-md backdrop-blur-md border border-white/20 flex items-center justify-center transition-all opacity-80 sm:opacity-0 group-hover:opacity-100 hover:scale-105 cursor-pointer"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/50 hover:bg-black/80 text-white shadow-md backdrop-blur-md border border-white/20 flex items-center justify-center transition-all opacity-80 sm:opacity-0 group-hover:opacity-100 hover:scale-105 cursor-pointer"
         aria-label="Next banner"
       >
         <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
       </button>
 
       {/* Slide Indicators / Dots */}
-      <div className="absolute bottom-2.5 sm:bottom-3.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2 bg-black/35 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/10">
+      <div className="absolute bottom-2.5 sm:bottom-3.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2 bg-black/45 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/10">
         {slides.map((_, idx) => (
           <button
             key={idx}
@@ -255,7 +266,7 @@ export const HeroCarousel: React.FC = () => {
             className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 cursor-pointer ${
               idx === currentSlide
                 ? 'w-5 sm:w-7 bg-white shadow-xs'
-                : 'w-1.5 sm:w-2 bg-white/50 hover:bg-white/80'
+                : 'w-1.5 sm:w-2 bg-white/40 hover:bg-white/70'
             }`}
             aria-label={`Go to slide ${idx + 1}`}
           />
