@@ -12,6 +12,7 @@ import {
   ChevronRight, 
   ShoppingBag,
   ArrowRight,
+<<<<<<< HEAD
   Trash2,
   RefreshCw
 } from "lucide-react";
@@ -45,6 +46,142 @@ export default function OrderHistoryPage() {
     await refreshOrders();
     setTimeout(() => setIsRefreshing(false), 500);
   };
+=======
+  Trash2
+} from "lucide-react";
+import { useApp } from "@/context/AppContext";
+import { Order } from "@/types";
+import { supabase } from "@/lib/supabase/client";
+
+export default function OrderHistoryPage() {
+  const router = useRouter();
+  const { orders: contextOrders, addToCart, removeOrder } = useApp();
+
+  // Local live orders — starts from context, updated by Supabase realtime
+  const [liveOrders, setLiveOrders] = useState<Order[]>(contextOrders);
+
+  // Keep liveOrders in sync when context loads initially
+  useEffect(() => {
+    if (contextOrders.length > 0 && liveOrders.length === 0) {
+      setLiveOrders(contextOrders);
+    }
+  }, [contextOrders]);
+
+  // Fetch fresh orders from DB and subscribe to realtime changes
+  useEffect(() => {
+    let userId: string | null = null;
+
+    const fetchAndSubscribe = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      userId = user.id;
+
+      // Fetch all orders for this user fresh from DB
+      const { data } = await supabase
+        .from('orders')
+        .select('id, order_number, status, total, subtotal, delivery_fee, payment_method, created_at, order_type, delivery_address_snapshot')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+
+      if (data && data.length > 0) {
+        setLiveOrders((prev) => {
+          // Merge DB rows with existing context items (context has full CartItem data)
+          const contextMap = new Map(contextOrders.map((o) => [o.id, o]));
+          return data.map((row: any) => {
+            const existing = contextMap.get(row.id);
+            return existing
+              ? { ...existing, status: row.status } // update status from DB
+              : {
+                  id: row.id,
+                  orderNumber: row.order_number || `KM-${row.id.slice(0, 6).toUpperCase()}`,
+                  orderType: row.order_type || 'DELIVERY',
+                  status: row.status,
+                  totalAmount: Number(row.total || 0),
+                  itemTotal: Number(row.subtotal || 0),
+                  deliveryFee: Number(row.delivery_fee || 0),
+                  discount: 0,
+                  handlingFee: 0,
+                  platformFee: 0,
+                  paymentMethod: row.payment_method === 'ONLINE' ? 'Razorpay' : 'Cash on Delivery',
+                  createdAt: row.created_at,
+                  items: [],
+                  deliverySlot: { slotId: undefined, time: 'Scheduled', day: 'Scheduled', date: undefined },
+                  deliveryAddress: row.delivery_address_snapshot?.line1 ? {
+                    id: 'snapshot',
+                    label: row.delivery_address_snapshot.label || 'Home',
+                    fullName: row.delivery_address_snapshot.full_name || '',
+                    phone: row.delivery_address_snapshot.phone || '',
+                    line1: row.delivery_address_snapshot.line1,
+                    line2: row.delivery_address_snapshot.line2 || '',
+                    city: row.delivery_address_snapshot.city || '',
+                    state: row.delivery_address_snapshot.state || '',
+                    pincode: row.delivery_address_snapshot.pincode || '',
+                    latitude: 0,
+                    longitude: 0,
+                  } : null,
+                } as Order;
+          });
+        });
+      }
+
+      // Subscribe to realtime status/address changes for ALL user orders
+      const channel = supabase
+        .channel(`orders-list-${userId}`)
+        .on(
+          'postgres_changes',
+          {
+            event: 'UPDATE',
+            schema: 'public',
+            table: 'orders',
+            filter: `user_id=eq.${userId}`,
+          },
+          (payload: any) => {
+            const updated = payload?.new;
+            if (!updated?.id) return;
+            setLiveOrders((prev) =>
+              prev.map((o) =>
+                o.id === updated.id
+                  ? {
+                      ...o,
+                      status: updated.status ?? o.status,
+                      totalAmount: updated.total ? Number(updated.total) : o.totalAmount,
+                      deliveryAddress: updated.delivery_address_snapshot?.line1
+                        ? {
+                            id: 'snapshot',
+                            label: updated.delivery_address_snapshot.label || 'Home',
+                            fullName: updated.delivery_address_snapshot.full_name || '',
+                            phone: updated.delivery_address_snapshot.phone || '',
+                            line1: updated.delivery_address_snapshot.line1,
+                            line2: updated.delivery_address_snapshot.line2 || '',
+                            city: updated.delivery_address_snapshot.city || '',
+                            state: updated.delivery_address_snapshot.state || '',
+                            pincode: updated.delivery_address_snapshot.pincode || '',
+                            latitude: 0,
+                            longitude: 0,
+                          }
+                        : o.deliveryAddress,
+                    }
+                  : o
+              )
+            );
+          }
+        )
+        .subscribe();
+
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    };
+
+    const cleanup = fetchAndSubscribe();
+    return () => {
+      cleanup.then((fn) => fn?.());
+    };
+  }, []);
+
+  // Use liveOrders if populated, fall back to contextOrders
+  const orders = liveOrders.length > 0 ? liveOrders : contextOrders;
+>>>>>>> origin/main
 
   const handleReorder = (order: Order) => {
     order.items.forEach((it) => {
@@ -123,6 +260,7 @@ export default function OrderHistoryPage() {
       </div>
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+<<<<<<< HEAD
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <div>
             <div className="flex items-center gap-2.5">
@@ -130,10 +268,18 @@ export default function OrderHistoryPage() {
                 Order History &amp; Tracking
               </h1>
             </div>
+=======
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-black text-[#0A2540] tracking-tight">
+              Order History & Tracking
+            </h1>
+>>>>>>> origin/main
             <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
               Check delivery progress, invoices and reorder previous grocery baskets
             </p>
           </div>
+<<<<<<< HEAD
 
           <button
             onClick={handleManualSync}
@@ -143,6 +289,8 @@ export default function OrderHistoryPage() {
             <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin text-[#E11A22]" : "text-gray-500"}`} />
             <span>{isRefreshing ? "Syncing..." : "Sync Orders"}</span>
           </button>
+=======
+>>>>>>> origin/main
         </div>
 
         <div className="space-y-4">

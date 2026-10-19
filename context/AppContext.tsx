@@ -13,7 +13,11 @@ import { cartService } from '../services/cart';
 import { supabase } from '../lib/supabase/client';
 import { DbStore, DbCustomer, DbDeliverySettings } from '../types/database';
 import { fetchRelatedProducts, toProduct } from '../lib/cart';
+<<<<<<< HEAD
 import { sendOrderConfirmedNotification, sendDeliveryUpdateNotification } from '../services/pushNotification';
+=======
+import { sendOrderConfirmedNotification } from '../services/pushNotification';
+>>>>>>> origin/main
 
 interface AppContextType {
   products: Product[];
@@ -96,7 +100,10 @@ interface AppContextType {
   placeOrder: (paymentMethod: 'Cash on Delivery' | 'Razorpay', customPaymentId?: string) => Promise<Order>;
   addOrder: (order: Order) => void;
   removeOrder: (orderId: string) => Promise<void>;
+<<<<<<< HEAD
   refreshOrders: () => Promise<void>;
+=======
+>>>>>>> origin/main
 
   // Related Products Modal ("Customers Also Bought")
   relatedProductsModal: {
@@ -577,6 +584,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [customerOrderCount, orders.length]);
 
   // ----------------------------------------------------
+<<<<<<< HEAD
   // 3.5. Real-Time Order Tracking & Synchronization
   // ----------------------------------------------------
   const refreshOrders = useCallback(async () => {
@@ -655,6 +663,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [currentCustomer?.id, orders, refreshOrders]);
 
   // ----------------------------------------------------
+=======
+>>>>>>> origin/main
   // 4. Cart Persistence (DB-backed for logged in, localStorage fallback)
   // ----------------------------------------------------
   useEffect(() => {
@@ -1194,7 +1204,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       placeOrder,
       addOrder,
       removeOrder,
+<<<<<<< HEAD
       refreshOrders,
+=======
+>>>>>>> origin/main
       relatedProductsModal,
       closeRelatedProductsModal,
       openRelatedProductsModal,

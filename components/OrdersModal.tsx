@@ -21,6 +21,7 @@ export const OrdersModal: React.FC = () => {
     setIsOrdersModalOpen, 
     orders, 
     removeOrder,
+<<<<<<< HEAD
     refreshOrders,
   } = useApp();
 
@@ -34,6 +35,10 @@ export const OrdersModal: React.FC = () => {
     return () => clearInterval(interval);
   }, [isOrdersModalOpen, refreshOrders]);
 
+=======
+  } = useApp();
+
+>>>>>>> origin/main
   if (!isOrdersModalOpen) return null;
 
   return (
@@ -45,7 +50,11 @@ export const OrdersModal: React.FC = () => {
           <div className="flex items-center gap-2.5">
             <Package className="w-5 h-5 text-[#0A2540]" />
             <h2 className="font-black text-lg text-[#0A2540]">
+<<<<<<< HEAD
               My Orders &amp; Tracking
+=======
+              My Orders & Live Tracking
+>>>>>>> origin/main
             </h2>
           </div>
 

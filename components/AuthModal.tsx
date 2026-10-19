@@ -7,11 +7,15 @@ import {
   ShieldCheck, 
   ArrowRight, 
   Edit2,
+<<<<<<< HEAD
   Loader2,
   Lock,
   Eye,
   EyeOff,
   KeyRound
+=======
+  Loader2
+>>>>>>> origin/main
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { Logo } from './Logo';
@@ -20,6 +24,7 @@ import { supabase } from '../lib/supabase/client';
 export const AuthModal: React.FC = () => {
   const { isAuthOpen, setIsAuthOpen, setUser } = useApp();
   
+<<<<<<< HEAD
   // Step can be 'password' | 'phone' | 'otp' | 'set-password'
   const [authStep, setAuthStep] = useState<'password' | 'phone' | 'otp' | 'set-password'>('phone');
   const [isForgotPassword, setIsForgotPassword] = useState(false);
@@ -48,6 +53,19 @@ export const AuthModal: React.FC = () => {
   const digitRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   // Timer for OTP
+=======
+  const [authStep, setAuthStep] = useState<'phone' | 'otp'>('phone');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [otpDigits, setOtpDigits] = useState(['', '', '', '', '', '']);
+  const [timer, setTimer] = useState(30);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [error, setError] = useState('');
+
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+  const digitRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+>>>>>>> origin/main
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
     if (authStep === 'otp' && timer > 0) {
@@ -56,6 +74,7 @@ export const AuthModal: React.FC = () => {
     return () => clearInterval(interval);
   }, [authStep, timer]);
 
+<<<<<<< HEAD
   // Determine initial screen when modal opens
   useEffect(() => {
     if (isAuthOpen) {
@@ -153,6 +172,20 @@ export const AuthModal: React.FC = () => {
     e.preventDefault();
     setError('');
 
+=======
+  // Focus phone input when modal opens
+  useEffect(() => {
+    if (isAuthOpen && authStep === 'phone') {
+      setTimeout(() => phoneInputRef.current?.focus(), 100);
+    }
+  }, [isAuthOpen, authStep]);
+
+  if (!isAuthOpen) return null;
+
+  const handleSendOtp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+>>>>>>> origin/main
     const digits = phoneNumber.replace(/\D/g, '');
     if (digits.length !== 10) {
       setError('Please enter a valid 10-digit mobile number.');
@@ -165,12 +198,15 @@ export const AuthModal: React.FC = () => {
       const { error: sendError } = await supabase.auth.signInWithOtp({ phone: normalized });
       if (sendError) {
         console.warn('[AuthModal] sendOtp:', sendError.message);
+<<<<<<< HEAD
         const msg = sendError.message.toLowerCase();
         if (msg.includes('rate') || msg.includes('too many')) {
           setError('Too many OTP attempts. Please wait a few minutes.');
           setIsLoading(false);
           return;
         }
+=======
+>>>>>>> origin/main
       }
     } catch (err: any) {
       console.warn('[AuthModal] sendOtp exception:', err?.message);
@@ -184,7 +220,10 @@ export const AuthModal: React.FC = () => {
     setTimeout(() => digitRefs.current[0]?.focus(), 100);
   };
 
+<<<<<<< HEAD
   // ─── 3. OTP Change & KeyDown ────────────────────────────────────────────────
+=======
+>>>>>>> origin/main
   const handleOtpChange = (index: number, val: string) => {
     const numeric = val.replace(/\D/g, '');
     if (!numeric && val !== '') return;
@@ -213,7 +252,10 @@ export const AuthModal: React.FC = () => {
     }
   };
 
+<<<<<<< HEAD
   // ─── 4. Verify OTP Handler ──────────────────────────────────────────────────
+=======
+>>>>>>> origin/main
   const handleVerifyOtp = async () => {
     const enteredOtp = otpDigits.join('');
     if (enteredOtp.length !== 6) {
@@ -221,7 +263,11 @@ export const AuthModal: React.FC = () => {
       return;
     }
 
+<<<<<<< HEAD
     setIsLoading(true);
+=======
+    setIsVerifying(true);
+>>>>>>> origin/main
     setError('');
 
     try {
@@ -240,6 +286,7 @@ export const AuthModal: React.FC = () => {
             ? 'Incorrect OTP. Please try again.'
             : `Verification failed: ${verifyError.message}`
         );
+<<<<<<< HEAD
         setIsLoading(false);
         return;
       }
@@ -254,10 +301,22 @@ export const AuthModal: React.FC = () => {
         setUser(prev => ({
           ...prev,
           phone: normalized,
+=======
+        setIsVerifying(false);
+        return;
+      }
+
+      // Success — AppContext's onAuthStateChange fires syncCustomerProfile automatically
+      if (data?.user) {
+        setUser(prev => ({
+          ...prev,
+          phone: `+91${phoneNumber.replace(/\D/g, '')}`,
+>>>>>>> origin/main
           isVerified: true,
         }));
       }
 
+<<<<<<< HEAD
       // Per Goal 1: Check if user already has a password
       const { data: userData } = await supabase.auth.getUser();
       const hasPassword = userData?.user?.user_metadata?.has_password === true;
@@ -284,6 +343,19 @@ export const AuthModal: React.FC = () => {
   };
 
   // ─── 5. Resend OTP Handler ──────────────────────────────────────────────────
+=======
+      setIsVerifying(false);
+      setIsAuthOpen(false);
+      setAuthStep('phone');
+      setPhoneNumber('');
+      setOtpDigits(['', '', '', '', '', '']);
+    } catch (err: any) {
+      setError('Something went wrong. Please try again.');
+      setIsVerifying(false);
+    }
+  };
+
+>>>>>>> origin/main
   const handleResendOtp = async () => {
     setError('');
     try {
@@ -295,6 +367,7 @@ export const AuthModal: React.FC = () => {
     setTimeout(() => digitRefs.current[0]?.focus(), 100);
   };
 
+<<<<<<< HEAD
   // ─── 6. Set / Reset Password Handler ────────────────────────────────────────
   const handleSetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -357,6 +430,8 @@ export const AuthModal: React.FC = () => {
     setIsForgotPassword(false);
   };
 
+=======
+>>>>>>> origin/main
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 animate-fadeIn">
       <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-gray-100 relative my-6 text-left animate-modal-in">
@@ -371,6 +446,7 @@ export const AuthModal: React.FC = () => {
               <ChevronLeft className="w-4 h-4" />
               <span>Back</span>
             </button>
+<<<<<<< HEAD
           ) : authStep === 'phone' && isForgotPassword ? (
             <button
               onClick={() => {
@@ -383,6 +459,8 @@ export const AuthModal: React.FC = () => {
               <ChevronLeft className="w-4 h-4" />
               <span>Back to Password</span>
             </button>
+=======
+>>>>>>> origin/main
           ) : (
             <div />
           )}
@@ -401,6 +479,7 @@ export const AuthModal: React.FC = () => {
             <Logo size="lg" className="mx-auto" />
           </div>
 
+<<<<<<< HEAD
           {/* ════════════════════════════════════════════════════════════════════
               SCREEN 1: PASSWORD LOGIN (Default for returning customers)
           ════════════════════════════════════════════════════════════════════ */}
@@ -560,6 +639,33 @@ export const AuthModal: React.FC = () => {
                   </div>
                 </div>
               )}
+=======
+          {authStep === 'phone' ? (
+            <div className="space-y-5">
+              <div className="text-center">
+                <h2 className="text-xl sm:text-2xl font-black text-[#0A2540] tracking-tight">
+                  Welcome to <span className="text-[#E11A22]">K MART</span>
+                </h2>
+                <p className="text-xs text-gray-500 mt-1">
+                  Daily groceries. Branded essentials. Happier homes.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-gray-600 bg-gray-50 p-2.5 rounded-xl border border-gray-100">
+                <div>
+                  <span className="text-lg block">🛒</span>
+                  <span className="font-semibold">Top Brands</span>
+                </div>
+                <div>
+                  <span className="text-lg block">🏷️</span>
+                  <span className="font-semibold">Great Deals</span>
+                </div>
+                <div>
+                  <span className="text-lg block">🚚</span>
+                  <span className="font-semibold">Delivery on time</span>
+                </div>
+              </div>
+>>>>>>> origin/main
 
               <form onSubmit={handleSendOtp} className="space-y-4">
                 <div>
@@ -606,11 +712,16 @@ export const AuthModal: React.FC = () => {
                     </div>
                   ) : (
                     <>
+<<<<<<< HEAD
                       <span>Get OTP</span>
+=======
+                      <span>Continue</span>
+>>>>>>> origin/main
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}
                 </button>
+<<<<<<< HEAD
 
                 {!isForgotPassword && (
                   <div className="text-center pt-2">
@@ -634,6 +745,11 @@ export const AuthModal: React.FC = () => {
               SCREEN 3: VERIFY OTP
           ════════════════════════════════════════════════════════════════════ */}
           {authStep === 'otp' && (
+=======
+              </form>
+            </div>
+          ) : (
+>>>>>>> origin/main
             <div className="space-y-5">
               <div className="text-center">
                 <h2 className="text-xl sm:text-2xl font-black text-[#0A2540] tracking-tight">
@@ -696,11 +812,19 @@ export const AuthModal: React.FC = () => {
               </div>
 
               <button
+<<<<<<< HEAD
                 disabled={isLoading || otpDigits.join('').length < 6}
                 onClick={handleVerifyOtp}
                 className="w-full bg-[#E11A22] hover:bg-[#c8141b] text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer text-sm disabled:opacity-50"
               >
                 {isLoading ? (
+=======
+                disabled={isVerifying || otpDigits.join('').length < 6}
+                onClick={handleVerifyOtp}
+                className="w-full bg-[#E11A22] hover:bg-[#c8141b] text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer text-sm disabled:opacity-50"
+              >
+                {isVerifying ? (
+>>>>>>> origin/main
                   <div className="flex items-center gap-2">
                     <Loader2 className="w-4 h-4 animate-spin" />
                     <span>Verifying OTP...</span>
@@ -720,6 +844,7 @@ export const AuthModal: React.FC = () => {
             </div>
           )}
 
+<<<<<<< HEAD
           {/* ════════════════════════════════════════════════════════════════════
               SCREEN 4: SET / RESET PASSWORD (Prompted after OTP login)
           ════════════════════════════════════════════════════════════════════ */}
@@ -837,6 +962,8 @@ export const AuthModal: React.FC = () => {
             </div>
           )}
 
+=======
+>>>>>>> origin/main
         </div>
       </div>
     </div>

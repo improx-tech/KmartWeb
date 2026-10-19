@@ -72,6 +72,7 @@ export const authService = {
     return supabase.auth.getUser();
   },
 
+<<<<<<< HEAD
   async signInWithPassword(phone: string, password: string) {
     const supabase = createSupabaseBrowserClient();
     const digits = phone.replace(/\D/g, "");
@@ -95,6 +96,8 @@ export const authService = {
     return user?.user_metadata?.has_password === true;
   },
 
+=======
+>>>>>>> origin/main
   async signOut() {
     // BUG 9 FIX: Sign out from Supabase first to clear the local browser session.
     // Then call the server route to clear server-side cookies.

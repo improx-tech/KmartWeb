@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState, useEffect, useRef } from "react";
+<<<<<<< HEAD
 import { 
   ArrowRight, 
   ArrowLeft, 
@@ -13,6 +14,9 @@ import {
   EyeOff, 
   KeyRound 
 } from "lucide-react";
+=======
+import { ArrowRight, ArrowLeft, Loader2, ShieldCheck, Edit2, CheckCircle2 } from "lucide-react";
+>>>>>>> origin/main
 import { useRouter, useSearchParams } from "next/navigation";
 import { authService } from "@/services/auth.service";
 import { useApp } from "@/context/AppContext";
@@ -24,6 +28,7 @@ export default function LoginForm() {
   const targetRedirect = rawRedirect.startsWith("/") && !rawRedirect.startsWith("//") ? rawRedirect : "/";
   const { setUser } = useApp();
 
+<<<<<<< HEAD
   // Step can be "password" | "phone" | "otp" | "set-password"
   const [step, setStep] = useState<"password" | "phone" | "otp" | "set-password">("phone");
   const [isForgotPassword, setIsForgotPassword] = useState(false);
@@ -64,6 +69,22 @@ export default function LoginForm() {
     setTimeout(() => {
       phoneInputRef.current?.focus();
     }, 100);
+=======
+  const [step, setStep] = useState<"phone" | "otp">("phone");
+  const [phone, setPhone] = useState("");
+  const [otpDigits, setOtpDigits] = useState<string[]>(["", "", "", "", "", ""]);
+  const [loading, setLoading] = useState(false);
+  const [resending, setResending] = useState(false);
+  const [error, setError] = useState("");
+  const [seconds, setSeconds] = useState(30);
+
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+  const digitRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  // Focus phone input on mount
+  useEffect(() => {
+    phoneInputRef.current?.focus();
+>>>>>>> origin/main
   }, []);
 
   // Timer countdown for OTP resend
@@ -75,6 +96,7 @@ export default function LoginForm() {
     return () => window.clearInterval(timer);
   }, [step, seconds]);
 
+<<<<<<< HEAD
   // ─── 1. Password Login Handler ───────────────────────────────────────────────
   async function handlePasswordLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -140,6 +162,9 @@ export default function LoginForm() {
   }
 
   // ─── 2. Send OTP Handler ────────────────────────────────────────────────────
+=======
+  // Handle Send OTP
+>>>>>>> origin/main
   async function handleSendOtp(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
@@ -154,6 +179,11 @@ export default function LoginForm() {
     try {
       const { error: sendError } = await authService.sendOtp(phone);
 
+<<<<<<< HEAD
+=======
+      // BUG 1 FIX: Always stop and show error if OTP request fails.
+      // Previously, most sendError cases fell through to setStep("otp").
+>>>>>>> origin/main
       if (sendError) {
         console.warn("[LoginForm] sendOtp error:", sendError.message, "code:", (sendError as any).code);
         const msg = sendError.message.toLowerCase();
@@ -168,7 +198,11 @@ export default function LoginForm() {
         } else {
           setError("Unable to send OTP. Please try again.");
         }
+<<<<<<< HEAD
         return;
+=======
+        return; // IMPORTANT: do NOT fall through to OTP step
+>>>>>>> origin/main
       }
     } catch (e: any) {
       console.warn("[LoginForm] sendOtp exception:", e?.message);
@@ -178,7 +212,11 @@ export default function LoginForm() {
       setLoading(false);
     }
 
+<<<<<<< HEAD
     // Only reach here when sendOtp succeeded
+=======
+    // Only reach here when sendOtp succeeded with no error
+>>>>>>> origin/main
     setStep("otp");
     setSeconds(30);
     setOtpDigits(["", "", "", "", "", ""]);
@@ -187,7 +225,11 @@ export default function LoginForm() {
     }, 100);
   }
 
+<<<<<<< HEAD
   // ─── 3. OTP Digits Input Helpers ────────────────────────────────────────────
+=======
+  // Handle individual OTP digit change
+>>>>>>> origin/main
   const handleDigitChange = (index: number, val: string) => {
     const numeric = val.replace(/\D/g, "");
     if (!numeric && val !== "") return;
@@ -221,7 +263,11 @@ export default function LoginForm() {
     }
   };
 
+<<<<<<< HEAD
   // ─── 4. Verify OTP Handler ──────────────────────────────────────────────────
+=======
+  // Handle OTP verification (real Supabase verification)
+>>>>>>> origin/main
   async function handleVerifyOtp(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const fullOtp = otpDigits.join("");
@@ -249,18 +295,30 @@ export default function LoginForm() {
         ) {
           setError("The OTP is invalid or has expired. Please request a new OTP.");
         } else {
+<<<<<<< HEAD
+=======
+          // Never expose raw Supabase error message to the user
+>>>>>>> origin/main
           setError("Unable to verify OTP. Please try again.");
         }
         setLoading(false);
         return;
       }
 
+<<<<<<< HEAD
       // Mark user has logged in before
       if (typeof window !== "undefined") {
         localStorage.setItem("kmart_has_logged_in_before", "true");
       }
 
       if (data?.user) {
+=======
+      // Success — session is now set. AppContext's onAuthStateChange will fire
+      // and call syncCustomerProfile automatically.
+      // We just update the local user state for instant UI feedback.
+      if (data?.user) {
+        // Clear guest cookie upon verified authentication
+>>>>>>> origin/main
         document.cookie = "kmart_guest=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
         const supaPhone = data.user.phone || `+91${phone.replace(/\D/g, "")}`;
         setUser((prev) => ({
@@ -270,6 +328,7 @@ export default function LoginForm() {
         }));
       }
 
+<<<<<<< HEAD
       // Check if the user already has a password set
       const { data: userData } = await authService.getCurrentUser();
       const hasPassword = authService.hasPasswordSet(userData?.user);
@@ -287,6 +346,10 @@ export default function LoginForm() {
         router.push(targetRedirect);
         router.refresh();
       }
+=======
+      router.push(targetRedirect);
+      router.refresh();
+>>>>>>> origin/main
     } catch (e: any) {
       setError("Something went wrong. Please try again.");
       console.warn("[LoginForm] verifyOtp exception:", e?.message);
@@ -294,7 +357,11 @@ export default function LoginForm() {
     }
   }
 
+<<<<<<< HEAD
   // ─── 5. Resend OTP ──────────────────────────────────────────────────────────
+=======
+  // Handle Resend OTP
+>>>>>>> origin/main
   async function handleResendOtp() {
     if (seconds > 0 || resending || !phone) return;
     setResending(true);
@@ -302,6 +369,10 @@ export default function LoginForm() {
     try {
       const { error: resendError } = await authService.sendOtp(phone);
       if (resendError) {
+<<<<<<< HEAD
+=======
+        // BUG 2 FIX: Do NOT reset the timer if resend failed.
+>>>>>>> origin/main
         const msg = resendError.message.toLowerCase();
         const code = (resendError as any).code;
 
@@ -315,6 +386,10 @@ export default function LoginForm() {
         setResending(false);
         return;
       }
+<<<<<<< HEAD
+=======
+      // Only reset state when OTP was actually sent successfully
+>>>>>>> origin/main
       setOtpDigits(["", "", "", "", "", ""]);
       setSeconds(30);
       digitRefs.current[0]?.focus();
@@ -326,6 +401,7 @@ export default function LoginForm() {
     }
   }
 
+<<<<<<< HEAD
   // ─── 6. Set / Reset Password Handler ────────────────────────────────────────
   async function handleSetPassword(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -374,6 +450,8 @@ export default function LoginForm() {
     router.refresh();
   }
 
+=======
+>>>>>>> origin/main
   const maskedPhone =
     phone.length >= 10
       ? `+91 ${phone.slice(0, 2)}••••••${phone.slice(-2)}`
@@ -381,6 +459,7 @@ export default function LoginForm() {
 
   return (
     <div>
+<<<<<<< HEAD
       {/* ════════════════════════════════════════════════════════════════════
           SCREEN 1: PASSWORD LOGIN (Default for returning users)
       ════════════════════════════════════════════════════════════════════ */}
@@ -564,13 +643,28 @@ export default function LoginForm() {
               {isForgotPassword
                 ? "Enter your 10-digit mobile number to verify with an OTP and set a new password."
                 : "Enter your 10-digit mobile number to receive a verification code via SMS."}
+=======
+      {step === "phone" ? (
+        /* ─── STEP 1: Phone Number ─── */
+        <div>
+          <div className="mb-6 text-left">
+            <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">
+              Welcome to K MART
+            </h2>
+            <p className="mt-1.5 text-sm text-gray-500 font-medium leading-relaxed">
+              Enter your 10-digit mobile number to receive a verification code via SMS.
+>>>>>>> origin/main
             </p>
           </div>
 
           <form onSubmit={handleSendOtp} className="space-y-4">
             <div>
               <label
+<<<<<<< HEAD
                 htmlFor="otp-phone"
+=======
+                htmlFor="phone"
+>>>>>>> origin/main
                 className="mb-1.5 block text-xs font-bold text-gray-700 uppercase tracking-wider text-left"
               >
                 Mobile Number
@@ -584,7 +678,11 @@ export default function LoginForm() {
 
                 <input
                   ref={phoneInputRef}
+<<<<<<< HEAD
                   id="otp-phone"
+=======
+                  id="phone"
+>>>>>>> origin/main
                   type="tel"
                   inputMode="numeric"
                   autoComplete="tel"
@@ -627,6 +725,7 @@ export default function LoginForm() {
             </button>
           </form>
 
+<<<<<<< HEAD
           <div className="mt-4 pt-3 border-t border-gray-100 flex flex-col items-center gap-2">
             {!isForgotPassword && (
               <button
@@ -641,6 +740,9 @@ export default function LoginForm() {
               </button>
             )}
 
+=======
+          <div className="mt-4 pt-3 border-t border-gray-100 flex flex-col items-center">
+>>>>>>> origin/main
             <button
               type="button"
               onClick={() => {
@@ -662,12 +764,17 @@ export default function LoginForm() {
             <span className="text-gray-600 font-bold underline cursor-pointer">Privacy Policy</span>.
           </p>
         </div>
+<<<<<<< HEAD
       )}
 
       {/* ════════════════════════════════════════════════════════════════════
           SCREEN 3: OTP VERIFICATION
       ════════════════════════════════════════════════════════════════════ */}
       {step === "otp" && (
+=======
+      ) : (
+        /* ─── STEP 2: OTP Verification ─── */
+>>>>>>> origin/main
         <div>
           {/* Top bar */}
           <div className="flex items-center justify-between mb-5 pb-3 border-b border-gray-100">
@@ -750,7 +857,11 @@ export default function LoginForm() {
                   <span>Verifying...</span>
                 </>
               ) : (
+<<<<<<< HEAD
                 <span>Verify &amp; Continue</span>
+=======
+                <span>Verify &amp; Login</span>
+>>>>>>> origin/main
               )}
             </button>
           </form>
@@ -775,6 +886,7 @@ export default function LoginForm() {
           </div>
         </div>
       )}
+<<<<<<< HEAD
 
       {/* ════════════════════════════════════════════════════════════════════
           SCREEN 4: SET / RESET PASSWORD (Prompted after OTP login)
@@ -892,6 +1004,8 @@ export default function LoginForm() {
           </form>
         </div>
       )}
+=======
+>>>>>>> origin/main
     </div>
   );
 }
