@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { 
   CheckCircle2, 
   Clock, 
@@ -21,7 +21,8 @@ import {
   Printer,
   X,
   ShoppingBag,
-  Store
+  Store,
+  RefreshCw
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { orderService } from "@/services/orders";
@@ -35,25 +36,25 @@ export default function OrderDetailPage({
   params: { id: string } | Promise<{ id: string }>;
 }) {
   const router = useRouter();
-  const [resolvedId, setResolvedId] = useState<string>(() => {
-    if (params && typeof params === "object" && "id" in params && typeof (params as any).id === "string") {
-      return (params as any).id;
-    }
-    return "";
-  });
+  const routeParams = useParams();
+  const paramId = (routeParams?.id as string) || (typeof params === 'object' && 'id' in params && typeof (params as any).id === 'string' ? (params as any).id : '');
+  const [resolvedId, setResolvedId] = useState<string>(paramId);
 
   useEffect(() => {
-    if (!resolvedId) {
+    if (paramId && paramId !== resolvedId) {
+      setResolvedId(paramId);
+    } else if (!resolvedId && params) {
       Promise.resolve(params).then((p) => {
         if (p?.id) setResolvedId(p.id);
       });
     }
-  }, [params, resolvedId]);
+  }, [paramId, params, resolvedId]);
 
-  const { orders, addToCart, stores, activeStore, user } = useApp();
+  const { orders, addToCart, stores, activeStore, user, refreshOrders } = useApp();
   const [dbOrder, setDbOrder] = useState<Order | null>(null);
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
 
@@ -61,9 +62,9 @@ export default function OrderDetailPage({
     setIsMounted(true);
   }, []);
 
-  // Find order in AppContext or state or localStorage (only after mount to avoid hydration mismatch)
+  // Find order in AppContext or state or localStorage
   let contextOrder: Order | undefined = undefined;
-  if (isMounted) {
+  if (resolvedId) {
     contextOrder = orders.find(
       (o) => o.id === resolvedId || o.orderNumber === resolvedId
     );
@@ -83,13 +84,25 @@ export default function OrderDetailPage({
   }
   const order = dbOrder || contextOrder;
 
+  // Timeout safety fallback: never let the screen hang on loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Fetch directly from DB if not in AppContext
   // silent=true → background refresh (no loading spinner, used by realtime subscription)
   const fetchOrderFromDb = useCallback(async (targetId: string, silent = false) => {
-    if (!targetId) return;
-    if (!silent) setIsLoading(true);
+    if (!targetId) {
+      setIsLoading(false);
+      return;
+    }
+    if (!silent && !contextOrder) setIsLoading(true);
     try {
-      const { data, error } = await supabase
+      const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(targetId);
+      let query = supabase
         .from('orders')
         .select(`
           *,
@@ -100,9 +113,15 @@ export default function OrderDetailPage({
               categories ( name )
             )
           )
-        `)
-        .or(`id.eq.${targetId},order_number.eq.${targetId}`)
-        .maybeSingle();
+        `);
+
+      if (isUuid) {
+        query = query.or(`id.eq.${targetId},order_number.eq.${targetId}`);
+      } else {
+        query = query.eq('order_number', targetId);
+      }
+
+      const { data, error } = await query.maybeSingle();
 
       if (data && !error) {
         const items: CartItem[] = (data.order_items || []).map((it: any) => {
@@ -173,38 +192,42 @@ export default function OrderDetailPage({
     } catch (err: any) {
       console.warn('[OrderDetailPage] error fetching order:', err?.message);
     } finally {
-      if (!silent) setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!isMounted) return;
-    if (resolvedId && !contextOrder && !dbOrder) {
-      fetchOrderFromDb(resolvedId);
-    } else if (contextOrder || dbOrder) {
       setIsLoading(false);
     }
-  }, [isMounted, resolvedId, contextOrder, dbOrder, fetchOrderFromDb]);
+  }, [contextOrder]);
 
-  // Subscribe to ALL real-time changes on this order (status, address, any field)
+  // Always fetch the true status from DB on mount
+  useEffect(() => {
+    if (!resolvedId) return;
+    fetchOrderFromDb(resolvedId, !!contextOrder);
+  }, [resolvedId, fetchOrderFromDb, contextOrder]);
+
+  // Subscribe to ALL real-time changes on this order & active short-polling fallback
   useEffect(() => {
     if (!resolvedId) return;
 
+    // 1. Supabase Realtime channel for instant server push
     const channel = supabase
-      .channel(`order-detail-${resolvedId}`)
+      .channel(`order-detail-channel-${resolvedId}`)
       .on(
         'postgres_changes',
         {
-          event: 'UPDATE',
+          event: '*',
           schema: 'public',
           table: 'orders',
-          filter: `id=eq.${resolvedId}`,
         },
         (payload: any) => {
           const incoming = payload?.new;
           if (!incoming) return;
 
-          // Fire notification if status changed
+          // Check if this incoming update belongs to our order
+          const matches =
+            incoming.id === resolvedId ||
+            incoming.order_number === resolvedId ||
+            (order && (incoming.id === order.id || incoming.order_number === order.orderNumber));
+
+          if (!matches) return;
+
           const nextStatus = incoming.status;
           if (nextStatus) {
             setDbOrder((prev) => {
@@ -215,19 +238,38 @@ export default function OrderDetailPage({
             });
           }
 
-          // Re-fetch the full order to pick up ALL changed fields
-          // (address snapshot, delivery slot, payment status, etc.)
+          // Fetch full data in background to refresh all fields
           fetchOrderFromDb(resolvedId, true);
         }
       )
       .subscribe();
 
+    // 2. Active Short-Polling fallback (every 2.5 seconds for active orders)
+    // Guarantees real-time updates even if WebSockets drop or replication is paused
+    const pollInterval = setInterval(() => {
+      const curStatus = (order?.status || dbOrder?.status || contextOrder?.status || '').toUpperCase().replace(/[\s-]+/g, '_');
+      const isFinished = ['DELIVERED', 'PICKED_UP', 'CANCELLED', 'REFUNDED', 'FAILED'].includes(curStatus);
+      if (!isFinished) {
+        fetchOrderFromDb(resolvedId, true);
+      }
+    }, 2500);
+
     return () => {
       supabase.removeChannel(channel);
+      clearInterval(pollInterval);
     };
-  }, [resolvedId, fetchOrderFromDb]);
+  }, [resolvedId, order?.id, order?.orderNumber, order?.status, dbOrder?.status, contextOrder?.status, fetchOrderFromDb]);
 
-  // Handler to advance stage in DB
+  // Manual one-click instant refresh
+  const handleManualRefresh = async () => {
+    if (!resolvedId) return;
+    setIsRefreshing(true);
+    await fetchOrderFromDb(resolvedId, true);
+    await refreshOrders();
+    setTimeout(() => setIsRefreshing(false), 500);
+  };
+
+  // Handler to advance stage in DB & propagate in real-time
   const handleUpdateStatus = async (newStatus: string) => {
     if (!order) return;
     setIsUpdatingStatus(true);
@@ -236,6 +278,8 @@ export default function OrderDetailPage({
       if (ok) {
         sendDeliveryUpdateNotification(order, `Status updated to ${newStatus}`).catch(() => {});
         setDbOrder((prev) => prev ? { ...prev, status: newStatus as any } : { ...order, status: newStatus as any });
+        // Also refresh global orders in AppContext
+        await refreshOrders();
       }
     } catch (err) {
       console.error(err);
@@ -252,7 +296,7 @@ export default function OrderDetailPage({
     router.push("/cart");
   };
 
-  if (!isMounted || isLoading) {
+  if (!isMounted || (isLoading && !order)) {
     return (
       <div className="min-h-[75vh] bg-[#F8F9FA] flex flex-col items-center justify-center px-4 py-16 text-center">
         <Loader2 className="w-10 h-10 text-[#E11A22] animate-spin mb-4" />
@@ -459,17 +503,28 @@ export default function OrderDetailPage({
 
         {/* 4-Step Tracking Flow: Preparing → Packed → Out for Delivery → Delivered */}
         <div className="bg-white rounded-2xl border border-gray-200/90 p-6 shadow-2xs mb-6">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-gray-100">
             <div>
-              <h2 className="font-black text-sm text-[#0A2540] uppercase tracking-wider">
-                Live Order Tracking
-              </h2>
+              <div className="flex items-center gap-2">
+                <h2 className="font-black text-sm text-[#0A2540] uppercase tracking-wider">
+                  Live Order Tracking
+                </h2>
+              </div>
               <p className="text-xs text-gray-500 mt-0.5">
                 {isPickup
                   ? "Real-time fulfillment stages for your store pickup order"
-                  : "Real-time fulfillment stages from K MART fulfillment center"}
+                  : "Real-time fulfillment stages from K MART fulfillment center (updates automatically)"}
               </p>
             </div>
+
+            <button
+              onClick={handleManualRefresh}
+              disabled={isRefreshing}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-700 hover:text-[#0A2540] px-3 py-1.5 rounded-xl border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-all cursor-pointer shadow-2xs"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin text-[#E11A22]" : "text-gray-500"}`} />
+              <span>{isRefreshing ? "Checking..." : "Sync Status"}</span>
+            </button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 relative">
@@ -503,6 +558,33 @@ export default function OrderDetailPage({
                 </div>
               );
             })}
+          </div>
+
+          {/* Live Order Stage Controller / Simulator */}
+          <div className="mt-6 pt-4 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gray-50/80 p-3.5 rounded-xl border border-gray-100">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-gray-700">Live Stage Controller:</span>
+              <span className="text-[10px] text-gray-400 font-medium">Click to update status in real time</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-1.5">
+              {steps.map((st) => (
+                <button
+                  key={st.step}
+                  onClick={() => handleUpdateStatus(st.statusValue)}
+                  disabled={isUpdatingStatus || normalized === st.statusValue}
+                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                    normalized === st.statusValue
+                      ? "bg-[#E11A22] text-white shadow-xs cursor-default font-black"
+                      : "bg-white text-gray-700 border border-gray-200 hover:border-[#E11A22] hover:text-[#E11A22]"
+                  } disabled:opacity-60`}
+                >
+                  {isUpdatingStatus && normalized === st.statusValue && (
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                  )}
+                  <span>{st.title}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 

@@ -36,7 +36,8 @@ import {
   Lock,
   Eye,
   EyeOff,
-  KeyRound
+  KeyRound,
+  RefreshCw
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { Address } from "@/types";
@@ -472,11 +473,20 @@ export default function ProfilePage() {
     setIsAuthOpen,
     setIsLocationOpen,
     addToCart,
-    setUser
+    setUser,
+    refreshOrders
   } = useApp();
 
   const [activeTab, setActiveTab] = useState<"details" | "addresses" | "orders">("details");
   const [isHelpChatOpen, setIsHelpChatOpen] = useState(false);
+  const [isSyncingOrders, setIsSyncingOrders] = useState(false);
+
+  // Auto-refresh orders when switching to orders tab
+  useEffect(() => {
+    if (activeTab === "orders") {
+      refreshOrders();
+    }
+  }, [activeTab, refreshOrders]);
   
   // Profile edit form state
   const [name, setName] = useState(user.name || "");
@@ -1236,15 +1246,31 @@ export default function ProfilePage() {
           <div className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white rounded-3xl p-6 shadow-xs border border-gray-100">
               <div>
-                <h2 className="text-lg sm:text-xl font-black text-[#0A2540]">
-                  Recent Grocery Orders
-                </h2>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-lg sm:text-xl font-black text-[#0A2540]">
+                    Recent Grocery Orders
+                  </h2>
+                </div>
                 <p className="text-xs text-gray-500 mt-0.5">
                   Track ongoing shipments or re-order household staples with a single click.
                 </p>
               </div>
 
               <div className="flex flex-wrap items-center gap-2">
+                <button
+                  onClick={async () => {
+                    setIsSyncingOrders(true);
+                    await refreshOrders();
+                    setTimeout(() => setIsSyncingOrders(false), 500);
+                  }}
+                  disabled={isSyncingOrders}
+                  className="px-3 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200 text-xs font-bold rounded-xl transition-all inline-flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                  title="Check latest status"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${isSyncingOrders ? "animate-spin text-[#E11A22]" : "text-gray-500"}`} />
+                  <span>{isSyncingOrders ? "Checking..." : "Sync"}</span>
+                </button>
+
                 {orders.length > 1 && (
                   <button
                     onClick={async () => {

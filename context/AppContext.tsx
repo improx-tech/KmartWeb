@@ -13,7 +13,7 @@ import { cartService } from '../services/cart';
 import { supabase } from '../lib/supabase/client';
 import { DbStore, DbCustomer, DbDeliverySettings } from '../types/database';
 import { fetchRelatedProducts, toProduct } from '../lib/cart';
-import { sendOrderConfirmedNotification } from '../services/pushNotification';
+import { sendOrderConfirmedNotification, sendDeliveryUpdateNotification } from '../services/pushNotification';
 
 interface AppContextType {
   products: Product[];
@@ -96,6 +96,7 @@ interface AppContextType {
   placeOrder: (paymentMethod: 'Cash on Delivery' | 'Razorpay', customPaymentId?: string) => Promise<Order>;
   addOrder: (order: Order) => void;
   removeOrder: (orderId: string) => Promise<void>;
+  refreshOrders: () => Promise<void>;
 
   // Related Products Modal ("Customers Also Bought")
   relatedProductsModal: {
@@ -574,6 +575,84 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       } catch {}
     }
   }, [customerOrderCount, orders.length]);
+
+  // ----------------------------------------------------
+  // 3.5. Real-Time Order Tracking & Synchronization
+  // ----------------------------------------------------
+  const refreshOrders = useCallback(async () => {
+    const custId = currentCustomer?.id;
+    if (!custId) return;
+    try {
+      const custOrders = await orderService.fetchUserOrders(custId);
+      if (custOrders && custOrders.length > 0) {
+        setOrders((prev) => {
+          // Check if any order status changed to fire notification toast
+          const prevMap = new Map(prev.map((o) => [o.id, o]));
+          custOrders.forEach((fo) => {
+            const old = prevMap.get(fo.id);
+            if (old && old.status !== fo.status) {
+              sendDeliveryUpdateNotification(fo, `Status updated to ${fo.status}`).catch(() => {});
+            }
+          });
+
+          const mergedMap = new Map<string, Order>();
+          custOrders.forEach((o) => mergedMap.set(o.orderNumber || o.id, o));
+          prev.forEach((o) => {
+            const key = o.orderNumber || o.id;
+            if (!mergedMap.has(key)) {
+              mergedMap.set(key, o);
+            }
+          });
+          const merged = Array.from(mergedMap.values());
+          try {
+            localStorage.setItem('kmart_orders', JSON.stringify(merged));
+          } catch {}
+          return merged;
+        });
+      }
+    } catch (err) {
+      console.warn('[AppContext] refreshOrders error:', err);
+    }
+  }, [currentCustomer?.id]);
+
+  useEffect(() => {
+    const custId = currentCustomer?.id;
+    if (!custId) return;
+
+    // 1. Supabase Realtime channel for instant push updates
+    const channel = supabase
+      .channel(`customer-orders-realtime-${custId}`)
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'orders',
+          filter: `customer_id=eq.${custId}`,
+        },
+        () => {
+          refreshOrders();
+        }
+      )
+      .subscribe();
+
+    // 2. Active Short-Polling fallback (every 3.5 seconds for active orders)
+    // Ensures real-time tracking even if WebSocket drops or replication is paused
+    const pollInterval = setInterval(() => {
+      const hasActive = orders.some((o) => {
+        const s = (o.status || '').toUpperCase().replace(/[\s-]+/g, '_');
+        return !['DELIVERED', 'PICKED_UP', 'CANCELLED', 'REFUNDED', 'FAILED'].includes(s);
+      });
+      if (hasActive || orders.length === 0) {
+        refreshOrders();
+      }
+    }, 3500);
+
+    return () => {
+      supabase.removeChannel(channel);
+      clearInterval(pollInterval);
+    };
+  }, [currentCustomer?.id, orders, refreshOrders]);
 
   // ----------------------------------------------------
   // 4. Cart Persistence (DB-backed for logged in, localStorage fallback)
@@ -1115,6 +1194,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       placeOrder,
       addOrder,
       removeOrder,
+      refreshOrders,
       relatedProductsModal,
       closeRelatedProductsModal,
       openRelatedProductsModal,

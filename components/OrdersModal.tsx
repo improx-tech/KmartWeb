@@ -21,7 +21,18 @@ export const OrdersModal: React.FC = () => {
     setIsOrdersModalOpen, 
     orders, 
     removeOrder,
+    refreshOrders,
   } = useApp();
+
+  // Refresh orders on open and poll while modal is open
+  React.useEffect(() => {
+    if (!isOrdersModalOpen) return;
+    refreshOrders();
+    const interval = setInterval(() => {
+      refreshOrders();
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [isOrdersModalOpen, refreshOrders]);
 
   if (!isOrdersModalOpen) return null;
 
@@ -34,7 +45,7 @@ export const OrdersModal: React.FC = () => {
           <div className="flex items-center gap-2.5">
             <Package className="w-5 h-5 text-[#0A2540]" />
             <h2 className="font-black text-lg text-[#0A2540]">
-              My Orders & Live Tracking
+              My Orders &amp; Tracking
             </h2>
           </div>
 

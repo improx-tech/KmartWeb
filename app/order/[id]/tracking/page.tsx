@@ -216,6 +216,20 @@ export default function OrderTrackingPage() {
       supabase.removeChannel(channel);
     };
   }, [orderId, loadTracking]);
+
+  // ── Active Short-Polling fallback for guaranteed real-time updates ─────────
+  useEffect(() => {
+    if (!orderId) return;
+
+    const pollInterval = setInterval(() => {
+      const curStatus = tracking?.status;
+      if (!curStatus || !isTerminalStatus(curStatus)) {
+        loadTracking(true);
+      }
+    }, 2500);
+
+    return () => clearInterval(pollInterval);
+  }, [orderId, tracking?.status, loadTracking]);
   // ─────────────────────────────────────────────────────────────────────────
 
   const steps = useMemo(() => {
