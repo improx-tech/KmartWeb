@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 export const HeroCarousel: React.FC = () => {
@@ -16,63 +16,67 @@ export const HeroCarousel: React.FC = () => {
   const slides = [
     {
       id: 1,
-      tag: '🔥 MEGA FESTIVE SALE • UP TO 50% OFF',
-      tagBg: 'bg-[#FDE047] text-[#7F1D1D]',
-      title: 'HAPPY DUSSEHRA',
-      subtitle: 'Pure Ghee, Basmati Rice, Atta & Kitchen Staples at Unbeatable Wholesale Prices!',
-      btnText: 'Shop Festival Essentials',
+      tag: '🔥 DUSSEHRA UTSAV • UP TO 50% OFF',
+      tagBg: 'bg-gradient-to-r from-amber-400 to-yellow-300 text-red-950 font-black shadow-md border border-yellow-200/50',
+      title: 'SHUBH DUSSEHRA',
+      subtitle: 'Fresh Marigold Flowers, Pure Desi Ghee, Sharbati Atta & Festive Essentials at Wholesale Rates!',
+      btnText: 'Shop Dussehra Specials',
       ctaCategory: 'groceries',
-      image: '/banner-dussehra.webp',
-      alt: 'Happy Dussehra Kitchen Essentials and Groceries',
-      bgGradient: 'bg-gradient-to-r from-[#991B1B] via-[#C2410C] to-[#D97706]',
-      titleColor: 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]',
-      subtitleColor: 'text-amber-100/95',
-      btnBg: 'bg-[#FDE047] hover:bg-[#FACC15] text-[#7F1D1D] shadow-lg shadow-black/25',
+      image: '/real-dussehra-marigold.webp',
+      alt: 'Shubh Dussehra Fresh Marigold Flowers and Festive Essentials',
+      bgGradient: 'bg-gradient-to-r from-[#7B1113] via-[#991B1B] to-[#C2410C]',
+      titleColor: 'text-amber-100 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]',
+      subtitleColor: 'text-orange-100/90',
+      badgeOverlay: '🌼 Fresh Marigold Toran & Pooja',
+      btnBg: 'bg-gradient-to-r from-amber-400 to-yellow-300 hover:from-amber-300 hover:to-yellow-200 text-red-950 shadow-lg shadow-black/25',
     },
     {
       id: 2,
-      tag: '🪔 DIWALI DHAMAKA • FLAT 40% OFF',
-      tagBg: 'bg-gradient-to-r from-[#FDE047] to-[#FBBF24] text-[#3B0764]',
-      title: 'CELEBRATE DIWALI',
-      subtitle: 'Grand Gift Boxes, Dry Fruits, Traditional Diyas & Glowing Festive Decor!',
+      tag: '🪔 DIWALI DHAMAKA • UP TO 60% OFF',
+      tagBg: 'bg-gradient-to-r from-yellow-300 via-amber-300 to-yellow-400 text-purple-950 font-black shadow-md border border-yellow-200/50',
+      title: 'FESTIVAL OF LIGHTS',
+      subtitle: 'Handcrafted Clay Diyas, Premium Dry Fruit Gift Boxes, Pure Mithai & Festive Home Lights in 10 Mins!',
       btnText: 'Explore Diwali Deals',
       ctaCategory: 'snacks-and-beverages',
-      image: '/banner-diwali.webp',
-      alt: 'Celebrate Diwali Traditional Diyas and Lights',
-      bgGradient: 'bg-gradient-to-r from-[#1E0638] via-[#3B0764] to-[#6B21A8]',
-      titleColor: 'text-[#FDE047] drop-shadow-[0_2px_10px_rgba(250,204,21,0.45)]',
-      subtitleColor: 'text-purple-100/95',
-      btnBg: 'bg-gradient-to-r from-[#FDE047] to-[#FBBF24] hover:from-[#FACC15] hover:to-[#F59E0B] text-[#3B0764] shadow-lg shadow-black/35',
+      image: '/real-diwali-diya.webp',
+      alt: 'Happy Diwali Traditional Clay Diyas with Real Golden Flames',
+      bgGradient: 'bg-gradient-to-r from-[#140026] via-[#2A0845] to-[#4C1D95]',
+      titleColor: 'text-yellow-300 drop-shadow-[0_2px_12px_rgba(253,224,71,0.5)]',
+      subtitleColor: 'text-purple-100/90',
+      badgeOverlay: '🪔 Earthen Diyas & Brass Pooja',
+      btnBg: 'bg-gradient-to-r from-yellow-400 to-amber-300 hover:from-yellow-300 hover:to-amber-200 text-purple-950 shadow-lg shadow-black/35',
     },
     {
       id: 3,
-      tag: '🍬 PURE GHEE SWEETS • MIN. 30% OFF',
-      tagBg: 'bg-[#FEF08A] text-[#831843]',
-      title: 'FESTIVAL SWEETS & SNACKS',
-      subtitle: 'Melt-in-mouth Kaju Katli, Motichoor Laddus, Bhujia & Savoury Namkeen!',
-      btnText: 'Order Sweets & Snacks',
+      tag: '🍬 MITHAI BAZAAR • MIN. 30% OFF',
+      tagBg: 'bg-gradient-to-r from-pink-300 to-rose-200 text-rose-950 font-black shadow-md border border-pink-200/50',
+      title: 'FESTIVAL MITHAI & SNACKS',
+      subtitle: 'Melt-in-mouth Kaju Katli, Besan Laddus, Gulab Jamun & Crisp Festive Namkeen Hampers!',
+      btnText: 'Order Fresh Mithai',
       ctaCategory: 'snacks-and-beverages',
       image: '/banner-sweets.webp',
-      alt: 'Traditional Festival Sweets Kaju Katli',
-      bgGradient: 'bg-gradient-to-r from-[#831843] via-[#9F1239] to-[#C2410C]',
-      titleColor: 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]',
-      subtitleColor: 'text-pink-100/95',
-      btnBg: 'bg-white hover:bg-amber-50 text-[#9F1239] shadow-lg shadow-black/25',
+      alt: 'Real Traditional Silver Foil Kaju Katli in Festive Basket',
+      bgGradient: 'bg-gradient-to-r from-[#5B0E2D] via-[#881337] to-[#BE123C]',
+      titleColor: 'text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]',
+      subtitleColor: 'text-rose-100/90',
+      badgeOverlay: '✨ Pure Ghee & Kaju Katli',
+      btnBg: 'bg-gradient-to-r from-amber-300 to-yellow-200 hover:from-amber-200 hover:to-yellow-100 text-rose-950 shadow-lg shadow-black/25',
     },
     {
       id: 4,
-      tag: '🪔 POOJA & HOME SPECIAL • UP TO 50% OFF',
-      tagBg: 'bg-[#FDE047] text-[#0B1536]',
-      title: 'GET HOME FESTIVAL READY',
-      subtitle: 'Pure Camphor, Brass Diyas, Fragrant Agarbatti & Complete Festive Home Care!',
-      btnText: 'Shop Pooja & Home Deals',
+      tag: '🙏 POOJA SAMAGRI • UP TO 50% OFF',
+      tagBg: 'bg-gradient-to-r from-amber-300 to-yellow-200 text-blue-950 font-black shadow-md border border-amber-200/50',
+      title: 'AUSPICIOUS POOJA THALI',
+      subtitle: 'Pure Bhimseni Camphor, Brass Diyas, Fragrant Agarbatti & Premium Festive Home Care!',
+      btnText: 'Shop Pooja Samagri',
       ctaCategory: 'household',
       image: '/banner-pooja-thali.webp',
-      alt: 'Festive Pooja Thali and Home Essentials',
-      bgGradient: 'bg-gradient-to-r from-[#0B1536] via-[#1E3A8A] to-[#2563EB]',
-      titleColor: 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]',
-      subtitleColor: 'text-blue-100/95',
-      btnBg: 'bg-[#FDE047] hover:bg-[#FACC15] text-[#0B1536] shadow-lg shadow-black/25',
+      alt: 'Real Traditional Festive Pooja Thali with Diya and Flowers',
+      bgGradient: 'bg-gradient-to-r from-[#06152B] via-[#0F2B5C] to-[#1E40AF]',
+      titleColor: 'text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]',
+      subtitleColor: 'text-sky-100/90',
+      badgeOverlay: '🙏 100% Pure Camphor & Puja Kit',
+      btnBg: 'bg-gradient-to-r from-amber-400 to-yellow-300 hover:from-amber-300 hover:to-yellow-200 text-blue-950 shadow-lg shadow-black/25',
     },
   ];
 
@@ -124,7 +128,7 @@ export const HeroCarousel: React.FC = () => {
 
   return (
     <div
-      className="relative rounded-2xl overflow-hidden shadow-lg border border-gray-200/80 w-full min-h-[190px] xs:min-h-[205px] sm:h-[235px] md:h-[265px] lg:h-[285px] group select-none"
+      className="relative rounded-2xl overflow-hidden shadow-xl border border-white/20 w-full min-h-[190px] xs:min-h-[205px] sm:h-[235px] md:h-[265px] lg:h-[285px] group select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -144,14 +148,15 @@ export const HeroCarousel: React.FC = () => {
           >
             {/* Ambient Background Glow Effect */}
             <div className="absolute -left-12 -top-12 w-48 h-48 sm:w-72 sm:h-72 rounded-full bg-white/10 blur-2xl pointer-events-none" />
-            <div className="absolute right-1/4 -bottom-12 w-48 h-48 sm:w-64 sm:h-64 rounded-full bg-yellow-400/15 blur-2xl pointer-events-none" />
+            <div className="absolute right-1/4 -bottom-12 w-48 h-48 sm:w-64 sm:h-64 rounded-full bg-yellow-400/20 blur-2xl pointer-events-none" />
 
             {/* Left Column Content - High-Impact Loud Festival Typography */}
             <div className="flex-1 min-w-0 pr-2 sm:pr-4 text-left z-10 flex flex-col justify-center py-1">
               {/* Loud Offer Badge Tag */}
               <div className="mb-1 sm:mb-2">
-                <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-sm ${slide.tagBg}`}>
-                  {slide.tag}
+                <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider ${slide.tagBg}`}>
+                  <Sparkles className="w-3 h-3 shrink-0" />
+                  <span>{slide.tag}</span>
                 </span>
               </div>
 
@@ -183,7 +188,7 @@ export const HeroCarousel: React.FC = () => {
 
             {/* Right Column Festive Art — 100% Real High-Resolution Photography */}
             <div className="relative shrink-0 w-[44%] xs:w-[46%] sm:w-[48%] md:w-[48%] lg:w-[48%] max-w-[500px] h-[155px] xs:h-[170px] sm:h-[200px] md:h-[230px] lg:h-[250px] flex items-center justify-center pr-1 sm:pr-2">
-              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-xl border-2 border-white/80 bg-white/20 backdrop-blur-xs group/img">
+              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl border-2 border-white/70 bg-white/10 backdrop-blur-xs group/img">
                 <Image
                   src={slide.image}
                   alt={slide.alt}
@@ -195,7 +200,16 @@ export const HeroCarousel: React.FC = () => {
                 />
 
                 {/* Subtle soft gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+
+                {/* Floating Real-Asset Pill Tag */}
+                {slide.badgeOverlay && (
+                  <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 flex items-center justify-center pointer-events-none">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-black/60 backdrop-blur-md text-[9px] sm:text-xs font-semibold text-white/95 border border-white/20 shadow-md truncate max-w-full">
+                      {slide.badgeOverlay}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -209,7 +223,7 @@ export const HeroCarousel: React.FC = () => {
           e.stopPropagation();
           prevSlide();
         }}
-        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 hover:bg-white text-gray-800 shadow-md backdrop-blur-xs flex items-center justify-center transition-all opacity-80 sm:opacity-0 group-hover:opacity-100 hover:scale-105 cursor-pointer"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/40 hover:bg-black/70 text-white shadow-md backdrop-blur-md border border-white/20 flex items-center justify-center transition-all opacity-80 sm:opacity-0 group-hover:opacity-100 hover:scale-105 cursor-pointer"
         aria-label="Previous banner"
       >
         <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -222,14 +236,14 @@ export const HeroCarousel: React.FC = () => {
           e.stopPropagation();
           nextSlide();
         }}
-        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 hover:bg-white text-gray-800 shadow-md backdrop-blur-xs flex items-center justify-center transition-all opacity-80 sm:opacity-0 group-hover:opacity-100 hover:scale-105 cursor-pointer"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/40 hover:bg-black/70 text-white shadow-md backdrop-blur-md border border-white/20 flex items-center justify-center transition-all opacity-80 sm:opacity-0 group-hover:opacity-100 hover:scale-105 cursor-pointer"
         aria-label="Next banner"
       >
         <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
       </button>
 
       {/* Slide Indicators / Dots */}
-      <div className="absolute bottom-2.5 sm:bottom-3.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2 bg-black/25 backdrop-blur-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full">
+      <div className="absolute bottom-2.5 sm:bottom-3.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2 bg-black/35 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/10">
         {slides.map((_, idx) => (
           <button
             key={idx}
