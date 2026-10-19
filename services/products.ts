@@ -78,6 +78,23 @@ export function categoryNameToSlug(name: string): string {
     .replace(/^-|-$/g, '');
 }
 
+export function detectCategorySlug(name: string): string {
+  const n = (name || '').toLowerCase();
+  if (/(?:surf|detergent|rin|vim|cleaner|clean|wash|scrub|wipe|mosquito|liquid|refill|tissue|foil|odonil|harpic|mop|broom|dishwash|phenyl|duster|freshwrapp|aluminium)/i.test(n)) {
+    return 'household';
+  }
+  if (/(?:brush|toothpaste|colgate|shampoo|soap|bath|handwash|dant|kanti|aloe|gel|cream|lotion|face|skin|shave|blade|sanitary|diaper|hair|powder|talc|deodorant|perfume|vaseline|boroplus)/i.test(n)) {
+    return 'personal-care';
+  }
+  if (/(?:tea|coffee|chai|biscuit|cookie|noodle|maggi|pasta|snack|chips|namkeen|chocolate|wafer|toast|rusk|kurkure|lays|cadbury|sauce|ketchup|jam|spread|beverage|drink|juice|soup|kellogg|corn flakes)/i.test(n)) {
+    return 'snacks-and-beverages';
+  }
+  if (/(?:milk|dairy|amul|butter|cheese|paneer|ghee|curd|dahi|yogurt|egg)/i.test(n)) {
+    return 'dairy-and-eggs';
+  }
+  return 'groceries';
+}
+
 const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes cache
 const memoryCache: { [storeId: string]: { timestamp: number; data: Product[] } } = {};
 
@@ -160,9 +177,9 @@ export function mapDbProductToProduct(p: any, stockQty = 50): Product {
       : 0;
 
   const dbCategoryName: string = p.categories?.name || '';
-  const categorySlug = dbCategoryName
+  const categorySlug = (dbCategoryName && dbCategoryName.toLowerCase() !== 'all')
     ? categoryNameToSlug(dbCategoryName)
-    : 'groceries';
+    : detectCategorySlug(cleanName);
 
   const resolvedImg = resolveImage(cleanName, p.image_url);
   const extractedWeight = extractWeightFromName(cleanName);
@@ -337,16 +354,6 @@ export const productService = {
 
       const mappedDb: Product[] = dbProducts
         .map((p: any) => {
-          const discountPercent =
-            p.mrp > p.selling_price
-              ? Math.round(((p.mrp - p.selling_price) / p.mrp) * 100)
-              : 0;
-
-          const dbCategoryName: string = p.categories?.name || '';
-          const categorySlug = dbCategoryName
-            ? categoryNameToSlug(dbCategoryName)
-            : 'groceries';
-
           let stockQty = 50;
           if (Array.isArray(p.inventory) && p.inventory.length > 0) {
             if (storeId) {
