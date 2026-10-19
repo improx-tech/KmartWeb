@@ -16,35 +16,33 @@ export const HeroCarousel: React.FC = () => {
   const slides = [
     {
       id: 1,
-      kicker: 'DUSSEHRA UTSAV',
-      kickerBg: 'bg-amber-400/20 text-amber-300 border border-amber-400/30',
       offer: 'UP TO 50% OFF',
       offerColor: 'text-amber-400',
-      headline: 'Dussehra Puja & Festive Feast',
-      subtext: 'Fresh Marigold Flowers, Pure Cow Ghee, Sharbati Atta & Kitchen Staples',
+      headline: 'Dussehra Puja & Grocery Feast',
+      subtext: 'Aashirvaad Atta, Fortune Oil, Basmati Rice, Toor Dal & Kitchen Staples at Wholesale Rates',
+      productTags: ['🌾 Sharbati Atta', '🛢️ Pure Oil & Ghee', '🍚 Basmati Rice', '🥣 Festive Dals'],
       trustText: '✓ Direct from nearest local store',
-      btnText: 'Shop Dussehra Specials',
+      btnText: 'Shop Dussehra Groceries',
       ctaCategory: 'groceries',
-      image: '/real-dussehra-marigold.webp',
-      alt: 'Shubh Dussehra Fresh Marigold Flowers and Festive Essentials',
-      bgColor: 'bg-[#180306]',
-      overlayGradient: 'from-[#180306] via-[#180306]/75 to-transparent',
-      mobileOverlayGradient: 'from-[#180306] via-[#180306]/85 to-transparent',
+      image: '/pro-dussehra.webp',
+      alt: 'Dussehra Grocery Essentials - Atta, Rice, Oil, Dals and Spices',
+      bgColor: 'bg-[#1A0804]',
+      overlayGradient: 'from-[#1A0804] via-[#1A0804]/75 to-transparent',
+      mobileOverlayGradient: 'from-[#1A0804] via-[#1A0804]/85 to-transparent',
       btnBg: 'bg-amber-400 hover:bg-amber-300 text-neutral-950',
     },
     {
       id: 2,
-      kicker: 'DIWALI DHAMAKA',
-      kickerBg: 'bg-yellow-400/20 text-yellow-300 border border-yellow-400/30',
       offer: 'FLAT 40% - 60% OFF',
       offerColor: 'text-yellow-300',
-      headline: 'Festival of Lights & Celebrations',
-      subtext: 'Handcrafted Clay Diyas, Brass Deepaks, Dry Fruit Hampers & Pure Ghee Sweets',
+      headline: 'Diwali Hampers, Sweets & Dry Fruits',
+      subtext: 'Celebration Gift Boxes, Motichoor Laddus, Premium Almonds, Cashews & Diyas in 10 Mins',
+      productTags: ['🎁 Gift Hampers', '🍬 Motichoor Laddus', '🥜 Almonds & Cashews', '🪔 Clay Diyas'],
       trustText: '✓ 100% Traditional Handcrafted Diyas',
       btnText: 'Explore Diwali Deals',
       ctaCategory: 'snacks-and-beverages',
-      image: '/real-diwali-diya.webp',
-      alt: 'Happy Diwali Traditional Clay Diyas with Real Golden Flames',
+      image: '/festive-diwali.webp',
+      alt: 'Diwali Festive Gift Boxes, Sweets, Dry Fruits and Diyas',
       bgColor: 'bg-[#0B0416]',
       overlayGradient: 'from-[#0B0416] via-[#0B0416]/75 to-transparent',
       mobileOverlayGradient: 'from-[#0B0416] via-[#0B0416]/85 to-transparent',
@@ -52,12 +50,11 @@ export const HeroCarousel: React.FC = () => {
     },
     {
       id: 3,
-      kicker: 'MITHAI BAZAAR',
-      kickerBg: 'bg-rose-400/20 text-rose-300 border border-rose-400/30',
       offer: 'MIN. 30% OFF',
       offerColor: 'text-rose-300',
       headline: 'Fresh Pure Ghee Sweets & Snacks',
       subtext: 'Silver-foil Kaju Katli, Besan Laddus, Gulab Jamun & Savoury Namkeen Hampers',
+      productTags: ['✨ Kaju Katli', '🥮 Besan Laddus', '🍯 Gulab Jamun', '🥨 Savoury Namkeen'],
       trustText: '✓ Prepared fresh daily with pure cow ghee',
       btnText: 'Order Fresh Mithai',
       ctaCategory: 'snacks-and-beverages',
@@ -70,12 +67,11 @@ export const HeroCarousel: React.FC = () => {
     },
     {
       id: 4,
-      kicker: 'PUJA SAMAGRI',
-      kickerBg: 'bg-sky-400/20 text-sky-300 border border-sky-400/30',
       offer: 'UP TO 45% OFF',
       offerColor: 'text-amber-300',
-      headline: 'Auspicious Sacred Pooja Thali',
+      headline: 'Auspicious Sacred Pooja Samagri',
       subtext: 'Bhimseni Camphor, Brass Diyas, Fragrant Agarbatti, Dhoop & Complete Puja Kits',
+      productTags: ['🪔 Brass Diyas', '🪵 Bhimseni Camphor', '🌸 Cycle Agarbatti', '🔥 Havan Kit'],
       trustText: '✓ 100% Pure Camphor & Organic Agarbatti',
       btnText: 'Shop Pooja Samagri',
       ctaCategory: 'household',
@@ -188,9 +184,21 @@ export const HeroCarousel: React.FC = () => {
               </h2>
 
               {/* Real Product Subtitle */}
-              <p className="text-[11px] xs:text-xs sm:text-sm text-gray-300 font-medium max-w-sm sm:max-w-md line-clamp-2 leading-snug sm:leading-relaxed mb-3 sm:mb-4">
+              <p className="text-[11px] xs:text-xs sm:text-sm text-gray-300 font-medium max-w-sm sm:max-w-md line-clamp-2 leading-snug sm:leading-relaxed mb-2 sm:mb-2.5">
                 {slide.subtext}
               </p>
+
+              {/* Real Product Chips */}
+              <div className="flex items-center gap-1.5 flex-wrap mb-3 sm:mb-3.5">
+                {slide.productTags.map((tag, idx) => (
+                  <span
+                    key={idx}
+                    className="inline-flex items-center text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-md bg-white/10 text-white/95 border border-white/10 backdrop-blur-xs"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
 
               {/* Action Button & Trust Note */}
               <div className="flex items-center gap-3 flex-wrap">
