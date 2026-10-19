@@ -178,18 +178,8 @@ export const HeroCarousel: React.FC = () => {
 
             {/* Content Column: Clean, Authentic Human Editorial Design */}
             <div className="relative z-10 w-full sm:w-[55%] md:w-[52%] px-5 py-4 sm:px-8 sm:py-6 md:px-10 flex flex-col justify-center items-start text-left">
-              {/* Quick-Commerce Pill Badges */}
-              <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                  <span>⚡ 10 MINS</span>
-                </span>
-                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider ${slide.kickerBg}`}>
-                  {slide.kicker}
-                </span>
-              </div>
-
               {/* Large Impactful Retail Discount Headline */}
-              <div className="mb-0.5 sm:mb-1">
+              <div className="mb-1 sm:mb-2">
                 <span className={`text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-none ${slide.offerColor}`}>
                   {slide.offer}
                 </span>
