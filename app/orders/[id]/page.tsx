@@ -21,11 +21,9 @@ import {
   Printer,
   X,
   ShoppingBag,
-  Store,
-  RefreshCw
+  Store
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
-import { orderService } from "@/services/orders";
 import { supabase } from "@/lib/supabase/client";
 import { Order, CartItem } from "@/types";
 import { sendDeliveryUpdateNotification } from "@/services/pushNotification";
@@ -50,12 +48,10 @@ export default function OrderDetailPage({
     }
   }, [paramId, params, resolvedId]);
 
-  const { orders, addToCart, stores, activeStore, user, refreshOrders } = useApp();
+  const { orders, addToCart, setIsCartOpen, stores, activeStore, user, refreshOrders } = useApp();
   const [dbOrder, setDbOrder] = useState<Order | null>(null);
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
 
   useEffect(() => {
@@ -260,40 +256,12 @@ export default function OrderDetailPage({
     };
   }, [resolvedId, order?.id, order?.orderNumber, order?.status, dbOrder?.status, contextOrder?.status, fetchOrderFromDb]);
 
-  // Manual one-click instant refresh
-  const handleManualRefresh = async () => {
-    if (!resolvedId) return;
-    setIsRefreshing(true);
-    await fetchOrderFromDb(resolvedId, true);
-    await refreshOrders();
-    setTimeout(() => setIsRefreshing(false), 500);
-  };
-
-  // Handler to advance stage in DB & propagate in real-time
-  const handleUpdateStatus = async (newStatus: string) => {
-    if (!order) return;
-    setIsUpdatingStatus(true);
-    try {
-      const ok = await orderService.updateOrderStatus(order.id, newStatus);
-      if (ok) {
-        sendDeliveryUpdateNotification(order, `Status updated to ${newStatus}`).catch(() => {});
-        setDbOrder((prev) => prev ? { ...prev, status: newStatus as any } : { ...order, status: newStatus as any });
-        // Also refresh global orders in AppContext
-        await refreshOrders();
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsUpdatingStatus(false);
-    }
-  };
-
   const handleReorder = () => {
     if (!order) return;
     order.items.forEach((it) => {
       addToCart(it.product, it.quantity);
     });
-    router.push("/cart");
+    setIsCartOpen(true);
   };
 
   if (!isMounted || (isLoading && !order)) {
@@ -316,7 +284,7 @@ export default function OrderDetailPage({
           We couldn't find an order with reference #{resolvedId}.
         </p>
         <Link
-          href="/orders"
+          href="/?open=orders"
           className="mt-6 px-6 py-2.5 rounded-xl bg-[#0A2540] text-white text-sm font-bold shadow-sm"
         >
           View All Orders
@@ -441,7 +409,7 @@ export default function OrderDetailPage({
               Home
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
-            <Link href="/orders" className="hover:text-[#E11A22] transition-colors">
+            <Link href="/?open=orders" className="hover:text-[#E11A22] transition-colors">
               Orders
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
@@ -449,7 +417,7 @@ export default function OrderDetailPage({
           </div>
 
           <Link
-            href="/orders"
+            href="/?open=orders"
             className="flex items-center gap-1 text-xs font-bold text-gray-600 hover:text-[#E11A22] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
@@ -503,28 +471,10 @@ export default function OrderDetailPage({
 
         {/* 4-Step Tracking Flow: Preparing → Packed → Out for Delivery → Delivered */}
         <div className="bg-white rounded-2xl border border-gray-200/90 p-6 shadow-2xs mb-6">
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-gray-100">
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="font-black text-sm text-[#0A2540] uppercase tracking-wider">
-                  Live Order Tracking
-                </h2>
-              </div>
-              <p className="text-xs text-gray-500 mt-0.5">
-                {isPickup
-                  ? "Real-time fulfillment stages for your store pickup order"
-                  : "Real-time fulfillment stages from K MART fulfillment center (updates automatically)"}
-              </p>
-            </div>
-
-            <button
-              onClick={handleManualRefresh}
-              disabled={isRefreshing}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-700 hover:text-[#0A2540] px-3 py-1.5 rounded-xl border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-all cursor-pointer shadow-2xs"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin text-[#E11A22]" : "text-gray-500"}`} />
-              <span>{isRefreshing ? "Checking..." : "Sync Status"}</span>
-            </button>
+          <div className="mb-6 pb-4 border-b border-gray-100">
+            <h2 className="font-black text-sm text-[#0A2540] uppercase tracking-wider">
+              Live Order Tracking
+            </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 relative">
@@ -558,33 +508,6 @@ export default function OrderDetailPage({
                 </div>
               );
             })}
-          </div>
-
-          {/* Live Order Stage Controller / Simulator */}
-          <div className="mt-6 pt-4 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gray-50/80 p-3.5 rounded-xl border border-gray-100">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-gray-700">Live Stage Controller:</span>
-              <span className="text-[10px] text-gray-400 font-medium">Click to update status in real time</span>
-            </div>
-            <div className="flex flex-wrap items-center gap-1.5">
-              {steps.map((st) => (
-                <button
-                  key={st.step}
-                  onClick={() => handleUpdateStatus(st.statusValue)}
-                  disabled={isUpdatingStatus || normalized === st.statusValue}
-                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
-                    normalized === st.statusValue
-                      ? "bg-[#E11A22] text-white shadow-xs cursor-default font-black"
-                      : "bg-white text-gray-700 border border-gray-200 hover:border-[#E11A22] hover:text-[#E11A22]"
-                  } disabled:opacity-60`}
-                >
-                  {isUpdatingStatus && normalized === st.statusValue && (
-                    <Loader2 className="w-3 h-3 animate-spin" />
-                  )}
-                  <span>{st.title}</span>
-                </button>
-              ))}
-            </div>
           </div>
         </div>
 

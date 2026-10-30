@@ -9,7 +9,7 @@ const PRODUCT_IMAGE_FALLBACKS: { keywords: string[]; url: string }[] = [
   { keywords: ['saffola', 'oil', 'cooking'], url: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80' },
   { keywords: ['rin', 'cleaner', 'scrub'], url: 'https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=600&q=80' },
   { keywords: ['tea', 'tata tea', 'chai'], url: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80' },
-  { keywords: ['camphor', 'pooja', 'tablets'], url: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80' },
+  { keywords: ['camphor', 'pooja', 'puja', 'agarbatti', 'dhoop', 'kapoor', 'diya', 'samagri', 'havan', 'kumkum', 'chandan', 'rangoli', 'tablets'], url: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80' },
   { keywords: ['vim', 'dishwash'], url: 'https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=600&q=80' },
   { keywords: ['fevicol', 'adhesive', 'glue'], url: 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=600&q=80' },
   { keywords: ['foil', 'aluminium', 'freshwrapp'], url: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=600&q=80' },
@@ -78,18 +78,27 @@ export function categoryNameToSlug(name: string): string {
     .replace(/^-|-$/g, '');
 }
 
+const POOJA_CATEGORY_REGEX = /(?:pooja|puja|agarbatti|dhoop|camphor|kapoor|diya|samagri|havan|kumkum|rangoli|chandan|akhand vat|devpooja|khapus)/i;
+const HOUSEHOLD_CATEGORY_REGEX = /(?:surf|detergent|rin|vim|cleaner|clean|wash|scrub|wipe|mosquito|liquid|refill|tissue|foil|odonil|harpic|mop|broom|dishwash|phenyl|duster|freshwrapp|aluminium)/i;
+const PERSONAL_CARE_CATEGORY_REGEX = /(?:brush|toothpaste|colgate|shampoo|soap|bath|handwash|dant|kanti|aloe|gel|cream|lotion|face|skin|shave|blade|sanitary|diaper|hair|powder|talc|deodorant|perfume|vaseline|boroplus)/i;
+const SNACKS_CATEGORY_REGEX = /(?:tea|coffee|chai|biscuit|cookie|noodle|maggi|pasta|snack|chips|namkeen|chocolate|wafer|toast|rusk|kurkure|lays|cadbury|sauce|ketchup|jam|spread|beverage|drink|juice|soup|kellogg|corn flakes)/i;
+const DAIRY_CATEGORY_REGEX = /(?:milk|dairy|amul|butter|cheese|paneer|ghee|curd|dahi|yogurt|egg)/i;
+
 export function detectCategorySlug(name: string): string {
   const n = (name || '').toLowerCase();
-  if (/(?:surf|detergent|rin|vim|cleaner|clean|wash|scrub|wipe|mosquito|liquid|refill|tissue|foil|odonil|harpic|mop|broom|dishwash|phenyl|duster|freshwrapp|aluminium)/i.test(n)) {
+  if (POOJA_CATEGORY_REGEX.test(n)) {
+    return 'pooja-samagri';
+  }
+  if (HOUSEHOLD_CATEGORY_REGEX.test(n)) {
     return 'household';
   }
-  if (/(?:brush|toothpaste|colgate|shampoo|soap|bath|handwash|dant|kanti|aloe|gel|cream|lotion|face|skin|shave|blade|sanitary|diaper|hair|powder|talc|deodorant|perfume|vaseline|boroplus)/i.test(n)) {
+  if (PERSONAL_CARE_CATEGORY_REGEX.test(n)) {
     return 'personal-care';
   }
-  if (/(?:tea|coffee|chai|biscuit|cookie|noodle|maggi|pasta|snack|chips|namkeen|chocolate|wafer|toast|rusk|kurkure|lays|cadbury|sauce|ketchup|jam|spread|beverage|drink|juice|soup|kellogg|corn flakes)/i.test(n)) {
+  if (SNACKS_CATEGORY_REGEX.test(n)) {
     return 'snacks-and-beverages';
   }
-  if (/(?:milk|dairy|amul|butter|cheese|paneer|ghee|curd|dahi|yogurt|egg)/i.test(n)) {
+  if (DAIRY_CATEGORY_REGEX.test(n)) {
     return 'dairy-and-eggs';
   }
   return 'groceries';
@@ -100,7 +109,8 @@ const memoryCache: { [storeId: string]: { timestamp: number; data: Product[] } }
 
 export function getCachedProducts(storeId?: string): Product[] | null {
   const key = storeId || 'default';
-  if (memoryCache[key] && Date.now() - memoryCache[key].timestamp < CACHE_TTL_MS) {
+  // Require full catalog (> 1000 items) to prevent serving old single-chunk cache
+  if (memoryCache[key] && Date.now() - memoryCache[key].timestamp < CACHE_TTL_MS && memoryCache[key].data.length > 1000) {
     return memoryCache[key].data;
   }
   if (typeof window !== 'undefined') {
@@ -108,7 +118,7 @@ export function getCachedProducts(storeId?: string): Product[] | null {
       const raw = sessionStorage.getItem(`kmart_cached_prods_${key}`);
       if (raw) {
         const parsed = JSON.parse(raw);
-        if (Date.now() - parsed.timestamp < CACHE_TTL_MS && Array.isArray(parsed.data)) {
+        if (Date.now() - parsed.timestamp < CACHE_TTL_MS && Array.isArray(parsed.data) && parsed.data.length > 1000) {
           memoryCache[key] = parsed;
           return parsed.data;
         }
@@ -151,24 +161,28 @@ export function clearProductCache(storeId?: string) {
   }
 }
 
+const WEIGHT_REGEX = /(\d+(?:\.\d+)?\s*(?:kg|g|gm|gms|gram|grams|l|ltr|litre|litres|ml|pcs|pc|pack|units|tabs|tablets|wash))\b/i;
+const LEADING_PUNCT_REGEX = /^[\s.•·]+/;
+const DIGITS_ONLY_REGEX = /^\d+$/;
+
 export function extractWeightFromName(name: string): string | null {
   if (!name) return null;
-  const match = name.match(/(\d+(?:\.\d+)?\s*(?:kg|g|gm|gms|gram|grams|l|ltr|litre|litres|ml|pcs|pc|pack|units|tabs|tablets|wash))\b/i);
+  const match = name.match(WEIGHT_REGEX);
   return match ? match[1].toUpperCase() : null;
 }
 
 export function extractBrandFromName(name: string): string {
   if (!name) return 'K MART';
-  const clean = name.replace(/^[\s.•·]+/, '').trim();
+  const clean = name.replace(LEADING_PUNCT_REGEX, '').trim();
   const firstWord = clean.split(' ')[0];
-  if (firstWord && firstWord.length > 2 && !/^\d+$/.test(firstWord)) {
+  if (firstWord && firstWord.length > 2 && !DIGITS_ONLY_REGEX.test(firstWord)) {
     return firstWord.charAt(0).toUpperCase() + firstWord.slice(1).toLowerCase();
   }
   return 'K MART';
 }
 
 export function mapDbProductToProduct(p: any, stockQty = 50): Product {
-  const cleanName = (p.name as string || '').replace(/^[\s.•·]+/, '').trim();
+  const cleanName = (p.name as string || '').replace(LEADING_PUNCT_REGEX, '').trim();
   const mrp = Number(p.mrp || 0);
   const sellingPrice = Number(p.selling_price || 0);
   const discountPercent =
@@ -217,9 +231,7 @@ export function mapDbProductToProduct(p: any, stockQty = 50): Product {
       'Best Market Price',
       'Hygienically Packed & Delivered',
     ],
-    description:
-      p.description ||
-      `${cleanName} — authentic, quality-checked daily grocery essential directly sourced and available for guaranteed on-time doorstep delivery from K MART.`,
+    description: p.description || undefined,
   };
 }
 
@@ -269,6 +281,26 @@ export const productService = {
           onInitialBatch(cached);
         }
         return cached;
+      }
+
+      // ── Step 0: Try secure server-side API proxy (hides database credentials from client network) ──
+      if (typeof window !== 'undefined') {
+        try {
+          const qs = storeId ? `?storeId=${encodeURIComponent(storeId)}` : '';
+          const res = await fetch(`/api/products${qs}`);
+          if (res.ok) {
+            const json = await res.json();
+            if (Array.isArray(json.products) && json.products.length > 0) {
+              if (onInitialBatch) {
+                onInitialBatch(json.products);
+              }
+              setCachedProducts(cacheKey, json.products);
+              return json.products;
+            }
+          }
+        } catch {
+          // Gracefully fallback to client-side query
+        }
       }
 
       const buildInventoryQuery = (offset: number, limit: number) => {
@@ -384,6 +416,20 @@ export const productService = {
     try {
       if (!id) return null;
 
+      // 1. Try secure server-side API proxy first (hides database credentials & queries from client network)
+      if (typeof window !== 'undefined') {
+        try {
+          const qs = storeId ? `?storeId=${encodeURIComponent(storeId)}` : '';
+          const res = await fetch(`/api/products/${encodeURIComponent(id)}${qs}`);
+          if (res.ok) {
+            const json = await res.json();
+            if (json.product) return json.product;
+          }
+        } catch {
+          // Fallback to client query if server proxy fails
+        }
+      }
+
       const { data, error } = await supabase
         .from('products')
         .select(`
@@ -427,6 +473,23 @@ export const productService = {
     limit = 4
   ): Promise<Product[]> {
     try {
+      // 1. Try secure server-side API proxy first
+      if (typeof window !== 'undefined') {
+        try {
+          const params = new URLSearchParams();
+          if (categoryId) params.set('categoryId', categoryId);
+          if (currentProductId) params.set('productId', currentProductId);
+          if (limit) params.set('limit', String(limit));
+          const res = await fetch(`/api/products/related?${params.toString()}`);
+          if (res.ok) {
+            const json = await res.json();
+            if (Array.isArray(json.products)) return json.products;
+          }
+        } catch {
+          // Fallback to client query if server proxy fails
+        }
+      }
+
       let query = supabase
         .from('products')
         .select(`

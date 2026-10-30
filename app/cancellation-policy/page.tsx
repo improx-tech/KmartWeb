@@ -33,7 +33,7 @@ export default function CancellationPolicyPage() {
         <section>
           <h2 className="text-base font-bold text-[#07182E] mb-2">2. How to Cancel</h2>
           <ol className="list-decimal pl-5 space-y-1">
-            <li>Go to <Link href="/orders" className="text-[#E11A22] hover:underline">My Orders</Link> and find the order you wish to cancel.</li>
+            <li>Go to <Link href="/?open=orders" className="text-[#E11A22] hover:underline">My Orders</Link> and find the order you wish to cancel.</li>
             <li>Contact our support team via WhatsApp or phone with your Order ID.</li>
             <li>Our team will confirm cancellation eligibility and process accordingly.</li>
           </ol>

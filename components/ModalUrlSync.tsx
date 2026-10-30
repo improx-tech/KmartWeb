@@ -6,7 +6,13 @@ import { useApp } from '../context/AppContext';
 
 function ModalSyncInner() {
   const searchParams = useSearchParams();
-  const { setIsCartOpen, setIsCheckoutOpen } = useApp();
+  const { 
+    setIsCartOpen, 
+    setIsCheckoutOpen, 
+    setIsLocationOpen, 
+    setIsOrdersModalOpen, 
+    setIsAuthOpen 
+  } = useApp();
 
   useEffect(() => {
     const open = searchParams.get('open');
@@ -14,8 +20,14 @@ function ModalSyncInner() {
       setIsCartOpen(true);
     } else if (open === 'checkout') {
       setIsCheckoutOpen(true);
+    } else if (open === 'location') {
+      setIsLocationOpen(true);
+    } else if (open === 'orders') {
+      setIsOrdersModalOpen(true);
+    } else if (open === 'auth' || open === 'login') {
+      setIsAuthOpen(true);
     }
-  }, [searchParams, setIsCartOpen, setIsCheckoutOpen]);
+  }, [searchParams, setIsCartOpen, setIsCheckoutOpen, setIsLocationOpen, setIsOrdersModalOpen, setIsAuthOpen]);
 
   return null;
 }

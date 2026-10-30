@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
-  Star, 
   ShieldCheck, 
   Truck, 
   Heart, 
@@ -340,7 +339,7 @@ export default function ProductDetailPage({
                   {product.name}
                 </h1>
 
-                {/* Pack size, SKU, Barcode & Rating */}
+                {/* Pack size, SKU & Barcode */}
                 <div className="mt-3 flex flex-wrap items-center gap-2.5 text-xs">
                   <span className="text-gray-700 font-semibold bg-gray-100 px-2.5 py-1 rounded-md">
                     Net Weight: {product.weight}
@@ -357,12 +356,6 @@ export default function ProductDetailPage({
                       Barcode: <strong className="text-gray-800 font-mono">{product.barcode}</strong>
                     </span>
                   )}
-
-                  <div className="flex items-center gap-1 bg-amber-50 border border-amber-200/80 px-2.5 py-0.5 rounded-md text-amber-900 font-bold">
-                    <span>{product.rating || 4.7}</span>
-                    <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                    <span className="text-gray-400 font-normal">({product.reviewCount || 120}+ reviews)</span>
-                  </div>
                 </div>
 
                 {/* Pricing Block */}
@@ -443,7 +436,7 @@ export default function ProductDetailPage({
                         </div>
 
                         <Link
-                          href="/cart"
+                          href="/?open=cart"
                           className="flex-1 h-12 border border-[#0A2540] text-[#0A2540] hover:bg-[#0A2540] hover:text-white font-bold text-sm px-4 sm:px-6 rounded-xl flex items-center justify-center gap-2 transition-all"
                         >
                           <span>View in Cart</span>
@@ -480,15 +473,17 @@ export default function ProductDetailPage({
                   </div>
                 )}
 
-                {/* Description */}
-                <div className="mt-6 border-t border-gray-100 pt-6">
-                  <h3 className="text-sm font-black text-[#0A2540] uppercase tracking-wider mb-2">
-                    Product Description
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">
-                    {product.description || "Fresh and authentic product delivered directly to your doorstep with guaranteed quality and timely delivery from K MART."}
-                  </p>
-                </div>
+                {/* Description (fetched directly from database) */}
+                {product.description && (
+                  <div className="mt-6 border-t border-gray-100 pt-6">
+                    <h3 className="text-sm font-black text-[#0A2540] uppercase tracking-wider mb-2">
+                      Product Description
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+                      {product.description}
+                    </p>
+                  </div>
+                )}
 
                 {/* Store Promises Badges */}
                 <div className="mt-8 grid grid-cols-3 gap-3 border-t border-gray-100 pt-6">

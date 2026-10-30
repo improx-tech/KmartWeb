@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { Product, CartItem, Address, UserProfile, Order, Category, DeliverySlotItem } from '../types';
 import { productService } from '../services/products';
 import { storeService, calculateDistanceKm, DEFAULT_STORES, findNearestStore } from '../services/stores';
@@ -214,8 +214,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(false);
-  const [stores, setStores] = useState<DbStore[]>(DEFAULT_STORES);
-  const [activeStore, setActiveStore] = useState<DbStore | null>(DEFAULT_STORES[0]);
+  const [stores, setStores] = useState<DbStore[]>(() => DEFAULT_STORES.filter((s) => s.active !== false));
+  const [activeStore, setActiveStore] = useState<DbStore | null>(() => DEFAULT_STORES.find((s) => s.active !== false) || DEFAULT_STORES[0]);
   const [storeDistanceKm, setStoreDistanceKm] = useState<number>(2.4);
   const [isDeliverable, setIsDeliverable] = useState<boolean>(true);
   const [orderType, setOrderType] = useState<'DELIVERY' | 'PICKUP'>('DELIVERY');
@@ -297,7 +297,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (raw) savedAddr = JSON.parse(raw);
       } catch {}
 
-      let initialStore: DbStore = DEFAULT_STORES[0];
+      let initialStore: DbStore = DEFAULT_STORES.find((s) => s.active !== false) || DEFAULT_STORES[0];
       let dist = 2.4;
       let deliverable = true;
 
@@ -341,11 +341,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setDeliverySettings(settings);
         }
 
-        const validStores = (dbStores && dbStores.length > 0) ? dbStores : DEFAULT_STORES;
+        const validStores = (dbStores && dbStores.length > 0) ? dbStores.filter((s) => s.active !== false) : DEFAULT_STORES.filter((s) => s.active !== false);
         setStores(validStores);
 
         // Re-verify nearest store with freshly loaded stores list
-        let finalStore: DbStore = validStores[0];
+        let finalStore: DbStore = validStores[0] || initialStore;
         let finalDist = 2.4;
         let finalDeliverable = true;
 
@@ -687,18 +687,34 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // ----------------------------------------------------
   // 5. Calculations: Subtotal, DB Delivery Fee, Total
   // ----------------------------------------------------
-  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const originalTotal = cart.reduce((sum, item) => sum + (item.product.originalPrice * item.quantity), 0);
-  const itemTotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
-  const catalogDiscount = Math.max(0, originalTotal - itemTotal);
+  const { cartCount, originalTotal, itemTotal, catalogDiscount } = useMemo(() => {
+    let count = 0;
+    let orig = 0;
+    let item = 0;
+    for (let i = 0; i < cart.length; i++) {
+      const it = cart[i];
+      count += it.quantity;
+      orig += it.product.originalPrice * it.quantity;
+      item += it.product.price * it.quantity;
+    }
+    return {
+      cartCount: count,
+      originalTotal: orig,
+      itemTotal: item,
+      catalogDiscount: Math.max(0, orig - item),
+    };
+  }, [cart]);
 
   // Delivery fee calculated from DB settings table using effective order count
   const effectiveOrderCount = Math.max(customerOrderCount, orders.length);
-  const deliveryCalc = deliveryService.calculateDeliveryFee(
-    itemTotal,
-    deliverySettings,
-    effectiveOrderCount
-  );
+  const deliveryCalc = useMemo(() => {
+    return deliveryService.calculateDeliveryFee(
+      itemTotal,
+      deliverySettings,
+      effectiveOrderCount
+    );
+  }, [itemTotal, deliverySettings, effectiveOrderCount]);
+
   // Free delivery for Store Pickup / Takeaway
   const deliveryFee = (itemTotal === 0 || orderType === 'PICKUP') ? 0 : deliveryCalc.fee;
   const handlingFee = 0; // Current handling charges (₹0)
@@ -710,7 +726,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // ----------------------------------------------------
   // 6. Cart Actions (Syncs to DB if customer logged in)
   // ----------------------------------------------------
-  const addToCart = (product: Product, quantity = 1, options?: { skipRelated?: boolean }) => {
+  const addToCart = useCallback((product: Product, quantity = 1, options?: { skipRelated?: boolean }) => {
     setCart(prev => {
       const existing = prev.find(item => item.product.id === product.id);
       let nextCart: CartItem[];
@@ -749,9 +765,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           console.warn('[AppContext] Related products fetch error:', err);
         });
     }
-  };
+  }, [dbCartId, products]);
 
-  const updateQuantity = (productId: string, quantity: number) => {
+  const removeFromCart = useCallback((productId: string) => {
+    setCart(prev => {
+      const next = prev.filter(item => item.product.id !== productId);
+      return next;
+    });
+
+    if (dbCartId) {
+      cartService.upsertCartItem(dbCartId, productId, 0);
+    }
+  }, [dbCartId]);
+
+  const updateQuantity = useCallback((productId: string, quantity: number) => {
     if (quantity <= 0) {
       removeFromCart(productId);
       return;
@@ -763,20 +790,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (dbCartId) {
       cartService.upsertCartItem(dbCartId, productId, quantity);
     }
-  };
+  }, [dbCartId, removeFromCart]);
 
-  const removeFromCart = (productId: string) => {
-    setCart(prev => {
-      const next = prev.filter(item => item.product.id !== productId);
-      return next;
-    });
-
-    if (dbCartId) {
-      cartService.upsertCartItem(dbCartId, productId, 0);
-    }
-  };
-
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     setCart([]);
     try {
       localStorage.setItem('kmart_cart_items', JSON.stringify([]));
@@ -785,15 +801,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (dbCartId) {
       cartService.clearCart(dbCartId);
     }
-  };
+  }, [dbCartId]);
 
-  const applyCoupon = (_code: string) => {
+  const applyCoupon = useCallback((_code: string) => {
     return { success: false, message: 'Coupons will be enabled shortly.' };
-  };
+  }, []);
 
-  const removeCoupon = () => {
+  const removeCoupon = useCallback(() => {
     setAppliedCoupon(null);
-  };
+  }, []);
 
   // ----------------------------------------------------
   // 7. Address Management (DB for logged in + localStorage)
@@ -925,11 +941,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
   };
 
-  const toggleWishlist = (productId: string) => {
+  const toggleWishlist = useCallback((productId: string) => {
     setWishlist(prev =>
       prev.includes(productId) ? prev.filter(id => id !== productId) : [...prev, productId]
     );
-  };
+  }, []);
 
   // ----------------------------------------------------
   // 8. Place Order (Real orders + order_items schema)
@@ -1128,85 +1144,148 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  const contextValue: AppContextType = useMemo(() => ({
+    products,
+    isLoadingProducts,
+    categories,
+    cart,
+    cartCount,
+    itemTotal,
+    discount,
+    deliveryFee,
+    handlingFee,
+    platformFee,
+    totalAmount,
+    appliedCoupon,
+    couponDiscount,
+    addToCart,
+    updateQuantity,
+    removeFromCart,
+    clearCart,
+    applyCoupon,
+    removeCoupon,
+    user,
+    setUser,
+    currentCustomer,
+    customerOrderCount: effectiveOrderCount,
+    updateProfile,
+    addresses,
+    selectedAddress,
+    setSelectedAddress: handleSetSelectedAddress,
+    addAddress,
+    deleteAddress,
+    setDefaultAddress,
+    stores,
+    activeStore,
+    setActiveStore,
+    storeDistanceKm,
+    isDeliverable,
+    maxDeliveryRadiusKm,
+    orderType,
+    setOrderType,
+    deliverySettings,
+    deliverySlots,
+    selectedSlot,
+    setSelectedSlot,
+    isAuthOpen,
+    setIsAuthOpen,
+    isLocationOpen,
+    setIsLocationOpen,
+    isCartOpen,
+    setIsCartOpen,
+    activeProductModal,
+    setActiveProductModal,
+    isCheckoutOpen,
+    setIsCheckoutOpen,
+    checkoutStep,
+    setCheckoutStep,
+    isScheduleModalOpen,
+    setIsScheduleModalOpen,
+    orders,
+    activeConfirmedOrder,
+    setActiveConfirmedOrder,
+    isOrdersModalOpen,
+    setIsOrdersModalOpen,
+    placeOrder,
+    addOrder,
+    removeOrder,
+    refreshOrders,
+    relatedProductsModal,
+    closeRelatedProductsModal,
+    openRelatedProductsModal,
+    selectedCategory,
+    setSelectedCategory,
+    searchQuery,
+    setSearchQuery,
+    wishlist,
+    toggleWishlist,
+    viewMode,
+    setViewMode,
+  }), [
+    products,
+    isLoadingProducts,
+    categories,
+    cart,
+    cartCount,
+    itemTotal,
+    discount,
+    deliveryFee,
+    handlingFee,
+    platformFee,
+    totalAmount,
+    appliedCoupon,
+    couponDiscount,
+    addToCart,
+    updateQuantity,
+    removeFromCart,
+    clearCart,
+    applyCoupon,
+    removeCoupon,
+    user,
+    currentCustomer,
+    effectiveOrderCount,
+    updateProfile,
+    addresses,
+    selectedAddress,
+    handleSetSelectedAddress,
+    addAddress,
+    deleteAddress,
+    setDefaultAddress,
+    stores,
+    activeStore,
+    storeDistanceKm,
+    isDeliverable,
+    maxDeliveryRadiusKm,
+    orderType,
+    deliverySettings,
+    deliverySlots,
+    selectedSlot,
+    isAuthOpen,
+    isLocationOpen,
+    isCartOpen,
+    activeProductModal,
+    isCheckoutOpen,
+    checkoutStep,
+    isScheduleModalOpen,
+    orders,
+    activeConfirmedOrder,
+    isOrdersModalOpen,
+    placeOrder,
+    addOrder,
+    removeOrder,
+    refreshOrders,
+    relatedProductsModal,
+    closeRelatedProductsModal,
+    openRelatedProductsModal,
+    selectedCategory,
+    searchQuery,
+    wishlist,
+    toggleWishlist,
+    viewMode,
+  ]);
+
   return (
-    <AppContext.Provider value={{
-      products,
-      isLoadingProducts,
-      categories,
-      cart,
-      cartCount,
-      itemTotal,
-      discount,
-      deliveryFee,
-      handlingFee,
-      platformFee,
-      totalAmount,
-      appliedCoupon,
-      couponDiscount,
-      addToCart,
-      updateQuantity,
-      removeFromCart,
-      clearCart,
-      applyCoupon,
-      removeCoupon,
-      user,
-      setUser,
-      currentCustomer,
-      customerOrderCount: effectiveOrderCount,
-      updateProfile,
-      addresses,
-      selectedAddress,
-      setSelectedAddress: handleSetSelectedAddress,
-      addAddress,
-      deleteAddress,
-      setDefaultAddress,
-      stores,
-      activeStore,
-      setActiveStore,
-      storeDistanceKm,
-      isDeliverable,
-      maxDeliveryRadiusKm,
-      orderType,
-      setOrderType,
-      deliverySettings,
-      deliverySlots,
-      selectedSlot,
-      setSelectedSlot,
-      isAuthOpen,
-      setIsAuthOpen,
-      isLocationOpen,
-      setIsLocationOpen,
-      isCartOpen,
-      setIsCartOpen,
-      activeProductModal,
-      setActiveProductModal,
-      isCheckoutOpen,
-      setIsCheckoutOpen,
-      checkoutStep,
-      setCheckoutStep,
-      isScheduleModalOpen,
-      setIsScheduleModalOpen,
-      orders,
-      activeConfirmedOrder,
-      setActiveConfirmedOrder,
-      isOrdersModalOpen,
-      setIsOrdersModalOpen,
-      placeOrder,
-      addOrder,
-      removeOrder,
-      refreshOrders,
-      relatedProductsModal,
-      closeRelatedProductsModal,
-      openRelatedProductsModal,
-      selectedCategory,
-      setSelectedCategory,
-      searchQuery,
-      setSearchQuery,
-      wishlist,
-      toggleWishlist,
-      viewMode,
-      setViewMode,
-    }}>
+    <AppContext.Provider value={contextValue}>
       {children}
     </AppContext.Provider>
   );

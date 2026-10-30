@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { ChevronRight, ChevronLeft, X, LayoutGrid } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
-export const CategoryPills: React.FC = () => {
+const CategoryPillsComponent: React.FC = () => {
   const { selectedCategory, setSelectedCategory, categories } = useApp();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -174,3 +174,5 @@ export const CategoryPills: React.FC = () => {
     </section>
   );
 };
+
+export const CategoryPills = React.memo(CategoryPillsComponent);

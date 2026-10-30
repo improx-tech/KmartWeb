@@ -283,7 +283,7 @@ export default function OrderTrackingPage() {
       <main className="min-h-screen bg-gray-50 px-4 py-8">
         <div className="max-w-3xl mx-auto">
           <button
-            onClick={() => router.push('/orders')}
+            onClick={() => router.push('/?open=orders')}
             className="inline-flex items-center gap-2 text-sm font-bold text-[#0A2540] hover:text-[#E11A22] transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -325,7 +325,7 @@ export default function OrderTrackingPage() {
         {/* Back + Refresh */}
         <div className="flex items-center justify-between gap-3 mb-6">
           <button
-            onClick={() => router.push('/orders')}
+            onClick={() => router.push('/?open=orders')}
             className="inline-flex items-center gap-2 text-sm font-bold text-[#0A2540] hover:text-[#E11A22] transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />

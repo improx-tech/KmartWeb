@@ -68,20 +68,13 @@ export async function middleware(request: NextRequest) {
     return redirectResponse;
   }
 
-  const hasGuestAccess = request.cookies.get('kmart_guest')?.value === 'true';
-
   const isProtectedRoute =
     pathname.startsWith('/profile') ||
-    (pathname.startsWith('/cart') && !hasGuestAccess) ||
-    pathname.startsWith('/checkout') ||
-    pathname.startsWith('/orders') ||
-    pathname.startsWith('/order') ||
     pathname.startsWith('/account');
 
   if (!user && isProtectedRoute) {
-    const loginUrl = new URL('/login', request.url);
-    loginUrl.searchParams.set('redirect', pathname);
-    const redirectResponse = NextResponse.redirect(loginUrl);
+    const authUrl = new URL('/?open=auth', request.url);
+    const redirectResponse = NextResponse.redirect(authUrl);
     response.cookies.getAll().forEach((c) => {
       redirectResponse.cookies.set(c.name, c.value, c);
     });

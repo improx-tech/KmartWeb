@@ -46,11 +46,11 @@ const CATEGORY_DEFAULTS = [
   },
 ];
 
-const OfferCardImage: React.FC<{
+const OfferCardImage = React.memo<{
   src: string;
   alt: string;
   discountBadge: string;
-}> = ({ src, alt, discountBadge }) => {
+}>(({ src, alt, discountBadge }) => {
   const [imgSrc, setImgSrc] = useState(src);
 
   React.useEffect(() => {
@@ -82,7 +82,9 @@ const OfferCardImage: React.FC<{
       </div>
     </div>
   );
-};
+});
+
+OfferCardImage.displayName = 'OfferCardImage';
 
 export const StoreOffersSection: React.FC = () => {
   const { products, activeStore, setSelectedCategory } = useApp();
@@ -97,20 +99,23 @@ export const StoreOffersSection: React.FC = () => {
   // Compute category-wise offers dynamically according to product discounts
   const storeOffers: StoreOffer[] = useMemo(() => {
     return CATEGORY_DEFAULTS.map((cat) => {
-      const catProducts = (products || []).filter(
-        (p) => (p.category || '').toLowerCase() === cat.slug.toLowerCase()
-      );
+      const catSlugLower = cat.slug.toLowerCase();
+      let maxDiscount = cat.fallbackDiscount;
+      let topProduct: (typeof products)[0] | null = null;
 
-      const discounts = catProducts
-        .filter((p) => p.discountPercent > 0 && p.originalPrice > p.price)
-        .map((p) => p.discountPercent);
-
-      const maxDiscount =
-        discounts.length > 0 ? Math.max(...discounts) : cat.fallbackDiscount;
-
-      const topProduct = catProducts
-        .filter((p) => p.discountPercent > 0 && p.image)
-        .sort((a, b) => b.discountPercent - a.discountPercent)[0];
+      for (let i = 0; i < (products || []).length; i++) {
+        const p = products[i];
+        if ((p.category || '').toLowerCase() === catSlugLower) {
+          if (p.discountPercent > 0 && p.originalPrice > p.price && p.discountPercent > maxDiscount) {
+            maxDiscount = p.discountPercent;
+          }
+          if (p.discountPercent > 0 && p.image) {
+            if (!topProduct || p.discountPercent > topProduct.discountPercent) {
+              topProduct = p;
+            }
+          }
+        }
+      }
 
       const image = topProduct?.image || cat.image;
 

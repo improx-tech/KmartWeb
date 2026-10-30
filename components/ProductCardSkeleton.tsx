@@ -21,12 +21,9 @@ export const ProductCardSkeleton: React.FC = () => {
         {/* Product title */}
         <div className="h-3.5 w-5/6 bg-gray-200 rounded animate-shimmer" />
 
-        {/* Weight */}
-        <div className="h-2.5 w-14 bg-gray-100 rounded animate-shimmer" />
-
-        {/* Rating & Stock */}
-        <div className="flex items-center gap-1.5 pt-0.5">
-          <div className="h-3 w-10 bg-amber-100/80 rounded animate-shimmer" />
+        {/* Weight & Stock */}
+        <div className="flex items-center justify-between pt-0.5">
+          <div className="h-2.5 w-14 bg-gray-100 rounded animate-shimmer" />
           <div className="h-3 w-14 bg-emerald-100/80 rounded animate-shimmer" />
         </div>
 

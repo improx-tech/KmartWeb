@@ -26,6 +26,11 @@ export function calculateDistanceKm(
   return earthRadiusKm * c;
 }
 
+// Temporarily disabled store IDs (can be re-enabled later)
+export const DISABLED_STORE_IDS: string[] = [
+  'f524383f-c351-41a3-a98d-6fb139e832a7', // Store 2 (Camp / East) - temporarily disabled
+];
+
 export const DEFAULT_STORES: DbStore[] = [
   {
     id: '458cbfde-68fd-4e71-86c7-a12a4cecad4d',
@@ -45,7 +50,7 @@ export const DEFAULT_STORES: DbStore[] = [
     longitude: 73.8700,
     service_radius_km: 5,
     gofrugal_account_id: 'STORE2',
-    active: true,
+    active: false, // Temporarily disabled - reactivate later
   },
 ];
 
@@ -54,7 +59,11 @@ export function findNearestStore(
   latitude: number,
   longitude: number
 ): { store: DbStore; distanceKm: number; isWithinRadius: boolean } | null {
-  const activeStores = stores.length > 0 ? stores : DEFAULT_STORES;
+  // Only evaluate active and non-disabled stores
+  const storePool = stores && stores.length > 0 ? stores : DEFAULT_STORES;
+  const activeStores = storePool.filter(
+    (s) => s.active !== false && !DISABLED_STORE_IDS.includes(s.id)
+  );
   if (!activeStores || activeStores.length === 0) return null;
 
   let nearestStore = activeStores[0];
@@ -93,16 +102,30 @@ export const storeService = {
         .eq('active', true);
 
       if (error || !data || data.length === 0) {
-        return DEFAULT_STORES;
+        return DEFAULT_STORES.filter(
+          (s) => s.active !== false && !DISABLED_STORE_IDS.includes(s.id)
+        );
       }
 
-      // Ensure every store has a 5km delivery radius if not set
-      return data.map((store) => ({
-        ...store,
-        service_radius_km: store.service_radius_km || 5,
-      }));
+      // Filter out any temporarily disabled stores and ensure 5km delivery radius if not set
+      const activeStores = data
+        .filter((store) => store.active !== false && !DISABLED_STORE_IDS.includes(store.id))
+        .map((store) => ({
+          ...store,
+          service_radius_km: store.service_radius_km || 5,
+        }));
+
+      if (activeStores.length === 0) {
+        return DEFAULT_STORES.filter(
+          (s) => s.active !== false && !DISABLED_STORE_IDS.includes(s.id)
+        );
+      }
+
+      return activeStores;
     } catch {
-      return DEFAULT_STORES;
+      return DEFAULT_STORES.filter(
+        (s) => s.active !== false && !DISABLED_STORE_IDS.includes(s.id)
+      );
     }
   },
 };

@@ -120,7 +120,7 @@ export const OrderNotificationToast: React.FC = () => {
     iconBg = 'bg-amber-500 text-white';
   }
 
-  const destinationUrl = activeToast.url || (activeToast.orderId ? `/orders/${activeToast.orderId}` : '/orders');
+  const destinationUrl = activeToast.url || (activeToast.orderId ? `/orders/${activeToast.orderId}` : '/?open=orders');
 
   return (
     <div className="fixed top-4 right-4 sm:top-5 sm:right-6 z-[120] max-w-sm sm:max-w-md w-[calc(100%-2rem)] animate-slide-in-right">

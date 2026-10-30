@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronRight, Plus, Minus } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { DealCardSkeleton } from './ProductCardSkeleton';
 
@@ -14,7 +14,7 @@ interface DealCardProps {
   updateQuantity: (id: string, qty: number) => void;
 }
 
-const DealCard: React.FC<DealCardProps> = ({ product, cartItem, addToCart, updateQuantity }) => {
+const DealCardComponent: React.FC<DealCardProps> = ({ product, cartItem, addToCart, updateQuantity }) => {
   const qty = cartItem?.quantity ?? 0;
   const [imgSrc, setImgSrc] = React.useState(product.image);
   const [isImageLoaded, setIsImageLoaded] = React.useState(false);
@@ -124,15 +124,19 @@ const DealCard: React.FC<DealCardProps> = ({ product, cartItem, addToCart, updat
   );
 };
 
+const DealCard = React.memo(DealCardComponent);
+
 export const TopDealsSection: React.FC = () => {
   const { products, isLoadingProducts, cart, addToCart, updateQuantity } = useApp();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Top discounted products matching screenshot deals
-  const dealProducts = [...products]
-    .filter(p => p.discountPercent > 0)
-    .sort((a, b) => b.discountPercent - a.discountPercent)
-    .slice(0, 10);
+  const dealProducts = useMemo(() => {
+    return products
+      .filter(p => p.discountPercent > 0)
+      .sort((a, b) => b.discountPercent - a.discountPercent)
+      .slice(0, 10);
+  }, [products]);
 
   if (dealProducts.length === 0 && !isLoadingProducts) return null;
 
@@ -148,14 +152,6 @@ export const TopDealsSection: React.FC = () => {
             Offer Products — Grab &amp; Save
           </h2>
         </div>
-
-        <Link
-          href="/categories"
-          className="text-xs sm:text-sm font-bold text-[#E11A22] hover:text-[#c8141b] flex items-center gap-0.5 cursor-pointer group"
-        >
-          <span>View All Deals</span>
-          <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-        </Link>
       </div>
 
       {/* Horizontal Scrolling Cards */}

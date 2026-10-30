@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+
 import { useApp } from '../context/AppContext';
 import { HeroCarousel } from '../components/HeroCarousel';
 import { CategoryPills } from '../components/CategoryPills';
@@ -12,9 +12,10 @@ import { StoreOffersSection } from '../components/StoreOffersSection';
 import { FreeDeliveryBanner } from '../components/FreeDeliveryBanner';
 import { TopDealsSection } from '../components/TopDealsSection';
 import { ScrollToTop } from '../components/ScrollToTop';
-import { ChevronRight, ChevronDown, X, Loader2, ArrowUp } from 'lucide-react';
+import { ChevronDown, X, Loader2, ArrowUp } from 'lucide-react';
 
 const PRODUCTS_PER_SESSION = 15;
+const POOJA_REGEX = /(?:pooja|puja|agarbatti|dhoop|camphor|kapoor|diya|samagri|havan|kumkum|rangoli|chandan|akhand vat|devpooja|khapus)/i;
 
 export default function HomePage() {
   const { 
@@ -36,25 +37,44 @@ export default function HomePage() {
     setVisibleCount(PRODUCTS_PER_SESSION);
   }, [selectedCategory, searchQuery, sortBy]);
 
-  const activeCategoryObj = categories.find(c => c.slug === selectedCategory);
+  const activeCategoryObj = useMemo(() => {
+    return categories.find(c => c.slug === selectedCategory);
+  }, [categories, selectedCategory]);
+
   const activeCategoryName = activeCategoryObj?.name || selectedCategory.replace(/-/g, ' ').toUpperCase();
 
-  let filteredProducts = products.filter(p => {
-    const matchesCat = selectedCategory === 'all' || 
-      p.category?.toLowerCase() === selectedCategory.toLowerCase();
-    const matchesQuery = !searchQuery || 
-      p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-      p.brand.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCat && matchesQuery;
-  });
+  const filteredProducts = useMemo(() => {
+    const queryLower = searchQuery.trim().toLowerCase();
+    const selCatLower = selectedCategory.toLowerCase();
+    const isPoojaCategory = selectedCategory === 'pooja-samagri';
 
-  if (sortBy === 'price-low') {
-    filteredProducts = [...filteredProducts].sort((a, b) => a.price - b.price);
-  } else if (sortBy === 'price-high') {
-    filteredProducts = [...filteredProducts].sort((a, b) => b.price - a.price);
-  } else if (sortBy === 'discount') {
-    filteredProducts = [...filteredProducts].sort((a, b) => b.discountPercent - a.discountPercent);
-  }
+    const result = products.filter(p => {
+      const matchesCat = selectedCategory === 'all' || 
+        p.category?.toLowerCase() === selCatLower ||
+        (isPoojaCategory && (
+          p.category === 'pooja-samagri' ||
+          POOJA_REGEX.test(p.name)
+        ));
+      
+      if (!matchesCat) return false;
+
+      const matchesQuery = !queryLower || 
+        p.name.toLowerCase().includes(queryLower) || 
+        p.brand.toLowerCase().includes(queryLower);
+
+      return matchesQuery;
+    });
+
+    if (sortBy === 'price-low') {
+      result.sort((a, b) => a.price - b.price);
+    } else if (sortBy === 'price-high') {
+      result.sort((a, b) => b.price - a.price);
+    } else if (sortBy === 'discount') {
+      result.sort((a, b) => b.discountPercent - a.discountPercent);
+    }
+
+    return result;
+  }, [products, selectedCategory, searchQuery, sortBy]);
 
   const displayedProducts = filteredProducts.slice(0, visibleCount);
   const hasMore = visibleCount < filteredProducts.length;
@@ -144,15 +164,6 @@ export default function HomePage() {
               </select>
               <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
-
-            {/* View All link */}
-            <Link
-              href="/categories"
-              className="text-xs sm:text-sm font-bold text-[#E11A22] hover:text-[#c8141b] flex items-center gap-0.5 cursor-pointer group"
-            >
-              <span>View All</span>
-              <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
           </div>
         </div>
 

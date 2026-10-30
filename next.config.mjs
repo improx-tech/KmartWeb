@@ -21,6 +21,36 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/cart',
+        destination: '/?open=cart',
+        permanent: false,
+      },
+      {
+        source: '/checkout',
+        destination: '/?open=checkout',
+        permanent: false,
+      },
+      {
+        source: '/location',
+        destination: '/?open=location',
+        permanent: false,
+      },
+      {
+        source: '/orders',
+        destination: '/?open=orders',
+        permanent: false,
+      },
+      {
+        source: '/login',
+        destination: '/?open=auth',
+        permanent: false,
+      },
+      {
+        source: '/otp',
+        destination: '/?open=auth',
+        permanent: false,
+      },
+      {
         source: '/order/:id/tracking',
         destination: '/orders/:id',
         permanent: false,

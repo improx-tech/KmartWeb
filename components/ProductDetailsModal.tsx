@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
   X, 
-  Star, 
   Heart, 
   Plus, 
   Minus, 
@@ -176,16 +175,6 @@ export const ProductDetailsModal: React.FC = () => {
               </div>
             </div>
 
-            {/* Rating */}
-            <div className="flex items-center gap-3">
-              <div className="inline-flex items-center gap-1 bg-emerald-700 text-white text-xs font-black px-2 py-0.5 rounded">
-                <span>{product.rating}</span>
-                <Star className="w-3 h-3 fill-current" />
-              </div>
-              <span className="text-xs text-gray-500">
-                ({product.reviewCount.toLocaleString()} verified ratings)
-              </span>
-            </div>
 
             {/* Price Box */}
             <div className="p-4 bg-gray-50 rounded-xl border border-gray-200/80">
@@ -224,11 +213,13 @@ export const ProductDetailsModal: React.FC = () => {
               </div>
             )}
 
-            {/* Description */}
-            <div className="space-y-1 text-xs text-gray-600 leading-relaxed border-t border-gray-100 pt-3">
-              <h4 className="font-bold text-xs text-gray-900 uppercase tracking-wider">Product Overview</h4>
-              <p className="whitespace-pre-line">{product.description}</p>
-            </div>
+            {/* Description (fetched directly from database) */}
+            {product.description && (
+              <div className="space-y-1 text-xs text-gray-600 leading-relaxed border-t border-gray-100 pt-3">
+                <h4 className="font-bold text-xs text-gray-900 uppercase tracking-wider">Product Overview</h4>
+                <p className="whitespace-pre-line">{product.description}</p>
+              </div>
+            )}
 
             {/* Quantity Selector & Add to Cart */}
             <div className="pt-3 border-t border-gray-100 space-y-3">

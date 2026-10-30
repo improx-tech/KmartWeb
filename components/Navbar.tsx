@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useDeferredValue } from 'react';
+import React, { useState, useRef, useEffect, useDeferredValue, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -52,41 +52,34 @@ export const Navbar: React.FC = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Hide header on login and otp
-  const isAuthPage =
-    pathname === '/login' ||
-    pathname === '/otp' ||
-    pathname?.startsWith('/login') ||
-    pathname?.startsWith('/otp');
+  const searchResults = useMemo(() => {
+    const q = deferredQuery.trim().toLowerCase();
+    if (!q) return [];
+    return products.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.category.toLowerCase().includes(q) ||
+      p.brand.toLowerCase().includes(q)
+    ).slice(0, 15);
+  }, [deferredQuery, products]);
 
-  if (isAuthPage) {
-    return null;
-  }
+  const navCategories = useMemo(() => {
+    const rawNavCategories = (categories && categories.length > 0)
+      ? categories.map(c => ({ name: c.name, slug: c.slug }))
+      : [
+          { name: 'Groceries', slug: 'groceries' },
+          { name: 'Dairy & Eggs', slug: 'dairy-and-eggs' },
+          { name: 'Snacks & Beverages', slug: 'snacks-and-beverages' },
+          { name: 'Personal Care', slug: 'personal-care' },
+          { name: 'Household', slug: 'household' },
+        ];
 
-  const searchResults = deferredQuery.trim()
-    ? products.filter(p =>
-      p.name.toLowerCase().includes(deferredQuery.toLowerCase()) ||
-      p.category.toLowerCase().includes(deferredQuery.toLowerCase()) ||
-      p.brand.toLowerCase().includes(deferredQuery.toLowerCase())
-    )
-    : [];
-
-  const rawNavCategories = (categories && categories.length > 0)
-    ? categories.map(c => ({ name: c.name, slug: c.slug }))
-    : [
-        { name: 'Groceries', slug: 'groceries' },
-        { name: 'Dairy & Eggs', slug: 'dairy-and-eggs' },
-        { name: 'Snacks & Beverages', slug: 'snacks-and-beverages' },
-        { name: 'Personal Care', slug: 'personal-care' },
-        { name: 'Household', slug: 'household' },
-      ];
-
-  const navCategories = rawNavCategories.filter(
-    c => !c.name.toLowerCase().includes('fruit') &&
-         !c.name.toLowerCase().includes('vegetable') &&
-         !c.slug.toLowerCase().includes('fruit') &&
-         !c.slug.toLowerCase().includes('vegetable')
-  );
+    return rawNavCategories.filter(
+      c => !c.name.toLowerCase().includes('fruit') &&
+           !c.name.toLowerCase().includes('vegetable') &&
+           !c.slug.toLowerCase().includes('fruit') &&
+           !c.slug.toLowerCase().includes('vegetable')
+    );
+  }, [categories]);
 
   const handleCategoryNav = (slug: string) => {
     setSelectedCategory(slug);

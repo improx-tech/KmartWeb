@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, Plus, Minus, Star, ShoppingBag } from 'lucide-react';
+import { Heart, Plus, Minus, ShoppingBag } from 'lucide-react';
 import { Product } from '../types';
 import { useApp } from '../context/AppContext';
 
@@ -11,7 +11,7 @@ interface ProductCardProps {
   product: Product;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCardComponent: React.FC<ProductCardProps> = ({ product }) => {
   const { 
     cart, 
     addToCart, 
@@ -94,18 +94,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {product.name}
         </Link>
 
-        {/* Weight */}
-        <p className="text-[11px] font-medium text-gray-500">
-          {product.weight}
-        </p>
-
-        {/* Rating & Stock */}
-        <div className="flex items-center gap-1.5 text-[11px] pt-0.5">
-          <div className="flex items-center text-amber-500">
-            <Star className="w-3 h-3 fill-amber-400 text-amber-400 mr-0.5" />
-            <span className="font-bold text-gray-700">{product.rating || 4.5}</span>
-          </div>
-          <span className="text-gray-300">•</span>
+        {/* Weight & Stock */}
+        <div className="flex items-center justify-between text-[11px] pt-0.5">
+          <p className="font-medium text-gray-500">
+            {product.weight}
+          </p>
           <span className="text-emerald-600 font-semibold">In stock</span>
         </div>
 
@@ -165,3 +158,5 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     </div>
   );
 };
+
+export const ProductCard = React.memo(ProductCardComponent);

@@ -73,7 +73,7 @@ export default function ShippingDeliveryPage() {
         <section>
           <h2 className="text-base font-bold text-[#07182E] mb-2">5. Tracking Your Order</h2>
           <p>
-            Once your order is placed, you can track its real-time status from the <Link href="/orders" className="text-[#E11A22] hover:underline">My Orders</Link> section. Tracking stages include: Confirmed → Preparing → Out for Delivery → Delivered (for delivery orders) or Preparing → Packed → Ready for Pickup → Picked Up (for store pickup).
+            Once your order is placed, you can track its real-time status from the <Link href="/?open=orders" className="text-[#E11A22] hover:underline">My Orders</Link> section. Tracking stages include: Confirmed → Preparing → Out for Delivery → Delivered (for delivery orders) or Preparing → Packed → Ready for Pickup → Picked Up (for store pickup).
           </p>
         </section>
 

@@ -9,8 +9,10 @@ import { Product } from "@/types";
 import { ProductCardSkeleton } from "@/components/ProductCardSkeleton";
 
 const CATEGORY_PRODUCTS_PER_SESSION = 16;
+const POOJA_CATEGORY_REGEX = /(?:pooja|puja|agarbatti|dhoop|camphor|kapoor|diya|samagri|havan|kumkum|rangoli|chandan|akhand vat|devpooja|khapus)/i;
+const SUBCATEGORY_SPLIT_REGEX = /\s*&\s*|\s+/;
 
-function CategoryItemCard({
+function CategoryItemCardComponent({
   product,
   activeCategoryName,
   cart,
@@ -143,6 +145,8 @@ function CategoryItemCard({
   );
 }
 
+const CategoryItemCard = React.memo(CategoryItemCardComponent);
+
 function CategoriesContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -203,23 +207,35 @@ function CategoriesContent() {
 
   // Filter and sort products
   const filteredProducts = useMemo(() => {
+    const isAll = activeCategorySlug === "all";
+    const activeSlugLower = activeCategorySlug.toLowerCase();
+    const activeNameLower = activeCategory.name.toLowerCase();
+    const isPoojaCategory = activeCategorySlug === 'pooja-samagri';
+    const filterSub = activeSubcategory !== "all";
+    const subLow = filterSub ? activeSubcategory.toLowerCase() : "";
+    const tokens = filterSub ? subLow.split(SUBCATEGORY_SPLIT_REGEX).filter((t) => t.length > 2) : [];
+
     let list = products.filter((p) => {
       // Category match
       const pCat = p.category?.toLowerCase() || "";
+      const isPoojaProduct =
+        p.category === 'pooja-samagri' ||
+        POOJA_CATEGORY_REGEX.test(p.name);
+
       const matchesCat =
-        pCat === activeCategorySlug.toLowerCase() ||
-        pCat === activeCategory.name.toLowerCase() ||
-        (activeCategorySlug === "all");
+        isAll ||
+        pCat === activeSlugLower ||
+        pCat === activeNameLower ||
+        (isPoojaCategory && isPoojaProduct);
 
       if (!matchesCat) return false;
 
       // Subcategory match
-      if (activeSubcategory !== "all") {
-        const subLow = activeSubcategory.toLowerCase();
+      if (filterSub) {
         const pSub = p.subcategory?.toLowerCase() || "";
         const pName = p.name.toLowerCase();
         const pDesc = (p.description || "").toLowerCase();
-        return pSub.includes(subLow) || pName.includes(subLow) || pDesc.includes(subLow);
+        return pSub.includes(subLow) || pName.includes(subLow) || pDesc.includes(subLow) || tokens.some((t) => pName.includes(t));
       }
 
       return true;

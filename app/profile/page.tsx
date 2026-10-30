@@ -650,7 +650,7 @@ export default function ProfilePage() {
       avatar: "/profile-avatar.png",
       whatsappOptIn: false,
     });
-    router.push("/login");
+    router.push("/?open=auth");
     router.refresh();
   };
 
@@ -658,7 +658,7 @@ export default function ProfilePage() {
     orderItems.forEach((it) => {
       addToCart(it.product, it.quantity);
     });
-    router.push("/cart");
+    router.push("/?open=cart");
   };
 
   // If user is not logged in, show enticing login prompt
@@ -1289,10 +1289,10 @@ export default function ProfilePage() {
                 )}
 
                 <Link
-                  href="/orders"
+                  href="/?open=orders"
                   className="px-4 py-2 bg-[#0A2540] hover:bg-[#123154] text-white text-xs font-bold rounded-xl transition-all inline-flex items-center gap-1.5 shrink-0 self-start sm:self-auto"
                 >
-                  <span>Full Orders Page</span>
+                  <span>View All Orders</span>
                   <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -1394,7 +1394,7 @@ export default function ProfilePage() {
                           <span>Reorder All</span>
                         </button>
                         <Link
-                          href="/orders"
+                          href={`/orders/${order.id || order.orderNumber}`}
                           className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold rounded-lg transition-colors inline-flex items-center gap-1"
                         >
                           <span>Track</span>

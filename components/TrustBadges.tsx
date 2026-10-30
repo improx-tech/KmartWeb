@@ -24,7 +24,7 @@ const badges = [
   },
 ];
 
-export const TrustBadges: React.FC = () => {
+const TrustBadgesComponent: React.FC = () => {
   return (
     <section className="bg-white rounded-2xl border border-gray-200/90 py-4 px-6 shadow-2xs">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-100">
@@ -52,3 +52,5 @@ export const TrustBadges: React.FC = () => {
     </section>
   );
 };
+
+export const TrustBadges = React.memo(TrustBadgesComponent);

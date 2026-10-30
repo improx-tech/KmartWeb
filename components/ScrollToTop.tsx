@@ -9,11 +9,8 @@ export const ScrollToTop: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       // Show when scrolled down past 350px
-      if (window.scrollY > 350) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      const shouldShow = window.scrollY > 350;
+      setIsVisible((prev) => (prev !== shouldShow ? shouldShow : prev));
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });

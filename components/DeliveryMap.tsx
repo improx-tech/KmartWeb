@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { reverseGeocode } from "../lib/geolocation";
 
-// 2 Pune K MART store hubs (5km delivery radius each)
+// 2 Pune K MART store hubs (Store 2 temporarily disabled)
 export const KMART_STORES = [
   {
     id: "458cbfde-68fd-4e71-86c7-a12a4cecad4d",
@@ -33,6 +33,7 @@ export const KMART_STORES = [
     lat: 18.1433,
     lng: 74.5658,
     serviceRadiusKm: 5.0,
+    active: true,
   },
   {
     id: "f524383f-c351-41a3-a98d-6fb139e832a7",
@@ -41,6 +42,7 @@ export const KMART_STORES = [
     lat: 18.5300,
     lng: 73.8700,
     serviceRadiusKm: 5.0,
+    active: false, // Temporarily disabled - reactivate later
   },
 ];
 
@@ -65,11 +67,12 @@ export function calculateDistanceKm(
 }
 
 export function getNearestKMartStore(lat: number, lng: number) {
-  let nearest = KMART_STORES[0];
+  const activeStores = KMART_STORES.filter((s) => s.active !== false);
+  let nearest = activeStores[0] || KMART_STORES[0];
   let minDistance = calculateDistanceKm(nearest.lat, nearest.lng, lat, lng);
 
-  for (let i = 1; i < KMART_STORES.length; i++) {
-    const s = KMART_STORES[i];
+  for (let i = 1; i < activeStores.length; i++) {
+    const s = activeStores[i];
     const dist = calculateDistanceKm(s.lat, s.lng, lat, lng);
     if (dist < minDistance) {
       minDistance = dist;
@@ -146,7 +149,7 @@ const MapController: React.FC<{
       onResetView: () => {
         if (typeof google === "undefined" || !google.maps) return;
         const bounds = new google.maps.LatLngBounds();
-        KMART_STORES.forEach(s => bounds.extend({ lat: s.lat, lng: s.lng }));
+        KMART_STORES.filter((s) => s.active !== false).forEach(s => bounds.extend({ lat: s.lat, lng: s.lng }));
         bounds.extend({ lat: currentLat, lng: currentLng });
         map.fitBounds(bounds, 45);
       },
@@ -180,6 +183,18 @@ export const DeliveryMap: React.FC<DeliveryMapProps> = ({
         : "")
     );
   });
+
+  // Securely retrieve maps key from server proxy route if not in public client env
+  useEffect(() => {
+    if (!apiKey) {
+      fetch("/api/maps/key")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data?.apiKey) setApiKey(data.apiKey);
+        })
+        .catch(() => {});
+    }
+  }, [apiKey]);
 
   const initialNearest = getNearestKMartStore(initialLat, initialLng);
   const [currentLat, setCurrentLat] = useState(initialLat);
@@ -459,9 +474,9 @@ export const DeliveryMap: React.FC<DeliveryMapProps> = ({
                 onRegisterControls={handleRegisterControls}
               />
 
-              {/* K MART 2 Store Hub Markers */}
+              {/* K MART Store Hub Markers (active stores) */}
               {showStorePin &&
-                KMART_STORES.map((s) => (
+                KMART_STORES.filter((s) => s.active !== false).map((s) => (
                   <AdvancedMarker
                     key={s.id}
                     position={{ lat: s.lat, lng: s.lng }}
@@ -504,9 +519,9 @@ export const DeliveryMap: React.FC<DeliveryMapProps> = ({
                 />
               </AdvancedMarker>
 
-              {/* 5km Delivery Service Radii for BOTH stores */}
+              {/* 5km Delivery Service Radii for active stores */}
               {showRadius &&
-                KMART_STORES.map((s) => (
+                KMART_STORES.filter((s) => s.active !== false).map((s) => (
                   <Circle
                     key={`radius-${s.id}`}
                     center={{ lat: s.lat, lng: s.lng }}

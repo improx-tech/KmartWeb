@@ -4,22 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import { Logo } from './Logo';
 import { Phone } from 'lucide-react';
-import { usePathname } from 'next/navigation';
 
 export const Footer: React.FC = () => {
-  const pathname = usePathname();
-
-  // Hide footer on login and otp pages
-  const isAuthPage = 
-    pathname === '/login' || 
-    pathname === '/otp' || 
-    pathname?.startsWith('/login') || 
-    pathname?.startsWith('/otp');
-
-  if (isAuthPage) {
-    return null;
-  }
-
   return (
     <footer className="bg-[#07182E] text-gray-300 mt-12 border-t-2 border-[#E11A22] text-left">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
@@ -44,12 +30,12 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-xs text-gray-400">
               <li>
-                <Link href="/orders" className="hover:text-white transition-colors">
+                <Link href="/?open=orders" className="hover:text-white transition-colors">
                   My Orders
                 </Link>
               </li>
               <li>
-                <Link href="/orders" className="hover:text-white transition-colors">
+                <Link href="/?open=orders" className="hover:text-white transition-colors">
                   Track Order
                 </Link>
               </li>
@@ -99,14 +85,7 @@ export const Footer: React.FC = () => {
             </h4>
             
             <div className="text-xs text-gray-400 space-y-1">
-              <p className="font-bold text-gray-200">K MART Baramati — Store 1</p>
-              <p className="text-[11px] leading-relaxed">
-                Baramati - Nira Rd, Yashwant Nagar, Kasba, Baramati, Maharashtra 413102
-              </p>
-            </div>
-
-            <div className="text-xs text-gray-400 space-y-1">
-              <p className="font-bold text-gray-200">K MART Baramati — Store 2</p>
+              <p className="font-bold text-gray-200">K MART Baramati</p>
               <p className="text-[11px] leading-relaxed">
                 Baramati - Nira Rd, Yashwant Nagar, Kasba, Baramati, Maharashtra 413102
               </p>
