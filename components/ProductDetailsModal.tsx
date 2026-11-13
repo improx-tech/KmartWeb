@@ -100,7 +100,7 @@ export const ProductDetailsModal: React.FC = () => {
             <div className="aspect-square bg-gray-50 rounded-2xl p-6 border border-gray-200/80 flex items-center justify-center relative overflow-hidden">
               <button
                 onClick={() => toggleWishlist(product.id)}
-                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-50 text-gray-400 hover:text-[#E11A22] transition-colors cursor-pointer"
+                className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-50 text-gray-400 hover:text-[#E11A22] transition-colors cursor-pointer"
               >
                 <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-[#E11A22] text-[#E11A22]' : ''}`} />
               </button>

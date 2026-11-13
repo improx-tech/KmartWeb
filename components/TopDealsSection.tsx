@@ -30,7 +30,7 @@ const DealCardComponent: React.FC<DealCardProps> = ({ product, cartItem, addToCa
       className="shrink-0 w-44 sm:w-48 bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between p-3 relative group animate-fadeInSmooth"
     >
       {/* Discount Badge */}
-      <span className="absolute top-2 left-2 z-10 bg-[#E11A22] text-white text-[10px] font-black px-2 py-0.5 rounded-sm">
+      <span className="absolute top-2 left-2 z-20 bg-[#E11A22] text-white text-[10px] font-black px-2 py-0.5 rounded-sm shadow-sm pointer-events-none">
         {product.discountPercent}% OFF
       </span>
 

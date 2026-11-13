@@ -252,13 +252,13 @@ export default function ProductDetailPage({
               <div className="relative aspect-square w-full rounded-2xl border border-gray-100 bg-gray-50/50 flex items-center justify-center p-6 overflow-hidden group">
                 {/* Discount Badge */}
                 {product.discountPercent > 0 && (
-                  <span className="absolute top-4 left-4 rounded-lg bg-[#E11A22] text-white text-xs font-extrabold px-3 py-1 shadow-sm uppercase tracking-wider">
+                  <span className="absolute top-4 left-4 z-20 rounded-lg bg-[#E11A22] text-white text-xs font-extrabold px-3 py-1 shadow-md uppercase tracking-wider pointer-events-none">
                     {product.discountPercent}% OFF
                   </span>
                 )}
 
                 {/* Wishlist & Share buttons */}
-                <div className="absolute top-4 right-4 flex items-center gap-2">
+                <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
                   <button
                     onClick={handleShare}
                     className="w-9 h-9 rounded-full bg-white border border-gray-200 shadow-2xs flex items-center justify-center text-gray-500 hover:text-[#0A2540] hover:border-gray-300 transition-colors cursor-pointer"
@@ -287,7 +287,7 @@ export default function ProductDetailPage({
                 <img
                   src={product.image}
                   alt={product.name}
-                  className={`max-h-full max-w-full object-contain group-hover:scale-105 transition-all duration-500 ease-out z-1 ${
+                  className={`max-h-full max-w-full object-contain group-hover:scale-105 transition-all duration-500 ease-out z-10 ${
                     isMainImageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
                   }`}
                   loading="lazy"
@@ -295,7 +295,7 @@ export default function ProductDetailPage({
                 />
 
                 {/* Delivery Badge */}
-                <div className="absolute bottom-4 left-4 bg-[#0A2540]/90 backdrop-blur-xs text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+                <div className="absolute bottom-4 left-4 z-20 bg-[#0A2540]/90 backdrop-blur-xs text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-md pointer-events-none">
                   <Truck className="w-3.5 h-3.5 text-amber-300" />
                   <span>Delivery on time</span>
                 </div>
